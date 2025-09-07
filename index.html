@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Morgan | CS Professional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <canvas id="particles"></canvas>
+</head>
+
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Hassan<span>Nawaz</span></a>
+                <ul class="nav-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section - Redesigned -->
+    <section id="home" class="hero">
+        <div class="container">
+            
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Hi, I'm <span>Hassan</span> Nawaz</h1>
+                    <h2 class="hero-subtitle">Web Developer & Data Scientist</h2>
+                    <p class="hero-description">Data Science enthusiast and Web Developer passionate about turning data into insight and building impactful digital
+                        experiences. Skilled in coding, problem-solving, and exploring emerging technologies.</p>
+                        <a href="#projects" class="btn">View My Work</a>
+                    </div>
+                    
+                <div class="hero-visual">
+                    
+                    <div class="floating-card">
+                        <i class="fas fa-cloud"></i>
+                        <h3>Programming</h3>
+                        <p>Python, C++ & Many others</p>
+                    </div>
+                    
+                    <div class="floating-card">
+                        <i class="fas fa-robot"></i>
+                        <h3>AI Development</h3>
+                        <p>Machine Learning & Neural Networks</p>
+                    </div>
+
+                    <div class="floating-card">
+                        <i class="fas fa-code"></i>
+                        <h3>Web Development</h3>
+                        <p>React, Node.js & Modern Frameworks</p>
+                    </div>
+
+                    <div class="code-window">
+                        <div class="window-header">
+                            <div class="window-button"></div>
+                            <div class="window-button"></div>
+                            <div class="window-button"></div>
+                            <div class="window-title">project.py</div>
+                        </div>
+                        <div class="code-content">
+                            <span class="code-line"><span class="code-keyword">import</span> tensorflow <span
+                                    class="code-keyword">as</span> tf</span>
+                            <span class="code-line"><span class="code-keyword">import</span> numpy <span
+                                    class="code-keyword">as</span> np</span>
+                            <span class="code-line"></span>
+                            <span class="code-line"><span class="code-comment"># Build neural network
+                                    model</span></span>
+                            <span class="code-line"><span class="code-keyword">def</span> <span
+                                    class="code-function">create_model</span>():</span>
+                            <span class="code-line"> model = tf.keras.Sequential([</span>
+                            <span class="code-line"> tf.keras.layers.Dense(<span class="code-number">64</span>,
+                                activation=<span class="code-string">'relu'</span>),</span>
+                            <span class="code-line"> tf.keras.layers.Dense(<span class="code-number">32</span>,
+                                activation=<span class="code-string">'relu'</span>),</span>
+                            <span class="code-line"> tf.keras.layers.Dense(<span class="code-number">10</span>,
+                                activation=<span class="code-string">'softmax'</span>)</span>
+                            <span class="code-line"> ])</span>
+                            <span class="code-line"> <span class="code-keyword">return</span> model</span>
+                            <span class="code-line"></span>
+                            <span class="code-line"><span class="code-comment"># Initialize and compile</span></span>
+                            <span class="code-line">model = create_model()</span>
+                            <span class="code-line">model.compile(optimizer=<span
+                                    class="code-string">'adam'</span>,</span>
+                            <span class="code-line"> loss=<span
+                                    class="code-string">'sparse_categorical_crossentropy'</span>,</span>
+                            <span class="code-line"> metrics=[<span class="code-string">'accuracy'</span>])</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <h1 class="typing" style="padding-bottom: 1%;">-> <span id="typed"></span></h1>
+            <div class="about-content">
+                <div class="about-image">
+                    
+                    <img src="./assets/ProfilePic.jpg" alt="Hassan Nawaz">
+                    
+                </div>
+                <div class="about-text">
+                    <h3>Curious Developer & Innovative Problem Solver</h3>
+                    <p>I am a dedicated Data Science student with a strong foundation in coding, algorithms, and analytical problem-solving. My focus lies in transforming raw data into meaningful insights, leveraging statistics, machine learning, and data-driven storytelling. Alongside this, I actively explore artificial intelligence and its applications, constantly expanding my skills to align with the future of technology.</p>
+                    <p>Beyond data, I am equally passionate about Web Development, where I enjoy designing and building user-friendly, functional, and aesthetically pleasing applications. I have also worked with languages like C/C++ and Python, explored areas such as game development, automation, and MS Office productivity tools, and continue to learn across multiple domains. With a balance of creativity and logic, I strive to create solutions that are both practical and impactful.</p>
+                    <div class="skills">
+                        <span class="skill">Python</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">React</span>
+                        <span class="skill">Node.js</span>
+                        <span class="skill">C & C++</span>
+                        <span class="skill">SkLearn</span>
+                        <span class="skill">Pandas</span>
+                        <span class="skill">Game Dev</span>
+                        <span class="skill">MERN Stack</span>
+                        <span class="skill">DSA & OOP</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2 class="section-title">My Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                        <div class="project-content">
+                        <h3 class="project-title">RecommendationX</h3>
+                        <p class="project-desc">RecommendationX is a smart, browser-based movie recommender system that allows users to rate popular movies and receive personalized recommendations — all without signing in.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Node.js</span>
+                            <span class="project-tag">CSV Manippulation</span>
+                        </div>
+                        <a href="https://github.com/HassanNawaz14/RecommendationX" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">GearPro</h3>
+                        <p class="project-desc">GearPro is a sleek, frontend-only web application that allows users to explore detailed specifications of thousands of car trims based on Make, Model, and Year. It's ideal for car enthusiasts, buyers, and researchers looking for a detailed, user-friendly car database.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">APIs</span>
+                            <span class="project-tag">Node.js</span>
+                        </div>
+                        <a href="https://github.com/HassanNawaz14/GearPro" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">LudoWeb</h3>
+                        <p class="project-desc">LudoWeb is a web-based implementation of the classic Ludo board game designed for 4 players (Red, Green, Yellow, Blue) to play locally on the same device. The game features a responsive design with light/dark mode toggle and follows traditional Ludo rules with some modern enhancements.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">HTML/CSS</span>
+                            <span class="project-tag">JavaScript</span>
+                            <span class="project-tag">Game Logic</span>
+                            <span class="project-tag">Game Design</span>
+                        </div>
+                        <a href="https://github.com/HassanNawaz14/LudoWeb" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Relive App</h3>
+                        <p class="project-desc">The ReLive App is a simple, logic-based social network simulation built entirely in C++ without using built-in functions or STL containers like vectors. This project reflects the core concepts of object-oriented programming, manual data handling, and structured logic design in a beginner-friendly console environment.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">OOP</span>
+                            <span class="project-tag">CLI Design</span>
+                            <span class="project-tag">Social Platform</span>
+                        </div>
+                        <a href="https://github.com/HassanNawaz14/ReLive-CLI-App" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-img">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Solar App</h3>
+                        <p class="project-desc">This Solar App can recommend you the best Solar Plan for your house or you industrial buildings, based on your budget, energy requirements and your Place where you live, by providing an interactive CLI interface. It is a basic Programing Fundamentals Project developed used traditional C++ and is very straightforward in terms of its code.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">C++</span>
+                            <span class="project-tag">OOP</span>
+                            <span class="project-tag">CLI Design</span>
+                            <span class="project-tag">Energy Physics</span>
+                        </div>
+                        <a href="https://github.com/HassanNawaz14/Solar-Project" class="project-link">View Project <i
+                                class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Educational Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2024 - Present</div>
+                        <h3 class="timeline-title">BS Data Science</h3>
+                        <p class="timeline-desc">🎓 Currently pursuing BS Data Science at FAST NUCES, one of Pakistan’s most prestigious institutions in Computer Science and Technology, known for its highest academic standards and excellence.</p>
+                    </div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2022 - 2024</div>
+                        <h3 class="timeline-title">Intermediate in CS</h3>
+                        <p class="timeline-desc">📚 Completed Intermediate in Computer Science (ICS) from GCU, Lahore — an institute with unmatched legacy and the highest merit in its field, nurturing critical thinking and academic rigor.</p>
+                    </div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-date">2020 - 2022</div>
+                        <h3 class="timeline-title">Matriculation</h3>
+                        <p class="timeline-desc">📖 Achieved my Matriculation from UGI, a respected institution known for discipline, academic strength, and shaping strong foundations for future success.</p>
+                    </div>
+                    <div class="timeline-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Location</h4>
+                            <p>Lahore, Pakistan</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <p>hafizhassan142003@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Phone</h4>
+                            <p>+92 322 4191962</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Website</h4>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" class="form-control" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <a href="#" class="footer-logo">Hassan<span>Nawaz</span></a>
+                    <p>Creating innovative solutions through code and creativity. Let's build the future together.</p>
+                    <div class="social-links">
+                        <a target="_blank" href="https://github.com/HassanNawaz14/HassanNawaz14" class="social-link"><i class="fab fa-github"></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/in/hassan-nawaz-322331256/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a target="_blank" href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" href="https://www.instagram.com/hassan.nawaz142003/" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#experience">Experience</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Subscribe to my newsletter for the latest updates and articles.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="newsletter-input" placeholder="Your Email">
+                        <button class="newsletter-btn"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Hassan Nawaz. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
