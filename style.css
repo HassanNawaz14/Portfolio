@@ -316,7 +316,7 @@ nav {
 
 .hero-visual {
     position: relative;
-    height: 85%;
+    height: 80%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -330,7 +330,7 @@ nav {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    width: 200px;
+    width: 190px;
     transition: var(--transition);
     animation: float 8s ease-in-out infinite;
     z-index: 4;
@@ -396,8 +396,8 @@ nav {
     background: var(--darker);
     border-radius: 10px;
     overflow: hidden;
-    width: 75%;
-    max-width: 360px;
+    width: 70%;
+    max-width: 330px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     z-index: 3;
 }
@@ -430,14 +430,14 @@ nav {
 
 .window-title {
     margin-left: 10px;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     color: var(--light);
 }
 
 .code-content {
     padding: 20px;
     font-family: 'Roboto Mono', monospace;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     line-height: 1.6;
 }
 
