@@ -7,6 +7,7 @@
     <title>Hassan Nawaz | CS Professional</title>
     <link rel="icon" type="image/x-icon" href="./assets/H logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto+Mono:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -23,8 +24,10 @@
                 <ul class="nav-links">
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#experience">Experience</a></li>
+                    <li><a href="#profiles">Profiles</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="menu-btn">
@@ -146,92 +149,434 @@
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Add this section after the Experience section in your index.html -->
+    <section id="skills" class="skills-section">
+        <div class="container">
+            <h2 class="section-title">My Skills</h2>
+            <div class="skills-container">
+                <!-- Skill Categories -->
+                <div class="skill-categories">
+                    <div class="category active" data-category="programming">
+                        <i class="fas fa-code"></i>
+                        <span>Programming</span>
+                    </div>
+                    <div class="category" data-category="web-dev">
+                        <i class="fas fa-laptop-code"></i>
+                        <span>Web Development</span>
+                    </div>
+                    <div class="category" data-category="data-science">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Data Science</span>
+                    </div>
+                    <div class="category" data-category="tools">
+                        <i class="fas fa-tools"></i>
+                        <span>Tools & Others</span>
+                    </div>
+                </div>
+    
+                <!-- Skills Grid -->
+                <div class="skills-grid">
+                    <!-- Programming Skills -->
+                    <div class="skill-category-content active" id="programming">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Python</h3>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>C++</h3>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>JavaScript</h3>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>C#</h3>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Web Development Skills -->
+                    <div class="skill-category-content" id="web-dev">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>React</h3>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Node.js</h3>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>HTML/CSS</h3>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>MERN Stack</h3>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Data Science Skills -->
+                    <div class="skill-category-content" id="data-science">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Machine Learning</h3>
+                                <span class="skill-percent">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="85"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Pandas & NumPy</h3>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>TensorFlow</h3>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Data Visualization</h3>
+                                <span class="skill-percent">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="80"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <!-- Tools & Others Skills -->
+                    <div class="skill-category-content" id="tools">
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Git & GitHub</h3>
+                                <span class="skill-percent">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="90"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Unity</h3>
+                                <span class="skill-percent">70%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="70"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>MS Office</h3>
+                                <span class="skill-percent">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="95"></div>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-info">
+                                <h3>Game Development</h3>
+                                <span class="skill-percent">75%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-width="75"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section - Redesigned -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Development</button>
+                <button class="filter-btn" data-filter="data">Data Science</button>
+                <button class="filter-btn" data-filter="game">Game Development</button>
+                <button class="filter-btn" data-filter="cpp">C++ Projects</button>
+            </div>
             <div class="projects-grid">
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fa-solid fa-film"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">RecommendationX</h3>
-                        <p class="project-desc">RecommendationX is a smart, browser-based movie recommender system that allows users to
-                            rate popular movies and receive personalized recommendations — all without signing in.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">CSV Manippulation</span>
+                <!-- Sentiment Predictor -->
+                <div class="project-card" data-category="data">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-brain"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Sentiment Predictor</h3>
+                                <p class="project-desc">Complete sentiment analysis pipeline with ML models trained on
+                                    textual reviews using TF-IDF and linguistic features.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">ML</span>
+                                    <span class="project-tag">Python</span>
+                                    <span class="project-tag">Data Science</span>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/HassanNawaz14/RecommendationX" class="project-link">View Project <i
-                                class="fas fa-arrow-right"></i></a>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Text preprocessing & feature engineering</li>
+                                <li>✅ Multiple ML model implementations</li>
+                                <li>✅ Comprehensive evaluation metrics</li>
+                                <li>✅ Real-time prediction capability</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/Sentiment-Predictor"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fa-solid fa-car"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">GearPro</h3>
-                        <p class="project-desc">GearPro is a sleek, frontend-only web application that allows users to explore detailed specifications of thousands of car trims based on Make, Model, and Year. It's ideal for car enthusiasts, buyers, and researchers looking for a detailed, user-friendly car database.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">APIs</span>
-                            <span class="project-tag">Node.js</span>
+    
+                <!-- RecommendationX -->
+                <div class="project-card" data-category="web">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-film"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">RecommendationX</h3>
+                                <p class="project-desc">Smart movie recommender system with browser-based interface and
+                                    personalized suggestions.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">JavaScript</span>
+                                    <span class="project-tag">Node.js</span>
+                                    <span class="project-tag">CSV</span>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/HassanNawaz14/GearPro" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ No-signup required</li>
+                                <li>✅ Personalized recommendations</li>
+                                <li>✅ CSV data manipulation</li>
+                                <li>✅ User rating system</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/RecommendationX"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fas fa-dice"></i>                     
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">LudoWeb</h3>
-                        <p class="project-desc">LudoWeb is a web-based implementation of the classic Ludo board game designed for 4 players (Red, Green, Yellow, Blue) to play locally on the same device. The game features a responsive design with light/dark mode toggle and follows traditional Ludo rules with some modern enhancements.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">HTML/CSS</span>
-                            <span class="project-tag">JavaScript</span>
-                            <span class="project-tag">Game Logic</span>
-                            <span class="project-tag">Game Design</span>
+    
+                <!-- GearPro -->
+                <div class="project-card" data-category="web">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-car"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">GearPro</h3>
+                                <p class="project-desc">Car specification database with detailed trim information based on
+                                    Make, Model, and Year.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">APIs</span>
+                                    <span class="project-tag">Frontend</span>
+                                    <span class="project-tag">JavaScript</span>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/HassanNawaz14/LudoWeb" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Extensive car database</li>
+                                <li>✅ API integration</li>
+                                <li>✅ User-friendly interface</li>
+                                <li>✅ Search & filter functionality</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/GearPro"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fa-solid fa-users"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Relive App</h3>
-                        <p class="project-desc">The ReLive App is a simple, logic-based social network simulation built entirely in C++ without using built-in functions or STL containers like vectors. This project reflects the core concepts of object-oriented programming, manual data handling, and structured logic design in a beginner-friendly console environment.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">OOP</span>
-                            <span class="project-tag">CLI Design</span>
-                            <span class="project-tag">Social Platform</span>
+    
+                <!-- LudoWeb -->
+                <div class="project-card" data-category="game">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fas fa-dice"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">LudoWeb</h3>
+                                <p class="project-desc">Web-based Ludo game with 4-player support, responsive design, and
+                                    modern enhancements.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Game Logic</span>
+                                    <span class="project-tag">JavaScript</span>
+                                    <span class="project-tag">UI/UX</span>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/HassanNawaz14/ReLive-CLI-App" class="project-link">View Project <i class="fas fa-arrow-right"></i></a>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ 4-player local multiplayer</li>
+                                <li>✅ Responsive design</li>
+                                <li>✅ Light/dark mode toggle</li>
+                                <li>✅ Traditional rules + enhancements</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/LudoWeb"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="project-card">
-                    <div class="project-img">
-                        <i class="fa-solid fa-solar-panel"></i>
-                    </div>
-                    <div class="project-content">
-                        <h3 class="project-title">Solar App</h3>
-                        <p class="project-desc">This Solar App can recommend you the best Solar Plan for your house or you industrial buildings, based on your budget, energy requirements and your Place where you live, by providing an interactive CLI interface. It is a basic Programing Fundamentals Project developed used traditional C++ and is very straightforward in terms of its code.</p>
-                        <div class="project-tags">
-                            <span class="project-tag">C++</span>
-                            <span class="project-tag">OOP</span>
-                            <span class="project-tag">CLI Design</span>
-                            <span class="project-tag">Energy Physics</span>
+    
+                <!-- Relive App -->
+                <div class="project-card" data-category="cpp">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-users"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Relive App</h3>
+                                <p class="project-desc">C++ social network simulation with manual data handling and OOP
+                                    principles.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">C++</span>
+                                    <span class="project-tag">OOP</span>
+                                    <span class="project-tag">CLI</span>
+                                </div>
+                            </div>
                         </div>
-                        <a href="https://github.com/HassanNawaz14/Solar-Project" class="project-link">View Project <i
-                                class="fas fa-arrow-right"></i></a>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Manual memory management</li>
+                                <li>✅ Object-oriented design</li>
+                                <li>✅ Console interface</li>
+                                <li>✅ Social platform logic</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/ReLive-CLI-App"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Solar App -->
+                <div class="project-card" data-category="cpp">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-solar-panel"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Solar App</h3>
+                                <p class="project-desc">Solar plan recommendation system based on budget, energy needs, and
+                                    location.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">C++</span>
+                                    <span class="project-tag">Physics</span>
+                                    <span class="project-tag">CLI</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Energy requirement analysis</li>
+                                <li>✅ Budget optimization</li>
+                                <li>✅ Location-based recommendations</li>
+                                <li>✅ Interactive CLI interface</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/Solar-Project"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -272,6 +617,236 @@
                     <div class="timeline-icon">
                         <i class="fas fa-briefcase"></i>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Profiles Section -->
+    <section id="profiles" class="profiles-section">
+        <div class="container">
+            <h2 class="section-title">Professional Profiles</h2>
+            <p class="section-subtitle">Connect with me across platforms</p>
+    
+            <div class="profiles-container">
+                <!-- LinkedIn Profile -->
+                <div class="profile-card linkedin" data-platform="linkedin">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>LinkedIn</h3>
+                            <span class="profile-handle">@hassan-nawaz</span>
+                        </div>
+                        <div class="connection-pulse"></div>
+                    </div>
+    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="250">0</span>
+                            <span class="stat-label">Connections</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="10">10</span>
+                            <span class="stat-label">Posts</span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-visual">
+                        <div class="network-visual">
+                            <div class="central-node"></div>
+                            <div class="connection-node"></div>
+                            <div class="connection-node"></div>
+                            <div class="connection-node"></div>
+                            <div class="connection-line"></div>
+                            <div class="connection-line"></div>
+                            <div class="connection-line"></div>
+                        </div>
+                    </div>
+    
+                    <a href="https://www.linkedin.com/in/hafiz-m-hassan-322331256" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+    
+                <!-- GitHub Profile -->
+                <div class="profile-card github" data-platform="github">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>GitHub</h3>
+                            <span class="profile-handle">@HassanNawaz14</span>
+                        </div>
+                        <div class="contribution-graph">
+                            <div class="graph-day"></div>
+                            <div class="graph-day"></div>
+                            <div class="graph-day"></div>
+                            <div class="graph-day"></div>
+                            <div class="graph-day"></div>
+                        </div>
+                    </div>
+    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="8">0</span>
+                            <span class="stat-label">Repositories</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="12">0</span>
+                            <span class="stat-label">Contributions</span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-visual">
+                        <div class="code-activity">
+                            <div class="code-line"></div>
+                            <div class="code-line"></div>
+                            <div class="code-line"></div>
+                            <div class="commit-timeline">
+                                <div class="commit-dot"></div>
+                                <div class="commit-dot"></div>
+                                <div class="commit-dot"></div>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <a href="https://github.com/HassanNawaz14" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+    
+                <!-- Kaggle Profile -->
+                <div class="profile-card kaggle" data-platform="kaggle">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fab fa-kaggle"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Kaggle</h3>
+                            <span class="profile-handle">hassannawaz</span>
+                        </div>
+                        <div class="tier-badge">Novice</div>
+                    </div>
+    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="3">0</span>
+                            <span class="stat-label">Notebooks</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="2">0</span>
+                            <span class="stat-label">DataSets</span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-visual">
+                        <div class="data-visual">
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 45%"></div>
+                            <div class="chart-bar" style="height: 90%"></div>
+                        </div>
+                    </div>
+    
+                    <a href="https://www.kaggle.com/hassannawaz1423" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+    
+                <!-- LeetCode Profile -->
+                <div class="profile-card leetcode" data-platform="leetcode">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>LeetCode</h3>
+                            <span class="profile-handle">hassan_nawaz</span>
+                        </div>
+                        <div class="difficulty-dots">
+                            <span class="dot easy"></span>
+                            <span class="dot medium"></span>
+                            <span class="dot hard"></span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="25">0</span>
+                            <span class="stat-label">Solved</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="3"></span>
+                            <span class="stat-label">Global Rank (M+)</span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-visual">
+                        <div class="problem-stats">
+                            <div class="progress-ring">
+                                <svg width="80" height="80">
+                                    <circle class="progress-ring-bg" cx="40" cy="40" r="35"></circle>
+                                    <circle class="progress-ring-fill" cx="40" cy="40" r="35"></circle>
+                                </svg>
+                                <span class="progress-text">25%</span>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <a href="https://leetcode.com/u/34v9kWsOHX/" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+    
+                <!-- Fiverr Profile -->
+                <div class="profile-card fiverr" data-platform="fiverr">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Fiverr</h3>
+                            <span class="profile-handle">hassandev</span>
+                        </div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="0">0</span>
+                            <span class="stat-label">Projects</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="0">0</span>
+                            <span class="stat-label">Rating</span>
+                        </div>
+                    </div>
+    
+                    <div class="profile-visual">
+                        <div class="gig-visual">
+                            <div class="gig-card"></div>
+                            <div class="gig-card"></div>
+                            <div class="gig-card"></div>
+                        </div>
+                    </div>
+    
+                    <a href="https://www.fiverr.com/users/hassannawaz14/" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
                 </div>
             </div>
         </div>
@@ -395,6 +970,6 @@
 
 <!-- Paste to GitHub:::
 git add .
-git commit -m "Dec size in Helo Right"
+git commit -m "Adding Proflies and Skills Sections"
 git push origin main
  -->

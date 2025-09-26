@@ -2,6 +2,7 @@
 const menuBtn = document.querySelector('.menu-btn');
 const navLinks = document.querySelector('.nav-links');
 
+
 menuBtn.addEventListener('click', () => {
     navLinks.classList.toggle('active');
 });
@@ -182,4 +183,192 @@ document.getElementById('contactForm').addEventListener('submit', async function
         submitBtn.textContent = originalText;
         submitBtn.disabled = false;
     }
+});
+
+// Skills Section Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Category switching
+    const categories = document.querySelectorAll('.category');
+    const categoryContents = document.querySelectorAll('.skill-category-content');
+    
+    categories.forEach(category => {
+        category.addEventListener('click', () => {
+            // Remove active class from all categories
+            categories.forEach(cat => cat.classList.remove('active'));
+            
+            // Add active class to clicked category
+            category.classList.add('active');
+            
+            // Get the category id
+            const categoryId = category.getAttribute('data-category');
+            
+            // Hide all category contents
+            categoryContents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // Show the selected category content
+            document.getElementById(categoryId).classList.add('active');
+        });
+    });
+    
+    // Animate skill bars when they come into view
+    const skillObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const skillBars = entry.target.querySelectorAll('.skill-progress');
+                skillBars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    setTimeout(() => {
+                        bar.style.width = width + '%';
+                    }, 200);
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    // Observe the skills section
+    const skillsSection = document.querySelector('.skills-section');
+    if (skillsSection) {
+        skillObserver.observe(skillsSection);
+    }
+});
+
+// Projects Filtering and Interaction - FIXED VERSION
+document.addEventListener('DOMContentLoaded', function() {
+    // Filter functionality (unchanged)
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filter = btn.getAttribute('data-filter');
+            
+            projectCards.forEach(card => {
+                if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        });
+    });
+    
+    // FIXED: Project card flip functionality
+    projectCards.forEach(card => {
+        // Add click handler for mobile
+        card.addEventListener('click', function(e) {
+            // Don't flip if clicking on links or buttons
+            if (e.target.closest('a') || e.target.closest('button')) {
+                return;
+            }
+            
+            // Toggle flipped state
+            if (window.innerWidth <= 768) {
+                this.classList.toggle('flipped');
+            }
+        });
+        
+        // Add hover handler for desktop
+        if (window.innerWidth > 768) {
+            card.addEventListener('mouseenter', function() {
+                this.classList.add('flipped');
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.classList.remove('flipped');
+            });
+        }
+    });
+    
+    // FIXED: Back button functionality
+    const viewLessBtns = document.querySelectorAll('.view-less');
+    viewLessBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const projectCard = this.closest('.project-card');
+            projectCard.classList.remove('flipped');
+        });
+    });
+    
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        projectCards.forEach(card => {
+            card.classList.remove('flipped');
+        });
+    });
+});
+
+
+// Professional Profiles Animation
+document.addEventListener('DOMContentLoaded', function() {
+    // Animate number counters
+    const statNumbers = document.querySelectorAll('.stat-number');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const statNumber = entry.target;
+                const target = parseInt(statNumber.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += step;
+                    if (current >= target) {
+                        statNumber.textContent = target;
+                        clearInterval(timer);
+                    } else {
+                        statNumber.textContent = Math.floor(current);
+                    }
+                }, 16);
+                
+                observer.unobserve(statNumber);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    statNumbers.forEach(stat => observer.observe(stat));
+    
+    // Add hover effects
+    const profileCards = document.querySelectorAll('.profile-card');
+    
+    profileCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-10px) scale(1.02)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+    
+    // Platform-specific interactions
+    const platforms = {
+        linkedin: () => {
+            const nodes = document.querySelectorAll('.connection-node');
+            nodes.forEach((node, index) => {
+                node.style.animation = `pulse 2s infinite ${index * 0.3}s`;
+            });
+        },
+        github: () => {
+            // Simulate code typing effect
+            const codeLines = document.querySelectorAll('.code-line');
+            codeLines.forEach((line, index) => {
+                line.style.animation = `codeTyping 3s infinite ${index * 0.5}s`;
+            });
+        }
+    };
+    
+    // Initialize platform animations
+    Object.keys(platforms).forEach(platform => {
+        const card = document.querySelector(`[data-platform="${platform}"]`);
+        if (card) {
+            platforms[platform]();
+        }
+    });
 });
