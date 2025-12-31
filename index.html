@@ -26,6 +26,7 @@
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
+                    <li><a href="#startup">QuickSite</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#experience">Experience</a></li>
                     <li><a href="#profiles">Profiles</a></li>
@@ -41,59 +42,58 @@
     <!-- Hero Section - Redesigned -->
     <section id="home" class="hero">
         <div class="container">
-            
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title">Hi, I'm <span>Hassan</span> Nawaz</h1>
                     <h2 class="hero-subtitle">Web Developer & Data Scientist</h2>
-                    <p class="hero-description">Data Science enthusiast and Web Developer passionate about turning data into insight and building impactful digital
-                        experiences. Skilled in coding, problem-solving, and exploring emerging technologies.</p>
-                        <a href="#projects" class="btn">View My Work</a>
-                    </div>
-                    
-                <div class="hero-visual">
-                    
+                    <p class="hero-description">Data Science enthusiast and Web Developer passionate about turning data into
+                        insight and building impactful digital experiences. Skilled in coding, problem-solving, and
+                        exploring emerging technologies.</p>
+                    <a href="#projects" class="btn">View My Work</a>
+                </div>
+    
+                <div class="hero-visual" aria-hidden="true">
                     <div class="floating-card">
                         <i class="fa-solid fa-code-branch"></i>
                         <h3>Programming</h3>
                         <p>Python, C++ & Many others</p>
                     </div>
-
-                    <div class="floating-card">
+    
+                    <div class="floating-card mobile-hide">
                         <i class="fa fa-ghost"></i>
                         <h3>Game Development</h3>
                         <p>C#, C++ & Unity</p>
                     </div>
-                    
-                    <div class="floating-card">
+    
+                    <div class="floating-card mobile-hide">
                         <i class="fas fa-robot"></i>
                         <h3>AI Development</h3>
                         <p>Machine Learning & Neural Networks</p>
                     </div>
-
-                    <div class="floating-card">
+    
+                    <div class="floating-card mobile-hide">
                         <i class="fas fa-code"></i>
                         <h3>Web Development</h3>
                         <p>React, Node.js & Modern Frameworks</p>
                     </div>
-
-                    <div class="code-window">
+    
+                    <div class="code-window" role="img" aria-label="Code preview">
                         <div class="window-header">
                             <div class="window-button"></div>
                             <div class="window-button"></div>
                             <div class="window-button"></div>
                             <div class="window-title">project.py</div>
+
                         </div>
                         <div class="code-content">
-                            <span class="code-line"><span class="code-keyword">import</span> tensorflow <span
-                                    class="code-keyword">as</span> tf</span>
-                            <span class="code-line"><span class="code-keyword">import</span> numpy <span
-                                    class="code-keyword">as</span> np</span>
+                            <span class="code-line"><span class="code-keyword">import</span> tensorflow <span class="code-keyword">as</span>
+                                tf</span>
+                            <span class="code-line"><span class="code-keyword">import</span> numpy <span class="code-keyword">as</span>
+                                np</span>
                             <span class="code-line"></span>
                             <span class="code-line"><span class="code-comment"># Build neural network
                                     model</span></span>
-                            <span class="code-line"><span class="code-keyword">def</span> <span
-                                    class="code-function">create_model</span>():</span>
+                            <span class="code-line"><span class="code-keyword">def</span> <span class="code-function">create_model</span>():</span>
                             <span class="code-line"> model = tf.keras.Sequential([</span>
                             <span class="code-line"> tf.keras.layers.Dense(<span class="code-number">64</span>,
                                 activation=<span class="code-string">'relu'</span>),</span>
@@ -106,10 +106,8 @@
                             <span class="code-line"></span>
                             <span class="code-line"><span class="code-comment"># Initialize and compile</span></span>
                             <span class="code-line">model = create_model()</span>
-                            <span class="code-line">model.compile(optimizer=<span
-                                    class="code-string">'adam'</span>,</span>
-                            <span class="code-line"> loss=<span
-                                    class="code-string">'sparse_categorical_crossentropy'</span>,</span>
+                            <span class="code-line">model.compile(optimizer=<span class="code-string">'adam'</span>,</span>
+                            <span class="code-line"> loss=<span class="code-string">'sparse_categorical_crossentropy'</span>,</span>
                             <span class="code-line"> metrics=[<span class="code-string">'accuracy'</span>])</span>
                         </div>
                     </div>
@@ -118,6 +116,7 @@
         </div>
     </section>
 
+    
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
@@ -191,10 +190,10 @@
                         <div class="skill-item">
                             <div class="skill-info">
                                 <h3>C++</h3>
-                                <span class="skill-percent">85%</span>
+                                <span class="skill-percent">95%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="85"></div>
+                                <div class="skill-progress" data-width="95"></div>
                             </div>
                         </div>
                         <div class="skill-item">
@@ -329,10 +328,10 @@
                         <div class="skill-item">
                             <div class="skill-info">
                                 <h3>Game Development</h3>
-                                <span class="skill-percent">75%</span>
+                                <span class="skill-percent">85%</span>
                             </div>
                             <div class="skill-bar">
-                                <div class="skill-progress" data-width="75"></div>
+                                <div class="skill-progress" data-width="85"></div>
                             </div>
                         </div>
                     </div>
@@ -341,7 +340,112 @@
         </div>
     </section>
 
-    <!-- Projects Section - Redesigned -->
+    <!-- Startup / Achievement Section -->
+    <section id="startup" class="startup section">
+        <div class="container">
+            <h2 class="section-title"><strong style="font-size: 55px;">QuickSite</strong> — Built From The Ground Up</h2>
+            <p class="startup-tagline"><strong style="font-size: 24px;">Co‑founder</strong> — crafted, deployed, and driving growth through fast, modern websites.</p>
+            <div class="startup-grid">
+                <div class="startup-left">
+                    <p class="startup-desc">
+                        QuickSite helps founders go live fast: one‑page, lightning‑fast sites with professional design, free hosting, and zero monthly lock‑ins.
+                        We ship production websites, handle deployment, and keep uptime so your profile works for you 24/7. <br>
+                        Whether you're just starting out or already growing on platforms like Instagram and Facebook, we give you a professional
+                        edge with sleek, responsive, and impactful sites. These webistes are hosted free of cost and they are live 24/7, keeping
+                        your online identity alive all the time!
+                    </p>
+
+                    <div class="startup-stats">
+                        <div class="stat">
+                            <div class="stat-number" data-target="15">0</div>
+                            <div class="stat-label">Sites Delivered</div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-number" data-target="99">0</div>
+                            <div class="stat-label">% Avg. Uptime</div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-number" data-target="10">0</div>
+                            <div class="stat-label">Happy Clients</div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-number" data-target="12">0</div>
+                            <div class="stat-label">Months Active</div>
+                        </div>
+                    </div>
+
+                    <div class="startup-cta-row">
+                        <a class="btn" href="https://quick-site-00.vercel.app/" target="_blank" rel="noopener">Visit QuickSite</a>
+                        <a class="btn btn-secondary" href="#contact">Collaborate With Us</a>
+                    </div>
+                
+                </div>
+
+                
+
+                <div class="startup-right" aria-hidden="false">
+                    <div class="feature-cards">
+                        <article class="feature-card">
+                            <div class="card-icon"><i class="fas fa-rocket"></i></div>
+                            <h3>One‑Click Launch</h3>
+                            <p>Prototype to production with automated builds and free Vercel hosting.</p>
+                        </article>
+
+                        <article class="feature-card">
+                            <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                            <h3>Blazing Performance</h3>
+                            <p>Lightweight pages engineered for speed and SEO.</p>
+                        </article>
+
+                        <article class="feature-card">
+                            <div class="card-icon"><i class="fas fa-hand-holding-heart"></i></div>
+                            <h3>Founder‑First</h3>
+                            <p>One‑time pricing, personalized designs, and ongoing support on demand.</p>
+                        </article>
+                    </div>
+
+                    <div class="milestones">
+                        <h4 class="mini-title">Recent Milestones</h4>
+
+                        <div class="milestone">
+                            <div class="milestone-info">
+                                <span>Platform Stability</span>
+                                <span class="milestone-percent">90%</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="--progress:90%"></div>
+                            </div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="milestone-info">
+                                <span>Feature Completion</span>
+                                <span class="milestone-percent">75%</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="--progress:75%"></div>
+                            </div>
+                        </div>
+
+                        <div class="milestone">
+                            <div class="milestone-info">
+                                <span>Automation & Deploy</span>
+                                <span class="milestone-percent">100%</span>
+                            </div>
+                            <div class="stat-bar">
+                                <div class="stat-progress" style="--progress:100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- Projects Section - Redesigned -->
     <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
@@ -460,6 +564,118 @@
                             </ul>
                             <div class="project-actions">
                                 <a target="_blank" href="https://github.com/HassanNawaz14/GearPro"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Brick Breaker -->
+                <div class="project-card" data-category="game">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-baseball-ball"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Brick Breaker</h3>
+                                <p class="project-desc">A traditional Brick Breaker game built entirely in 8086 Assembly Language using video memory, custom interrupt handling,
+                                and hand-crafted game logic.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Assembly</span>
+                                    <span class="project-tag">x86 Design</span>
+                                    <span class="project-tag">Game Dev</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Full 8086 Assembly implementation</li>
+                                <li>✅ Custom graphics using video memory</li>
+                                <li>✅ Interrupt-driven input handling</li>
+                                <li>✅ Classic game mechanics</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/Brick-Breaker"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Library MS -->
+                <div class="project-card" data-category="cpp">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-book-open"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Lib Management Sys</h3>
+                                <p class="project-desc">A high-performance Library Management System implementing complex data structures for efficient operations with several library realted features</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">C++</span>
+                                    <span class="project-tag">DSA</span>
+                                    <span class="project-tag">Code Efficiency</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Full C++ implementation</li>
+                                <li>✅ Complex data structures</li>
+                                <li>✅ Efficient algorithms</li>
+                                <li>✅ User rating system</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/Library-Management-System"
+                                    class="btn btn-small">View Code</a>
+                                <button class="btn btn-small btn-secondary view-less">Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- Space Shooter -->
+                <div class="project-card" data-category="game">
+                    <div class="project-card-inner">
+                        <div class="project-card-front">
+                            <div class="project-img">
+                                <i class="fa-solid fa-shuttle-space"></i>
+                                <div class="project-overlay">
+                                    <span class="view-details">View Details</span>
+                                </div>
+                            </div>
+                            <div class="project-content">
+                                <h3 class="project-title">Space Shooter</h3>
+                                <p class="project-desc">A classic Space Shooter game demo in vanilla Assembly x86 environment, having a simple yet elegant design and an efficient implementation of all game rules.</p>
+                                <div class="project-tags">
+                                    <span class="project-tag">Assembly</span>
+                                    <span class="project-tag">x86 Design</span>
+                                    <span class="project-tag">Game Dev</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card-back">
+                            <h3>Project Details</h3>
+                            <ul class="project-features">
+                                <li>✅ Classic Space Shooter gameplay</li>
+                                <li>✅ Efficient implementation</li>
+                                <li>✅ Vanilla Assembly x86</li>
+                                <li>✅ Complex rules implementation</li>
+                            </ul>
+                            <div class="project-actions">
+                                <a target="_blank" href="https://github.com/HassanNawaz14/Space-Shooter-Assembly-Language"
                                     class="btn btn-small">View Code</a>
                                 <button class="btn btn-small btn-secondary view-less">Back</button>
                             </div>
@@ -638,18 +854,18 @@
                         </div>
                         <div class="profile-info">
                             <h3>LinkedIn</h3>
-                            <span class="profile-handle">@hassan-nawaz</span>
+                            <span class="profile-handle">@hafiz-m-hassan</span>
                         </div>
                         <div class="connection-pulse"></div>
                     </div>
     
                     <div class="profile-stats">
                         <div class="stat">
-                            <span class="stat-number" data-target="250">0</span>
+                            <span class="stat-number" data-target="500">0</span>
                             <span class="stat-label">Connections</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number" data-target="10">10</span>
+                            <span class="stat-number" data-target="20">10</span>
                             <span class="stat-label">Posts</span>
                         </div>
                     </div>
@@ -693,11 +909,11 @@
     
                     <div class="profile-stats">
                         <div class="stat">
-                            <span class="stat-number" data-target="8">0</span>
+                            <span class="stat-number" data-target="15">0</span>
                             <span class="stat-label">Repositories</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-number" data-target="12">0</span>
+                            <span class="stat-number" data-target="20">0</span>
                             <span class="stat-label">Contributions</span>
                         </div>
                     </div>
@@ -721,44 +937,7 @@
                     </a>
                 </div>
     
-                <!-- Kaggle Profile -->
-                <div class="profile-card kaggle" data-platform="kaggle">
-                    <div class="profile-header">
-                        <div class="platform-icon">
-                            <i class="fab fa-kaggle"></i>
-                        </div>
-                        <div class="profile-info">
-                            <h3>Kaggle</h3>
-                            <span class="profile-handle">hassannawaz</span>
-                        </div>
-                        <div class="tier-badge">Novice</div>
-                    </div>
-    
-                    <div class="profile-stats">
-                        <div class="stat">
-                            <span class="stat-number" data-target="3">0</span>
-                            <span class="stat-label">Notebooks</span>
-                        </div>
-                        <div class="stat">
-                            <span class="stat-number" data-target="2">0</span>
-                            <span class="stat-label">DataSets</span>
-                        </div>
-                    </div>
-    
-                    <div class="profile-visual">
-                        <div class="data-visual">
-                            <div class="chart-bar" style="height: 60%"></div>
-                            <div class="chart-bar" style="height: 80%"></div>
-                            <div class="chart-bar" style="height: 45%"></div>
-                            <div class="chart-bar" style="height: 90%"></div>
-                        </div>
-                    </div>
-    
-                    <a href="https://www.kaggle.com/hassannawaz1423" target="_blank" class="profile-btn">
-                        <span>View Profile</span>
-                        <i class="fas fa-external-link-alt"></i>
-                    </a>
-                </div>
+                
     
                 <!-- LeetCode Profile -->
                 <div class="profile-card leetcode" data-platform="leetcode">
@@ -779,7 +958,7 @@
     
                     <div class="profile-stats">
                         <div class="stat">
-                            <span class="stat-number" data-target="25">0</span>
+                            <span class="stat-number" data-target="50">0</span>
                             <span class="stat-label">Solved</span>
                         </div>
                         <div class="stat">
@@ -806,6 +985,46 @@
                     </a>
                 </div>
     
+                <!-- Kaggle Profile -->
+                <div class="profile-card kaggle" data-platform="kaggle">
+                    <div class="profile-header">
+                        <div class="platform-icon">
+                            <i class="fab fa-kaggle"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h3>Kaggle</h3>
+                            <span class="profile-handle">hassannawaz</span>
+                        </div>
+                        <div class="tier-badge">Novice</div>
+                    </div>
+                
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" data-target="5">0</span>
+                            <span class="stat-label">Notebooks</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" data-target="2">0</span>
+                            <span class="stat-label">DataSets</span>
+                        </div>
+                    </div>
+                
+                    <div class="profile-visual">
+                        <div class="data-visual">
+                            <div class="chart-bar" style="height: 60%"></div>
+                            <div class="chart-bar" style="height: 80%"></div>
+                            <div class="chart-bar" style="height: 45%"></div>
+                            <div class="chart-bar" style="height: 90%"></div>
+                        </div>
+                    </div>
+                
+                    <a href="https://www.kaggle.com/hassannawaz1423" target="_blank" class="profile-btn">
+                        <span>View Profile</span>
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+
                 <!-- Fiverr Profile -->
                 <div class="profile-card fiverr" data-platform="fiverr">
                     <div class="profile-header">
@@ -892,7 +1111,7 @@
                         </div>
                         <div class="contact-text">
                             <h4>Website</h4>
-                            <p></p>
+                            <p><a href="https://hassan-nawaz-portfolio00.vercel.app/">HassanNawaz.com</a></p>
                         </div>
                     </div>
                 </div>
@@ -933,8 +1152,8 @@
                     <p>Creating innovative solutions through code and creativity. Let's build the future together.</p>
                     <div class="social-links">
                         <a target="_blank" href="https://github.com/HassanNawaz14/HassanNawaz14" class="social-link"><i class="fab fa-github"></i></a>
-                        <a target="_blank" href="https://www.linkedin.com/in/hassan-nawaz-322331256/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a target="_blank" href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a target="_blank" href="https://www.linkedin.com/in/hafiz-m-hassan-322331256/" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a target="_blank" href="https://www.kaggle.com/hassannawaz1423" class="social-link"><i class="fab fa-kaggle"></i></a>
                         <a target="_blank" href="https://www.instagram.com/hassan.nawaz142003/" class="social-link"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
@@ -942,10 +1161,9 @@
                     <h4>Quick Links</h4>
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
+                        <li><a href="#startup">QuickSite</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#experience">Experience</a></li>
-                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-newsletter">

@@ -137,6 +137,20 @@ function drawParticles() {
 
 drawParticles();
 
+// Hero / particles responsive helper — keep canvas sized on mobile rotate/resize
+(function() {
+    const canvas = document.getElementById('particles');
+    if (!canvas) return;
+    function resizeParticlesCanvas() {
+        // match full viewport; preserves existing particle drawing logic
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeParticlesCanvas, { passive: true });
+    window.addEventListener('orientationchange', resizeParticlesCanvas, { passive: true });
+    // call once to ensure correct initial sizing on mobile
+    resizeParticlesCanvas();
+})();
 
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
