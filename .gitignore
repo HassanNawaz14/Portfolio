@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+GEMINI.md
+*.gemini
+*.gemini.md
+*.gemini.mdx
+*.gemini.markdown

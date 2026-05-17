@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
 import Startup from './components/Startup';
+import CurrentlyBuilding from './components/CurrentlyBuilding';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Profiles from './components/Profiles';
@@ -20,7 +21,7 @@ function App() {
   const [portraitStyle, setPortraitStyle] = useState({ opacity: 1, display: 'block' });
   const [scrollProgress, setScrollProgress] = useState(0);
   const sections = useMemo(
-    () => ['home', 'about', 'skills', 'startup', 'featured-projects', 'projects', 'experience', 'profiles', 'contact'],
+    () => ['home', 'about', 'skills', 'startup', 'currently-building', 'featured-projects', 'projects', 'experience', 'profiles', 'contact'],
     []
   );
   const dockItems = useMemo(
@@ -29,6 +30,7 @@ function App() {
       { id: 'about', label: 'About', icon: 'fa-user-astronaut' },
       { id: 'skills', label: 'Skills', icon: 'fa-bolt' },
       { id: 'startup', label: 'QuickSite', icon: 'fa-rocket' },
+      { id: 'currently-building', label: 'Building', icon: 'fa-hammer' },
       { id: 'featured-projects', label: 'Projects', icon: 'fa-layer-group' },
       { id: 'experience', label: 'Education', icon: 'fa-graduation-cap' },
       { id: 'profiles', label: 'Profiles', icon: 'fa-globe' },
@@ -166,6 +168,7 @@ function App() {
       <About portraitAnchorRef={aboutPortraitRef} />
       <Skills />
       <Startup />
+      <CurrentlyBuilding />
       <Projects />
       <Experience />
       <Profiles />
