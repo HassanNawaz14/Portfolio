@@ -4,7 +4,7 @@ const CONTENT = {
   sectionLabel: "Current Focus",
   heading: ["Currently ", "Building"],   // second item goes in cyan span
   subtitle: "The project consuming my nights, weekends, and most of my Kaggle GPU quota",
-  badge: "Active Development — Phase 4 of 5",
+  badge: "Active Development — Phase 4",
 
   projectName: "NLP2Shell",
   tagline: ["Speak naturally.", "Execute instantly."],
@@ -57,8 +57,8 @@ const CONTENT = {
   ],
 
   buttons: [
-    { label: "View on GitHub",    href: "https://github.com/hassannawaz1423/nlp2shell", primary: true  },
-    { label: "Read the Write-up", href: "#",                                            primary: false },
+    { label: "View on GitHub",    href: "https://github.com/HassanNawaz14/NLP2Shell-Voice-Assistant", primary: true  },
+    { label: "Read the Write-up", href: "https://github.com/HassanNawaz14/NLP2Shell-Voice-Assistant/blob/main/README.md",                                            primary: false },
   ],
 };
 
