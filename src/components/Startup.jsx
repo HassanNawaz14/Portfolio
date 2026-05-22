@@ -40,7 +40,7 @@ const Startup = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <strong>Accelerating the Web</strong> — Turning visionary ideas into high-performance digital realities, instantly.
+            <strong>Co-Founder</strong> — Turning visionary ideas into high-performance digital realities, instantly.
           </motion.p>
         </div>
 
