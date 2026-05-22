@@ -1,7 +1,13 @@
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import profilePic from '../assets/ProfilePic.jpeg';
+import cvStandard from '../assets/CV.pdf';
+import cvATS from '../assets/Hassan_CV_ATS.pdf';
 
 const Hero = ({ portraitAnchorRef }) => {
+  const [showCVOptions, setShowCVOptions] = useState(false);
+
   const capabilities = [
     { icon: 'fa-code-branch', title: 'Programming', text: 'Python, C++ & Others' },
     { icon: 'fa-ghost', title: 'Game Development', text: 'C#, C++ & Unity' },
@@ -45,20 +51,6 @@ const Hero = ({ portraitAnchorRef }) => {
               </motion.div>
             ))}
           </div>
-
-          <div className="hero-actions">
-            <motion.a 
-              href="#featured-projects" 
-              className="btn"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.5, duration: 1 }}
-              whileHover={{ scale: 1.05, y: -5 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              View My Work
-            </motion.a>
-          </div>
         </motion.div>
 
         <div className="hero-visual">
@@ -73,6 +65,84 @@ const Hero = ({ portraitAnchorRef }) => {
             </div>
             <div className="hero-portrait-outline"></div>
             <div className="hero-portrait-glow"></div>
+            
+            <div className="hero-actions-overlay">
+              <div className="hero-actions-container">
+                <div className="hero-actions">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5, duration: 1 }}
+                  >
+                    <Link 
+                      to="/building" 
+                      className="btn"
+                    >
+                      <motion.span
+                        whileHover={{ scale: 1.05, y: -5 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        Enter the Research Lab
+                      </motion.span>
+                    </Link>
+                  </motion.div>
+
+                  <div className="cv-download-wrapper">
+                    <motion.button 
+                      className={`btn ${showCVOptions ? 'btn-selected' : 'btn-secondary'}`}
+                      onClick={() => setShowCVOptions(!showCVOptions)}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 1.7, duration: 1 }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <span>Download CV</span>
+                      <i className={`fa-solid ${showCVOptions ? 'fa-chevron-up' : 'fa-chevron-down'} ms-2`}></i>
+                    </motion.button>
+
+                    <AnimatePresence>
+                      {showCVOptions && (
+                        <motion.div 
+                          className="cv-fission-container"
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: "circOut" }}
+                        >
+                          <motion.a 
+                            href={cvStandard}
+                            download="Hassan_Nawaz_CV.pdf"
+                            className="btn-mini-fission"
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -20, opacity: 0 }}
+                            transition={{ delay: 0.1 }}
+                            whileHover={{ scale: 1.05, x: 5 }}
+                          >
+                            <i className="fa-solid fa-file-pdf"></i>
+                            <span>Standard</span>
+                          </motion.a>
+                          <motion.a 
+                            href={cvATS}
+                            download="Hassan_Nawaz_CV_ATS.pdf"
+                            className="btn-mini-fission"
+                            initial={{ y: -20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            exit={{ y: -20, opacity: 0 }}
+                            transition={{ delay: 0.2 }}
+                            whileHover={{ scale: 1.05, x: 5 }}
+                          >
+                            <i className="fa-solid fa-robot"></i>
+                            <span>ATS Version</span>
+                          </motion.a>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                </div>
+              </div>
+            </div>
           </motion.div>
           <div className="hero-bg-accent"></div>
         </div>

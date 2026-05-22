@@ -31,7 +31,7 @@ const Startup = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
           >
-            QuickSite — Pioneering <span>Digital Speed</span>
+            QuickSite — Fueling <span>Digital Velocity</span>
           </motion.h2>
           <motion.p 
             className="startup-tagline"
@@ -40,7 +40,7 @@ const Startup = () => {
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
           >
-            <strong>Co‑founder</strong> — Redefining how founders deploy their vision to the world.
+            <strong>Accelerating the Web</strong> — Turning visionary ideas into high-performance digital realities, instantly.
           </motion.p>
         </div>
 
@@ -53,11 +53,9 @@ const Startup = () => {
               viewport={{ once: true }}
             >
               <div className="card-glare" />
-              <h3>The Vision</h3>
+              <h3>The Mission</h3>
               <p>
-                QuickSite was born from a simple observation: most founders waste months on complexity. 
-                We stripped away the friction, building a platform that delivers production-grade websites 
-                in record time. No monthly lock‑ins, no overhead, just <strong>pure performance</strong>.
+                In a digital landscape cluttered with complexity, QuickSite serves as a catalyst for growth. We eliminate technical friction, empowering founders to launch with <strong>uncompromising speed</strong> and efficiency. We don't just build sites; we architect competitive advantages.
               </p>
               
               <div className="startup-actions">
@@ -69,7 +67,7 @@ const Startup = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Visit QuickSite <i className="fa-solid fa-arrow-up-right-from-square" />
+                  Visit the Lab <i className="fa-solid fa-arrow-up-right-from-square" />
                 </motion.a>
                 <motion.a 
                   href="https://quick-site-00.vercel.app/#contact" 
@@ -77,7 +75,7 @@ const Startup = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  Collaborate With Us
+                  Join the Mission
                 </motion.a>
               </div>
             </motion.div>
@@ -130,9 +128,9 @@ const Startup = () => {
               transition={{ delay: 0.8 }}
             >
               <div className="dashboard-header">
-                <h4>System Integrity</h4>
+                <h4>Core Performance</h4>
                 <div className="status-indicator">
-                  <span className="pulse-dot" /> Live Monitoring
+                  <span className="pulse-dot" /> Operational
                 </div>
               </div>
               

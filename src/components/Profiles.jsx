@@ -9,7 +9,7 @@ const Profiles = () => {
       icon: 'fa-brands fa-linkedin-in',
       link: 'https://www.linkedin.com/in/hafiz-m-hassan-322331256',
       stats: [
-        { label: 'Connections', value: '500+' },
+        { label: 'Connections', value: '900+' },
         { label: 'Posts', value: '20' }
       ],
       visual: <div className="network-visual"><div className="central-node" /><div className="connection-node" /><div className="connection-node" /><div className="connection-node" /><div className="connection-line" /><div className="connection-line" /><div className="connection-line" /></div>
@@ -21,8 +21,8 @@ const Profiles = () => {
       icon: 'fa-brands fa-github',
       link: 'https://github.com/HassanNawaz14',
       stats: [
-        { label: 'Repositories', value: '15+' },
-        { label: 'Contributions', value: '20+' }
+        { label: 'Repositories', value: '20+' },
+        { label: 'Contributions', value: '180+' }
       ],
       visual: <div className="code-activity"><div className="code-line" /><div className="code-line" /><div className="code-line" /><div className="commit-timeline"><div className="commit-dot" /><div className="commit-dot" /><div className="commit-dot" /><div className="commit-dot" /></div></div>
     },
@@ -46,6 +46,7 @@ const Profiles = () => {
       link: 'https://www.kaggle.com/hassannawaz1423',
       stats: [
         { label: 'Notebooks', value: '5' },
+        { label: 'Datasets', value: '3' },
         { label: 'Tier', value: 'Novice' }
       ],
       visual: <div className="data-visual"><div className="chart-bar" style={{height: '40%'}} /><div className="chart-bar" style={{height: '70%'}} /><div className="chart-bar" style={{height: '50%'}} /><div className="chart-bar" style={{height: '90%'}} /><div className="chart-bar" style={{height: '60%'}} /></div>

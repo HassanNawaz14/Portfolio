@@ -40,7 +40,7 @@ const About = ({ portraitAnchorRef }) => {
               <div className="anchor-border" />
             </div>
             <div className="about-experience-badge">
-              <span className="years">02+</span>
+              <span className="years">06+</span>
               <span className="text">Years of Evolution</span>
             </div>
           </div>

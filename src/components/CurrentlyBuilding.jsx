@@ -1,196 +1,144 @@
 import { motion } from 'framer-motion';
 
-const CONTENT = {
-  sectionLabel: "Current Focus",
-  heading: ["Currently ", "Building"],   // second item goes in cyan span
-  subtitle: "The project consuming my nights, weekends, and most of my Kaggle GPU quota",
-  badge: "Active Development — Phase 4",
-
-  projectName: "NLP2Shell",
-  tagline: ["Speak naturally.", "Execute instantly."],
-  description: "A local desktop tool that converts natural language — voice or text — into shell commands using a fine-tuned LLM. No cloud. No subscription. No Stack Overflow.",
-
-  terminal1: [
-    { type: "prompt", text: "$ nlp2shell --text" },
-    { type: "dim",    text: "─────────────────────────────" },
-    { type: "input",  text: "▸ move all PDFs to Documents" },
-    { type: "dim",    text: "Predicted command" },
-    { type: "output", text: "mv ~/Downloads/*.pdf ~/Documents/" },
-    { type: "dim",    text: "Run this? [y/n]: y" },
-    { type: "output", text: "✓ Done." },
-  ],
-
-  terminal2: [
-    { type: "input",  text: "▸ delete everything" },
-    { type: "warn",   text: "⚠ BLOCKED — matches: rm -rf" },
-    { type: "dim",    text: "Hard-blocked. Never executed." },
-  ],
-
-  flowTitle: "Voice → Model → Terminal",
-  flowSteps: [
-    { label: "Voice or text input",       desc: "Whisper tiny model transcribes speech on-device, no cloud STT" },
-    { label: "Fine-tuned Qwen2.5-0.5B",  desc: "LoRA adapter trained on 26k NL→Bash pairs predicts the command" },
-    { label: "Safety layer",              desc: "Hard blocklist checks rm -rf, fork bombs, system paths before anything else" },
-    { label: "Confirm & execute",         desc: "Mandatory y/n confirmation, logged to ~/.nlp2shell_history.log" },
-    { label: "--safe flag",               desc: "Dry-run mode simulates commands without touching your filesystem" },
-  ],
-
-  techTags: {
-    cyan: ["Qwen2.5-0.5B", "LoRA / PEFT", "Whisper", "TRL", "BitsAndBytes", "Rich"],
-    gray: ["Python 3.10+", "Kaggle T4"],
-  },
-
-  phases: [
-    { label: "Data preparation",    status: "done"   },
-    { label: "Model fine-tuning",   status: "done"   },
-    { label: "Inference pipeline",  status: "done"   },
-    { label: "CLI interface",       status: "active", suffix: " ← now" },
-    { label: "Evaluation + Many More", status: "todo"   },
-  ],
-
-  modelStats: [
-    { label: "Base model",       value: "0.5B params" },
-    { label: "Training pairs",   value: "26,000"      },
-    { label: "Params trained",   value: "~0.66%"      },
-    { label: "Quantization",     value: "4-bit NF4"   },
-    { label: "Inference",        value: "CPU only"    },
-  ],
-
-  buttons: [
-    { label: "View on GitHub",    href: "https://github.com/HassanNawaz14/NLP2Shell-Voice-Assistant", primary: true  },
-    { label: "Read the Write-up", href: "https://github.com/HassanNawaz14/NLP2Shell-Voice-Assistant/blob/main/README.md",                                            primary: false },
-  ],
-};
-
 const CurrentlyBuilding = () => {
+  const steps = [
+    { num: '01', title: 'Data Synthesis', text: 'Analyzing high-dimensional datasets to identify patterns and anomalies.' },
+    { num: '02', title: 'Model Architecture', text: 'Designing neural networks and algorithmic frameworks for predictive tasks.' },
+    { num: '03', title: 'Validation & Scaling', text: 'Rigorous testing against real-world metrics to ensure precision and reliability.' }
+  ];
+
+  const phases = [
+    { label: 'Data Pre-processing', status: 'done' },
+    { label: 'Model Engineering', status: 'active' },
+    { label: 'Cloud Integration', status: 'todo' },
+    { label: 'Performance Tuning', status: 'todo' }
+  ];
+
   return (
-    <section id="currently-building" className="currently-building-section">
-      <motion.div 
-        className="cb-container"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
+    <section id="building" className="currently-building-section">
+      <div className="cb-container">
         <div className="cb-header">
-          <span className="cb-label">{CONTENT.sectionLabel}</span>
-          <h2 className="cb-title">{CONTENT.heading[0]}<span>{CONTENT.heading[1]}</span></h2>
-          <p className="cb-subtitle">{CONTENT.subtitle}</p>
+          <span className="cb-label">Neural Laboratory</span>
+          <h2 className="cb-title">Current <span>Research</span> Projects</h2>
+          <p className="cb-subtitle">
+            Exploring the intersection of Data Science and Web Architecture to solve 
+            complex analytical challenges.
+          </p>
           <div className="cb-status-badge">
-            <div className="cb-status-dot"></div>
-            {CONTENT.badge}
+            <span className="cb-status-dot" /> High-Intensity Research Active
           </div>
         </div>
 
         <div className="cb-main-grid">
-          {/* Left Card */}
-          <div className="cb-card">
+          <motion.div 
+            className="cb-card"
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
             <div className="cb-card-label">
-              <div className="cb-card-dot"></div>
-              {CONTENT.projectName}
+              <span className="cb-card-dot" /> Primary Objective
             </div>
-            <h3 className="cb-card-title">
-              {CONTENT.tagline[0]}<br />{CONTENT.tagline[1]}
-            </h3>
-            <p className="cb-card-desc">{CONTENT.description}</p>
+            <h3 className="cb-card-title">Autonomous Data Insights Engine</h3>
+            <p className="cb-card-desc">
+              Developing a proprietary framework that automates the extraction of actionable 
+              intelligence from raw, unstructured data sources using advanced ML heuristics.
+            </p>
             
             <div className="cb-terminal">
               <div className="cb-terminal-header">
-                <div className="cb-dot red"></div>
-                <div className="cb-dot yellow"></div>
-                <div className="cb-dot green"></div>
+                <div className="cb-dot red" />
+                <div className="cb-dot yellow" />
+                <div className="cb-dot green" />
               </div>
-              {CONTENT.terminal1.map((line, i) => (
-                <div key={i} className="cb-terminal-line">
-                  {line.type === 'prompt' && <span className="cb-terminal-prompt">{line.text}</span>}
-                  {line.type === 'dim' && <span className="cb-terminal-dim">{line.text}</span>}
-                  {line.type === 'input' && <span className="cb-terminal-input">{line.text}</span>}
-                  {line.type === 'output' && <span className="cb-terminal-output">{line.text}</span>}
-                </div>
-              ))}
+              <div className="cb-terminal-line">
+                <span className="cb-terminal-prompt">root@lab:~$</span>
+                <span className="cb-terminal-input">npm run initiate-synthesis</span>
+              </div>
+              <div className="cb-terminal-line">
+                <span className="cb-terminal-dim">[INFO]</span>
+                <span className="cb-terminal-output"> Neural weights loaded successfully.</span>
+              </div>
+              <div className="cb-terminal-line">
+                <span className="cb-terminal-dim">[WAIT]</span>
+                <span className="cb-terminal-warn"> Analyzing data cluster integrity... 82%</span>
+              </div>
             </div>
+          </motion.div>
 
-            <div className="cb-terminal">
-              {CONTENT.terminal2.map((line, i) => (
-                <div key={i} className="cb-terminal-line">
-                  {line.type === 'input' && <span className="cb-terminal-input">{line.text}</span>}
-                  {line.type === 'warn' && <span className="cb-terminal-warn">{line.text}</span>}
-                  {line.type === 'dim' && <span className="cb-terminal-dim">{line.text}</span>}
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right Card */}
-          <div className="cb-card">
-            <h3 className="cb-flow-title">{CONTENT.flowTitle}</h3>
-            <div className="cb-flow-steps">
-              {CONTENT.flowSteps.map((step, i) => (
+          <motion.div 
+            className="cb-flow"
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
+            <h4 className="cb-flow-title">The Scientific Method</h4>
+            <div className="cb-steps">
+              {steps.map((step, i) => (
                 <div key={i} className="cb-flow-step">
-                  <div className="cb-step-num">{i + 1}</div>
+                  <div className="cb-step-num">{step.num}</div>
                   <div className="cb-step-content">
-                    <b>{step.label}</b>
-                    <span>{step.desc}</span>
+                    <b>{step.title}</b>
+                    <span>{step.text}</span>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         <div className="cb-bottom-grid">
-          {/* Tech Stack */}
           <div className="cb-small-card">
-            <h4 className="cb-small-card-title">Tech Stack</h4>
+            <h4 className="cb-small-card-title">Research Stack</h4>
             <div className="cb-tags">
-              {CONTENT.techTags.cyan.map((tag, i) => (
-                <span key={i} className="cb-tag cyan">{tag}</span>
-              ))}
-              {CONTENT.techTags.gray.map((tag, i) => (
-                <span key={i} className="cb-tag gray">{tag}</span>
-              ))}
+              <span className="cb-tag cyan">PyTorch</span>
+              <span className="cb-tag gray">FastAPI</span>
+              <span className="cb-tag cyan">Scikit-Learn</span>
+              <span className="cb-tag gray">Docker</span>
+              <span className="cb-tag cyan">Pandas</span>
             </div>
           </div>
 
-          {/* Progress */}
           <div className="cb-small-card">
-            <h4 className="cb-small-card-title">Progress</h4>
+            <h4 className="cb-small-card-title">Development Phase</h4>
             <div className="cb-phase-list">
-              {CONTENT.phases.map((phase, i) => (
-                <div key={i} className={`cb-phase-item ${phase.status === 'active' ? 'active' : ''}`}>
-                  <div className={`cb-phase-dot ${phase.status}`}></div>
-                  {phase.label}{phase.suffix}
+              {phases.map((phase, i) => (
+                <div key={i} className={`cb-phase-item ${phase.status}`}>
+                  <span className={`cb-phase-dot ${phase.status}`} />
+                  {phase.label}
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Model Stats */}
           <div className="cb-small-card">
-            <h4 className="cb-small-card-title">Model Stats</h4>
-            {CONTENT.modelStats.map((stat, i) => (
-              <div key={i} className="cb-stat-row">
-                <span className="cb-stat-label">{stat.label}</span>
-                <span className="cb-stat-value">{stat.value}</span>
+            <h4 className="cb-small-card-title">Lab Metrics</h4>
+            <div className="cb-stats">
+              <div className="cb-stat-row">
+                <span className="cb-stat-label">Model Accuracy</span>
+                <span className="cb-stat-value">94.2%</span>
               </div>
-            ))}
+              <div className="cb-stat-row">
+                <span className="cb-stat-label">Latency</span>
+                <span className="cb-stat-value">&lt; 40ms</span>
+              </div>
+              <div className="cb-stat-row">
+                <span className="cb-stat-label">Uptime</span>
+                <span className="cb-stat-value">99.9%</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <div className="cb-footer">
-          {CONTENT.buttons.map((btn, i) => (
-            <a 
-              key={i} 
-              href={btn.href} 
-              target={btn.href.startsWith('http') ? "_blank" : "_self"}
-              rel="noreferrer"
-              className={`cb-btn ${btn.primary ? 'cb-btn-primary' : 'cb-btn-secondary'}`}
-            >
-              {btn.label}
-            </a>
-          ))}
+          <button className="cb-btn cb-btn-primary">
+            Request Access <i className="fa-solid fa-key" />
+          </button>
+          <button className="cb-btn cb-btn-secondary">
+            View Lab Documentation
+          </button>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const { pathname } = useLocation();
 
   const socialLinks = [
     { icon: 'fa-github', link: 'https://github.com/HassanNawaz14', label: 'GitHub' },
@@ -9,6 +11,15 @@ const Footer = () => {
     { icon: 'fa-kaggle', link: 'https://www.kaggle.com/hassannawaz1423', label: 'Kaggle' },
     { icon: 'fa-instagram', link: 'https://www.instagram.com/hassan.nawaz142003/', label: 'Instagram' }
   ];
+
+  const scrollToSection = (id) => {
+    if (pathname === '/') {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <footer className="footer-premium interesting-footer">
@@ -41,14 +52,16 @@ const Footer = () => {
       <div className="container footer-content-container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <motion.a 
-              href="#home" 
+            <Link 
+              to="/" 
               className="brand-logo-premium"
-              whileHover={{ scale: 1.05 }}
+              onClick={() => scrollToSection('home')}
             >
-              <div className="logo-glitch-layer">Hassan<span>Nawaz</span></div>
-              <div className="logo-main-layer">Hassan<span>Nawaz</span></div>
-            </motion.a>
+              <motion.div whileHover={{ scale: 1.05 }}>
+                <div className="logo-glitch-layer">Hassan<span>Nawaz</span></div>
+                <div className="logo-main-layer">Hassan<span>Nawaz</span></div>
+              </motion.div>
+            </Link>
             <p className="brand-desc">
               Architecting the next generation of digital tools. Fusing data intelligence 
               with aesthetic web architecture to build impactful, future-ready experiences.
@@ -79,16 +92,16 @@ const Footer = () => {
             <h4>Command Center</h4>
             <div className="nav-columns">
               <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#startup">QuickSite</a></li>
+                <li><Link to="/" onClick={() => scrollToSection('home')}>Home</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('about')}>About</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('skills')}>Skills</Link></li>
+                <li><Link to="/quicksite">QuickSite</Link></li>
               </ul>
               <ul>
-                <li><a href="#featured-projects">Projects</a></li>
-                <li><a href="#experience">Education</a></li>
-                <li><a href="#profiles">Profiles</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><Link to="/projects">Projects</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('experience')}>Education</Link></li>
+                <li><Link to="/profiles">Profiles</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('contact')}>Contact</Link></li>
               </ul>
             </div>
           </div>
