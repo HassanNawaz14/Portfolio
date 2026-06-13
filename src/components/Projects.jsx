@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 const projectsData = [
   {
     id: 'f1',
-    title: 'Travel Buddy+',
-    category: 'Travel Tech',
-    icon: 'fa-solid fa-plane-departure',
-    desc: 'A next-generation Travel Planner with AI-powered recommendations, planning tools, and real-time updates.',
-    tags: ['React', 'Node.js', 'AI'],
-    link: 'https://github.com/HassanNawaz14/Travel-Buddy-',
+    title: 'Stellar DNA',
+    category: 'Astrophysics',
+    icon: 'fa-solid fa-atom',
+    desc: 'A physics-based simulation exploring the chemical fingerprint of stars through spectral analysis and nucleosynthesis modeling.',
+    tags: ['Python', 'Simulation', 'Physics'],
+    link: 'https://stellar-dna.vercel.app/',
     featured: true
   },
   {
@@ -20,6 +20,16 @@ const projectsData = [
     desc: 'A Bridge between Chartered Accountants and Data Science teams working at a firm in isolation.',
     tags: ['React', 'Node.js', 'Business Domain'],
     link: 'https://github.com/HassanNawaz14/CADS-Bridge',
+    featured: true
+  },
+  {
+    id: 'f3',
+    title: 'Travel Buddy+',
+    category: 'Travel Tech',
+    icon: 'fa-solid fa-plane-departure',
+    desc: 'A next-generation Travel Planner with AI-powered recommendations, planning tools, and real-time updates.',
+    tags: ['React', 'Node.js', 'AI'],
+    link: 'https://github.com/HassanNawaz14/Travel-Buddy-',
     featured: true
   },
   {
@@ -192,7 +202,10 @@ const Projects = () => {
   );
 };
 
+const accentColors = ['#37d8ff', '#8a5cff', '#f59e0b'];
+
 const FeaturedCard = ({ project, index, onClick }) => {
+  const accent = accentColors[index % accentColors.length];
   const handleMouseMove = (e) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
@@ -204,34 +217,37 @@ const FeaturedCard = ({ project, index, onClick }) => {
 
   return (
     <motion.div 
-      className="featured-card"
+      className="featured-strip"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay: index * 0.1 }}
-      whileHover={{ y: -10 }}
+      transition={{ delay: index * 0.15, duration: 0.6 }}
+      whileHover={{ y: -6 }}
       onMouseMove={handleMouseMove}
       onClick={onClick}
     >
-      <div className="featured-card-content">
-        <div className="featured-icon">
-          <i className={project.icon}></i>
+      <div className="strip-accent" style={{ background: accent }}></div>
+      <div className="strip-glow" style={{ '--glow-color': accent }}></div>
+      <div className="strip-content">
+        <div className="strip-icon-wrap" style={{ borderColor: `${accent}33`, background: `${accent}0d` }}>
+          <i className={project.icon} style={{ color: accent }}></i>
         </div>
-        <div className="featured-info">
-          <span className="featured-tag">{project.category}</span>
-          <h4>{project.title}</h4>
-          <p>{project.desc}</p>
-          <div className="featured-footer">
-            <div className="featured-tags">
-              {project.tags.slice(0, 2).map(tag => <span key={tag}>{tag}</span>)}
+        <div className="strip-body">
+          <span className="strip-cat" style={{ color: accent }}>{project.category}</span>
+          <h3 className="strip-title">{project.title}</h3>
+          <p className="strip-desc">{project.desc}</p>
+          <div className="strip-bottom">
+            <div className="strip-tags">
+              {project.tags.slice(0, 3).map(tag => (
+                <span key={tag} style={{ borderColor: `${accent}1a`, color: accent }}>{tag}</span>
+              ))}
             </div>
-            <div className="view-link">
+            <span className="strip-link" style={{ color: accent }}>
               View Project <i className="fa-solid fa-arrow-right"></i>
-            </div>
+            </span>
           </div>
         </div>
       </div>
-      <div className="featured-glow"></div>
     </motion.div>
   );
 };
