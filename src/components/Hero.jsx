@@ -41,7 +41,7 @@ const Hero = ({ portraitAnchorRef }) => {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.8 + i * 0.15, duration: 0.8 }}
-                whileHover={{ y: -5, borderColor: 'var(--cyan)' }}
+                whileHover={{ y: -5, borderColor: 'var(--cyan)', transition: { type: 'tween', duration: 0.15, ease: 'easeOut' } }}
               >
                 <i className={`fa-solid ${cap.icon}`}></i>
                 <div className="cap-text">
