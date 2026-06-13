@@ -28,3 +28,6 @@ GEMINI.md
 *.gemini.md
 *.gemini.mdx
 *.gemini.markdown
+
+opencode*
+/.opencode*
