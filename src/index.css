@@ -124,7 +124,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
 .btn-secondary { 
   background: transparent;
   backdrop-filter: blur(16px) saturate(160%);
-  -webkit-backdrop-filter: blur(16px) saturate(160%);
+
   color: var(--text); 
   border: 1px solid rgba(255, 255, 255, 0.06); 
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05); 
@@ -274,7 +274,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   gap: 0.8rem;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
   padding: 0.8rem;
@@ -424,7 +424,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   right: -2rem;
   background: var(--panel);
   backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+
   padding: 1.5rem 2rem;
   border-radius: 24px;
   border: 1px solid var(--cyan);
@@ -469,7 +469,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   position: relative;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 3rem;
@@ -682,7 +682,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
 .skills-display-area {
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 4rem;
@@ -765,7 +765,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
 .interactive-skill-card {
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 2rem;
@@ -2281,7 +2281,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   position: relative;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 2.2rem 2.2rem 1.8rem;
@@ -2791,7 +2791,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   position: relative;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 1.5rem;
@@ -2850,7 +2850,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   position: relative;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 2rem;
@@ -2903,7 +2903,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   position: relative;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 3rem;
@@ -3466,7 +3466,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   gap: 0.6rem; 
   background: rgba(10, 8, 28, 0.35);
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   padding: 0.7rem; 
   border-radius: 999px; 
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -3676,7 +3676,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   padding: 2.5rem;
   background: rgba(30, 30, 40, 0.2);
   backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
+
   border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 28px;
   position: relative;
@@ -4184,7 +4184,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
 .btn-selected {
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   border-color: var(--cyan);
   color: var(--cyan);
   box-shadow: 0 0 20px rgba(55, 216, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.08);
@@ -4210,7 +4210,7 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   border-radius: 999px;
   background: transparent;
   backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
+
   color: #fff;
   font-weight: 800;
   font-size: 0.7rem;
