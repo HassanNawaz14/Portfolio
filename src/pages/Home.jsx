@@ -177,33 +177,21 @@ const Home = () => {
       <Experience />
       <Contact />
 
-      <motion.nav 
-        className={`floating-dock ${showDockCompact ? 'dock-compact' : ''}`}
-        initial={{ y: 100, x: '-50%', opacity: 0 }}
-        animate={{ y: 0, x: '-50%', opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8, type: "spring", stiffness: 120 }}
-      >
+      <nav className={`floating-dock ${showDockCompact ? 'dock-compact' : ''}`}>
         {dockItems.map((item) => (
-          <motion.a 
+          <a 
             key={item.id} 
             href={`#${item.id}`} 
             className={`dock-item ${activeSection === item.id ? 'active' : ''}`}
-            whileHover={{ y: -10, scale: 1.25 }}
-            whileTap={{ scale: 0.9 }}
           >
             <i className={`fa-solid ${item.icon}`} />
             <span>{item.label}</span>
             {activeSection === item.id && (
-              <motion.div 
-                layoutId="activeDockGlow"
-                className="active-glow"
-                initial={false}
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
+              <div className="active-glow" />
             )}
-          </motion.a>
+          </a>
         ))}
-      </motion.nav>
+      </nav>
     </>
   );
 };

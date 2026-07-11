@@ -10,15 +10,15 @@ const Hero = ({ portraitAnchorRef }) => {
 
   const capabilities = [
     { icon: 'fa-code-branch', title: 'Programming', text: 'Python, C++ & Others' },
-    { icon: 'fa-ghost', title: 'Game Development', text: 'C#, C++ & Unity' },
-    { icon: 'fa-robot', title: 'AI Development', text: 'Machine Learning' },
-    { icon: 'fa-code', title: 'Web Development', text: 'React & Node.js' }
+    { icon: 'fa-database', title: 'Data Science', text: 'Machine Learning & Data Analysis' },
+    { icon: 'fa-robot', title: 'AI Engineering', text: 'Neural Networks & Deep Learning' },
+    { icon: 'fa-code', title: 'Web Development', text: 'MERN Stack & Next.js' }
   ];
 
   return (
     <section id="home" className="hero">
       <div className="container hero-container">
-        <motion.div 
+        <motion.div
           className="hero-copy"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -32,11 +32,11 @@ const Hero = ({ portraitAnchorRef }) => {
             insight and building impactful digital experiences. Skilled in coding, problem-solving, and
             exploring emerging technologies.
           </p>
-          
+
           <div className="hero-capabilities-left">
             {capabilities.map((cap, i) => (
-              <motion.div 
-                key={i} 
+              <motion.div
+                key={i}
                 className={`capability-chip-static chip-index-${i}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -54,7 +54,7 @@ const Hero = ({ portraitAnchorRef }) => {
         </motion.div>
 
         <div className="hero-visual">
-          <motion.div 
+          <motion.div
             className="hero-portrait-shell"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -65,7 +65,7 @@ const Hero = ({ portraitAnchorRef }) => {
             </div>
             <div className="hero-portrait-outline"></div>
             <div className="hero-portrait-glow"></div>
-            
+
             <div className="hero-actions-overlay">
               <div className="hero-actions-container">
                 <div className="hero-actions">
@@ -74,8 +74,8 @@ const Hero = ({ portraitAnchorRef }) => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 1.5, duration: 1 }}
                   >
-                    <Link 
-                      to="/building" 
+                    <Link
+                      to="/building"
                       className="btn"
                     >
                       <motion.span
@@ -88,7 +88,7 @@ const Hero = ({ portraitAnchorRef }) => {
                   </motion.div>
 
                   <div className="cv-download-wrapper">
-                    <motion.button 
+                    <motion.button
                       className={`btn ${showCVOptions ? 'btn-selected' : 'btn-secondary'}`}
                       onClick={() => setShowCVOptions(!showCVOptions)}
                       initial={{ opacity: 0, y: 20 }}
@@ -103,14 +103,14 @@ const Hero = ({ portraitAnchorRef }) => {
 
                     <AnimatePresence>
                       {showCVOptions && (
-                        <motion.div 
+                        <motion.div
                           className="cv-fission-container"
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
                           transition={{ duration: 0.4, ease: "circOut" }}
                         >
-                          <motion.a 
+                          <motion.a
                             href={cvStandard}
                             download="Hassan_Nawaz_CV.pdf"
                             className="btn-mini-fission"
@@ -123,7 +123,7 @@ const Hero = ({ portraitAnchorRef }) => {
                             <i className="fa-solid fa-file-pdf"></i>
                             <span>Standard</span>
                           </motion.a>
-                          <motion.a 
+                          <motion.a
                             href={cvATS}
                             download="Hassan_Nawaz_CV_ATS.pdf"
                             className="btn-mini-fission"
@@ -147,8 +147,8 @@ const Hero = ({ portraitAnchorRef }) => {
           <div className="hero-bg-accent"></div>
         </div>
       </div>
-      
-      <motion.div 
+
+      <motion.div
         className="hero-scroll-indicator"
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.6 }}
