@@ -29,7 +29,7 @@ export default async function handler(req, res) {
   if (grokKey) {
     try {
       const body = {
-        model: 'grok-2-latest',
+        model: 'grok-2',
         messages: [{ role: 'user', content: 'Say OK' }],
         temperature: 0,
         max_tokens: 50,

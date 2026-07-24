@@ -44,7 +44,7 @@ async function callGrok(prompt) {
   if (!apiKey) throw new Error('GROK_API_KEY not set')
 
   const body = {
-    model: 'grok-2-latest',
+    model: 'grok-2',
     messages: [{ role: 'user', content: prompt }],
     temperature: 0.8,
     max_tokens: 200,

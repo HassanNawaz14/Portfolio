@@ -92,7 +92,7 @@ async function callGrok(messages, knowledge) {
   ]
 
   const body = {
-    model: 'grok-2-latest',
+    model: 'grok-2',
     messages: grokMessages,
     tools: [{ type: 'function', function: navigateToTool }],
     temperature: 0.7,
