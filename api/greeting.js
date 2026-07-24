@@ -39,14 +39,14 @@ async function callGemini(prompt) {
   return data.candidates?.[0]?.content?.parts?.[0]?.text || ''
 }
 
-const GROK_MODELS = ['grok-2', 'grok-beta', 'grok-2-1212']
+const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
 
-async function callGrok(prompt) {
-  const apiKey = process.env.GROK_API_KEY
-  if (!apiKey) throw new Error('GROK_API_KEY not set')
+async function callGroq(prompt) {
+  const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY
+  if (!apiKey) throw new Error('GROQ_API_KEY not set')
 
   let lastErr
-  for (const model of GROK_MODELS) {
+  for (const model of GROQ_MODELS) {
     try {
       const body = {
         model,
@@ -55,7 +55,7 @@ async function callGrok(prompt) {
         max_tokens: 200,
       }
 
-      const res = await fetch('https://api.x.ai/v1/chat/completions', {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
         body: JSON.stringify(body),
@@ -63,7 +63,7 @@ async function callGrok(prompt) {
 
       if (!res.ok) {
         const errText = await res.text()
-        lastErr = new Error(`Grok ${model} error ${res.status}: ${errText}`)
+        lastErr = new Error(`Groq ${model} error ${res.status}: ${errText}`)
         continue
       }
 
@@ -73,7 +73,7 @@ async function callGrok(prompt) {
       lastErr = e
     }
   }
-  throw lastErr || new Error('All Grok models failed')
+  throw lastErr || new Error('All Groq models failed')
 }
 
 export default async function handler(req, res) {
@@ -93,10 +93,10 @@ export default async function handler(req, res) {
     } catch (geminiError) {
       console.warn('Gemini failed for greeting, falling back to Grok:', geminiError.message)
       try {
-        const greeting = await callGrok(prompt)
+        const greeting = await callGroq(prompt)
         return res.status(200).json({ greeting: greeting || staticFallback })
-      } catch (grokError) {
-        console.error('Both AI providers failed for greeting:', grokError.message)
+      } catch (groqError) {
+        console.error('Both AI providers failed for greeting:', groqError.message)
         return res.status(200).json({ greeting: staticFallback })
       }
     }

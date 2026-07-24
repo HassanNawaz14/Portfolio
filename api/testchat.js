@@ -1,10 +1,9 @@
 export default async function handler(req, res) {
   const geminiKey = process.env.GEMINI_API_KEY
-  const grokKey = process.env.GROK_API_KEY
+  const groqKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY
 
   const results = {}
 
-  // Test Gemini
   if (geminiKey) {
     try {
       const body = {
@@ -25,31 +24,30 @@ export default async function handler(req, res) {
     results.gemini = { skipped: 'no key' }
   }
 
-  // Test Grok (try multiple model names)
-  if (grokKey) {
-    const models = ['grok-2', 'grok-beta', 'grok-2-1212']
+  if (groqKey) {
+    const models = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
     for (const model of models) {
       try {
         const body = {
           model,
           messages: [{ role: 'user', content: 'Say OK' }],
           temperature: 0,
-          max_tokens: 50,
+          max_tokens: 10,
         }
-        const r = await fetch('https://api.x.ai/v1/chat/completions', {
+        const r = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${grokKey}` },
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${groqKey}` },
           body: JSON.stringify(body),
         })
         const text = await r.text()
-        results[`grok_${model}`] = { status: r.status, ok: r.ok, snippet: text.substring(0, 200) }
+        results[`groq_${model}`] = { status: r.status, ok: r.ok, snippet: text.substring(0, 200) }
         if (r.ok) break
       } catch (e) {
-        results[`grok_${model}`] = { error: e.message }
+        results[`groq_${model}`] = { error: e.message }
       }
     }
   } else {
-    results.grok = { skipped: 'no key' }
+    results.groq = { skipped: 'no key' }
   }
 
   res.status(200).json(results)

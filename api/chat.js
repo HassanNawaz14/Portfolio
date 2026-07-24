@@ -80,31 +80,31 @@ async function callGemini(messages, knowledge) {
   return { reply: part.text || '', toolCalls: null }
 }
 
-const GROK_MODELS = ['grok-2', 'grok-beta', 'grok-2-1212']
+const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
 
-async function callGrok(messages, knowledge) {
-  const apiKey = process.env.GROK_API_KEY
-  if (!apiKey) throw new Error('GROK_API_KEY not set')
+async function callGroq(messages, knowledge) {
+  const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY
+  if (!apiKey) throw new Error('GROQ_API_KEY not set')
 
   const systemContent = SYSTEM_PROMPT_BASE + knowledge
 
-  const grokMessages = [
+  const groqMessages = [
     { role: 'system', content: systemContent },
     ...messages.map((m) => ({ role: m.role, content: m.content })),
   ]
 
   let lastErr
-  for (const model of GROK_MODELS) {
+  for (const model of GROQ_MODELS) {
     try {
       const body = {
         model,
-        messages: grokMessages,
+        messages: groqMessages,
         tools: [{ type: 'function', function: navigateToTool }],
         temperature: 0.7,
         max_tokens: 1024,
       }
 
-      const res = await fetch('https://api.x.ai/v1/chat/completions', {
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
         body: JSON.stringify(body),
@@ -112,13 +112,13 @@ async function callGrok(messages, knowledge) {
 
       if (!res.ok) {
         const errText = await res.text()
-        lastErr = new Error(`Grok ${model} error ${res.status}: ${errText}`)
+        lastErr = new Error(`Groq ${model} error ${res.status}: ${errText}`)
         continue
       }
 
       const data = await res.json()
       const choice = data.choices?.[0]
-      if (!choice) throw new Error('No choice returned from Grok')
+      if (!choice) throw new Error('No choice returned from Groq')
 
       const toolCalls = choice.message?.tool_calls?.map((tc) => ({
         name: tc.function.name,
@@ -130,7 +130,7 @@ async function callGrok(messages, knowledge) {
       lastErr = e
     }
   }
-  throw lastErr || new Error('All Grok models failed')
+  throw lastErr || new Error('All Groq models failed')
 }
 
 export default async function handler(req, res) {
@@ -161,17 +161,17 @@ export default async function handler(req, res) {
       const result = await callGemini(messages, knowledge)
       return res.status(200).json(result)
     } catch (geminiError) {
-      console.warn('Gemini failed, trying Grok:', geminiError.message)
+      console.warn('Gemini failed, trying Groq:', geminiError.message)
       const isQuota = geminiError.message.includes('quota') || geminiError.message.includes('429')
       try {
-        const result = await callGrok(messages, knowledge)
+        const result = await callGroq(messages, knowledge)
         return res.status(200).json(result)
-      } catch (grokError) {
-        console.error('Both providers failed:', grokError.message)
-        const msg = isQuota
-          ? "I'm currently unavailable because the AI service quota has been reached. Hassan needs to enable billing on his Google AI account at https://ai.google.dev. In the meantime, try adding a GROK_API_KEY as a fallback."
-          : "I'm sorry, I'm having trouble connecting right now. Please try again later."
-        return res.status(200).json({ reply: msg, toolCalls: null })
+      } catch (groqError) {
+        console.error('Both providers failed:', groqError.message)
+        return res.status(200).json({
+          reply: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
+          toolCalls: null,
+        })
       }
     }
   } catch (err) {
