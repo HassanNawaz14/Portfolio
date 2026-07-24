@@ -1,13 +1,12 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { sitemap } from '../../content/sitemap.js'
 import { announcements } from '../../content/announcements.js'
 
 const LS_KEY = 'portfolio_welcome_last_shown'
-const SS_KEY = 'portfolio_welcome_greeting'
 const ONE_DAY_MS = 86400000
 
-const staticGreeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. Feel free to explore!"
+const greeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. Feel free to explore!"
 
 function shouldShow() {
   const stored = localStorage.getItem(LS_KEY)
@@ -16,59 +15,8 @@ function shouldShow() {
   return elapsed > ONE_DAY_MS
 }
 
-function getCachedGreeting() {
-  try {
-    const cached = sessionStorage.getItem(SS_KEY)
-    if (!cached) return null
-    const { greeting, date } = JSON.parse(cached)
-    const today = new Date().toISOString().split('T')[0]
-    if (date === today) return greeting
-  } catch {
-    return null
-  }
-}
-
-function setCachedGreeting(greeting) {
-  try {
-    const today = new Date().toISOString().split('T')[0]
-    sessionStorage.setItem(SS_KEY, JSON.stringify({ greeting, date: today }))
-  } catch {
-    // sessionStorage not available
-  }
-}
-
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(() => shouldShow())
-  const cachedGreeting = useState(() => getCachedGreeting())[0]
-  const [greeting, setGreeting] = useState(cachedGreeting)
-  const [loading, setLoading] = useState(!cachedGreeting)
-
-  useEffect(() => {
-    if (!visible || greeting) return
-
-    let cancelled = false
-
-    fetch('/api/greeting', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ announcements }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (cancelled) return
-        const msg = data.greeting || staticGreeting
-        setGreeting(msg)
-        setCachedGreeting(msg)
-      })
-      .catch(() => {
-        if (!cancelled) setGreeting(staticGreeting)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => { cancelled = true }
-  }, [visible, greeting])
 
   const handleClose = useCallback(() => {
     localStorage.setItem(LS_KEY, String(Date.now()))
@@ -155,16 +103,9 @@ export default function WelcomePopup() {
                   marginBottom: '12px',
                 }}
               />
-              {loading ? (
-                <div>
-                  <div style={{ height: '14px', width: '80%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', marginBottom: '6px', animation: 'mwelcomeShimmer 1.5s infinite' }} />
-                  <div style={{ height: '14px', width: '60%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', animation: 'mwelcomeShimmer 1.5s infinite 0.3s' }} />
-                </div>
-              ) : (
-                <p style={{ color: '#f5f5ff', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
-                  {greeting}
-                </p>
-              )}
+              <p style={{ color: '#f5f5ff', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
+                {greeting}
+              </p>
             </div>
 
             <div style={{ marginBottom: '20px' }}>
@@ -238,11 +179,6 @@ export default function WelcomePopup() {
             )}
 
             <style>{`
-              @keyframes mwelcomeShimmer {
-                0% { opacity: 0.4; }
-                50% { opacity: 0.8; }
-                100% { opacity: 0.4; }
-              }
               .mwelcome-modal::-webkit-scrollbar { width: 4px; }
               .mwelcome-modal::-webkit-scrollbar-track { background: transparent; }
               .mwelcome-modal::-webkit-scrollbar-thumb { background: rgba(138, 92, 255, 0.3); border-radius: 2px; }
