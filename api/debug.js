@@ -4,14 +4,12 @@ export default function handler(req, res) {
 
   res.status(200).json({
     gemini_configured: !!geminiVal,
-    gemini_valid_format: typeof geminiVal === 'string' && geminiVal.startsWith('AIza'),
     gemini_value_length: typeof geminiVal === 'string' ? geminiVal.length : 'not a string',
-    gemini_first_chars: typeof geminiVal === 'string' && geminiVal.length > 0 ? geminiVal.substring(0, 6) : null,
+    gemini_first_chars: typeof geminiVal === 'string' && geminiVal.length > 0 ? geminiVal.substring(0, 8) : null,
     grok_configured: !!grokVal,
     grok_value_length: typeof grokVal === 'string' ? grokVal.length : 'not a string',
-    grok_first_chars: typeof grokVal === 'string' && grokVal.length > 0 ? grokVal.substring(0, 6) : null,
-    note_gemini: 'Gemini API keys from Google AI Studio always start with "AIza". If yours doesn\'t, you have a wrong/expired key.',
-    fix_gemini: 'Get a new key at https://aistudio.google.com/apikey',
-    fix_grok: 'Get a key at https://x.ai/api',
+    grok_first_chars: typeof grokVal === 'string' && grokVal.length > 0 ? grokVal.substring(0, 8) : null,
+    get_gemini_key: 'Go to https://aistudio.google.com/apikey (make sure you are logged in) and create a new API key. Copy-paste it into Vercel env vars.',
+    get_grok_key: 'Go to https://x.ai/api and create an API key. Add as GROK_API_KEY in Vercel env vars.',
   })
 }

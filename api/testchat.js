@@ -25,24 +25,28 @@ export default async function handler(req, res) {
     results.gemini = { skipped: 'no key' }
   }
 
-  // Test Grok
+  // Test Grok (try multiple model names)
   if (grokKey) {
-    try {
-      const body = {
-        model: 'grok-2',
-        messages: [{ role: 'user', content: 'Say OK' }],
-        temperature: 0,
-        max_tokens: 50,
+    const models = ['grok-2', 'grok-beta', 'grok-2-1212']
+    for (const model of models) {
+      try {
+        const body = {
+          model,
+          messages: [{ role: 'user', content: 'Say OK' }],
+          temperature: 0,
+          max_tokens: 50,
+        }
+        const r = await fetch('https://api.x.ai/v1/chat/completions', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${grokKey}` },
+          body: JSON.stringify(body),
+        })
+        const text = await r.text()
+        results[`grok_${model}`] = { status: r.status, ok: r.ok, snippet: text.substring(0, 200) }
+        if (r.ok) break
+      } catch (e) {
+        results[`grok_${model}`] = { error: e.message }
       }
-      const r = await fetch('https://api.x.ai/v1/chat/completions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${grokKey}` },
-        body: JSON.stringify(body),
-      })
-      const text = await r.text()
-      results.grok = { status: r.status, ok: r.ok, snippet: text.substring(0, 300) }
-    } catch (e) {
-      results.grok = { error: e.message }
     }
   } else {
     results.grok = { skipped: 'no key' }

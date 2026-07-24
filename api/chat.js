@@ -80,6 +80,8 @@ async function callGemini(messages, knowledge) {
   return { reply: part.text || '', toolCalls: null }
 }
 
+const GROK_MODELS = ['grok-2', 'grok-beta', 'grok-2-1212']
+
 async function callGrok(messages, knowledge) {
   const apiKey = process.env.GROK_API_KEY
   if (!apiKey) throw new Error('GROK_API_KEY not set')
@@ -91,35 +93,44 @@ async function callGrok(messages, knowledge) {
     ...messages.map((m) => ({ role: m.role, content: m.content })),
   ]
 
-  const body = {
-    model: 'grok-2',
-    messages: grokMessages,
-    tools: [{ type: 'function', function: navigateToTool }],
-    temperature: 0.7,
-    max_tokens: 1024,
+  let lastErr
+  for (const model of GROK_MODELS) {
+    try {
+      const body = {
+        model,
+        messages: grokMessages,
+        tools: [{ type: 'function', function: navigateToTool }],
+        temperature: 0.7,
+        max_tokens: 1024,
+      }
+
+      const res = await fetch('https://api.x.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify(body),
+      })
+
+      if (!res.ok) {
+        const errText = await res.text()
+        lastErr = new Error(`Grok ${model} error ${res.status}: ${errText}`)
+        continue
+      }
+
+      const data = await res.json()
+      const choice = data.choices?.[0]
+      if (!choice) throw new Error('No choice returned from Grok')
+
+      const toolCalls = choice.message?.tool_calls?.map((tc) => ({
+        name: tc.function.name,
+        args: JSON.parse(tc.function.arguments),
+      })) || null
+
+      return { reply: choice.message?.content || '', toolCalls }
+    } catch (e) {
+      lastErr = e
+    }
   }
-
-  const res = await fetch('https://api.x.ai/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify(body),
-  })
-
-  if (!res.ok) {
-    const errText = await res.text()
-    throw new Error(`Grok API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  const choice = data.choices?.[0]
-  if (!choice) throw new Error('No choice returned from Grok')
-
-  const toolCalls = choice.message?.tool_calls?.map((tc) => ({
-    name: tc.function.name,
-    args: JSON.parse(tc.function.arguments),
-  })) || null
-
-  return { reply: choice.message?.content || '', toolCalls }
+  throw lastErr || new Error('All Grok models failed')
 }
 
 export default async function handler(req, res) {

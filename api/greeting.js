@@ -39,30 +39,41 @@ async function callGemini(prompt) {
   return data.candidates?.[0]?.content?.parts?.[0]?.text || ''
 }
 
+const GROK_MODELS = ['grok-2', 'grok-beta', 'grok-2-1212']
+
 async function callGrok(prompt) {
   const apiKey = process.env.GROK_API_KEY
   if (!apiKey) throw new Error('GROK_API_KEY not set')
 
-  const body = {
-    model: 'grok-2',
-    messages: [{ role: 'user', content: prompt }],
-    temperature: 0.8,
-    max_tokens: 200,
+  let lastErr
+  for (const model of GROK_MODELS) {
+    try {
+      const body = {
+        model,
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.8,
+        max_tokens: 200,
+      }
+
+      const res = await fetch('https://api.x.ai/v1/chat/completions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+        body: JSON.stringify(body),
+      })
+
+      if (!res.ok) {
+        const errText = await res.text()
+        lastErr = new Error(`Grok ${model} error ${res.status}: ${errText}`)
+        continue
+      }
+
+      const data = await res.json()
+      return data.choices?.[0]?.message?.content || ''
+    } catch (e) {
+      lastErr = e
+    }
   }
-
-  const res = await fetch('https://api.x.ai/v1/chat/completions', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify(body),
-  })
-
-  if (!res.ok) {
-    const errText = await res.text()
-    throw new Error(`Grok API error ${res.status}: ${errText}`)
-  }
-
-  const data = await res.json()
-  return data.choices?.[0]?.message?.content || ''
+  throw lastErr || new Error('All Grok models failed')
 }
 
 export default async function handler(req, res) {
