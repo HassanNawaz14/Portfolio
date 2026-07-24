@@ -150,17 +150,17 @@ export default async function handler(req, res) {
       const result = await callGemini(messages, knowledge)
       return res.status(200).json(result)
     } catch (geminiError) {
-      console.warn('Gemini failed, falling back to Grok:', geminiError.message)
+      console.warn('Gemini failed, trying Grok:', geminiError.message)
+      const isQuota = geminiError.message.includes('quota') || geminiError.message.includes('429')
       try {
         const result = await callGrok(messages, knowledge)
         return res.status(200).json(result)
       } catch (grokError) {
-        console.error('Both AI providers failed. Gemini:', geminiError.message, '| Grok:', grokError.message)
-        return res.status(200).json({
-          reply: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
-          toolCalls: null,
-          _debug: `Gemini: ${geminiError.message} | Grok: ${grokError.message}`,
-        })
+        console.error('Both providers failed:', grokError.message)
+        const msg = isQuota
+          ? "I'm currently unavailable because the AI service quota has been reached. Hassan needs to enable billing on his Google AI account at https://ai.google.dev. In the meantime, try adding a GROK_API_KEY as a fallback."
+          : "I'm sorry, I'm having trouble connecting right now. Please try again later."
+        return res.status(200).json({ reply: msg, toolCalls: null })
       }
     }
   } catch (err) {
