@@ -35,15 +35,13 @@ async function callGemini(messages, knowledge) {
 
   const systemContent = SYSTEM_PROMPT_BASE + knowledge
 
-  const contents = [{ role: 'user', parts: [{ text: systemContent }] }]
-  for (const msg of messages) {
-    contents.push({
-      role: msg.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: msg.content }],
-    })
-  }
+  const contents = messages.map((msg) => ({
+    role: msg.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: msg.content }],
+  }))
 
   const body = {
+    system_instruction: { parts: [{ text: systemContent }] },
     contents,
     tools: [{ functionDeclarations: [navigateToTool] }],
     generationConfig: { temperature: 0.7, maxOutputTokens: 1024 },
@@ -61,7 +59,10 @@ async function callGemini(messages, knowledge) {
 
   const data = await res.json()
   const candidate = data.candidates?.[0]
-  if (!candidate) throw new Error('No candidate returned from Gemini')
+  if (!candidate) {
+    const reason = data.promptFeedback?.blockReason || 'unknown'
+    throw new Error(`No candidate from Gemini (blocked: ${reason})`)
+  }
 
   const part = candidate.content?.parts?.[0]
   if (!part) return { reply: '', toolCalls: null }
@@ -154,10 +155,11 @@ export default async function handler(req, res) {
         const result = await callGrok(messages, knowledge)
         return res.status(200).json(result)
       } catch (grokError) {
-        console.error('Both Gemini and Grok failed:', grokError.message)
+        console.error('Both AI providers failed. Gemini:', geminiError.message, '| Grok:', grokError.message)
         return res.status(200).json({
           reply: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
           toolCalls: null,
+          _debug: `Gemini: ${geminiError.message} | Grok: ${grokError.message}`,
         })
       }
     }
@@ -166,6 +168,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
       reply: "I'm sorry, I'm having trouble connecting right now. Please try again later.",
       toolCalls: null,
+      _debug: `Handler error: ${err.message}`,
     })
   }
 }
