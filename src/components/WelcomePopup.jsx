@@ -1,12 +1,13 @@
-import { useState, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { sitemap } from '../content/sitemap.js'
 import { announcements } from '../content/announcements.js'
 
 const LS_KEY = 'portfolio_welcome_last_shown'
+const SS_KEY = 'portfolio_welcome_greeting'
 const ONE_DAY_MS = 86400000
 
-const greeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. Feel free to explore!"
+const staticGreeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. Feel free to explore!"
 
 function shouldShow() {
   const stored = localStorage.getItem(LS_KEY)
@@ -15,8 +16,66 @@ function shouldShow() {
   return elapsed > ONE_DAY_MS
 }
 
+function getCachedGreeting() {
+  try {
+    const cached = sessionStorage.getItem(SS_KEY)
+    if (!cached) return null
+    const { greeting, date } = JSON.parse(cached)
+    const today = new Date().toISOString().split('T')[0]
+    if (date === today) return greeting
+  } catch {
+    return null
+  }
+}
+
+function setCachedGreeting(greeting) {
+  try {
+    const today = new Date().toISOString().split('T')[0]
+    sessionStorage.setItem(SS_KEY, JSON.stringify({ greeting, date: today }))
+  } catch {
+    // sessionStorage not available
+  }
+}
+
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(() => shouldShow())
+  const cachedGreeting = useState(() => getCachedGreeting())[0]
+  const [greeting, setGreeting] = useState(cachedGreeting)
+  const [loading, setLoading] = useState(!cachedGreeting)
+  const fetchedRef = useRef(false)
+
+  useEffect(() => {
+    if (!visible || greeting || fetchedRef.current) return
+    fetchedRef.current = true
+
+    let cancelled = false
+    const controller = new AbortController()
+
+    fetch('/api/greeting', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ announcements }),
+      signal: controller.signal,
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (cancelled) return
+        const msg = data.greeting || staticGreeting
+        setGreeting(msg)
+        setCachedGreeting(msg)
+      })
+      .catch(() => {
+        if (!cancelled) setGreeting(staticGreeting)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
+  }, [visible, greeting])
 
   const handleClose = useCallback(() => {
     localStorage.setItem(LS_KEY, String(Date.now()))
@@ -106,9 +165,33 @@ export default function WelcomePopup() {
                   marginBottom: '12px',
                 }}
               />
-              <p style={{ color: '#f5f5ff', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
-                {greeting}
-              </p>
+              {loading ? (
+                <div>
+                  <div
+                    style={{
+                      height: '16px',
+                      width: '80%',
+                      background: 'rgba(138, 92, 255, 0.15)',
+                      borderRadius: '8px',
+                      marginBottom: '8px',
+                      animation: 'welcomeShimmer 1.5s infinite',
+                    }}
+                  />
+                  <div
+                    style={{
+                      height: '16px',
+                      width: '60%',
+                      background: 'rgba(138, 92, 255, 0.15)',
+                      borderRadius: '8px',
+                      animation: 'welcomeShimmer 1.5s infinite 0.3s',
+                    }}
+                  />
+                </div>
+              ) : (
+                <p style={{ color: '#f5f5ff', fontSize: '0.95rem', lineHeight: 1.7, margin: 0 }}>
+                  {greeting}
+                </p>
+              )}
             </div>
 
             {/* Site index */}
@@ -211,6 +294,11 @@ export default function WelcomePopup() {
             )}
 
             <style>{`
+              @keyframes welcomeShimmer {
+                0% { opacity: 0.4; }
+                50% { opacity: 0.8; }
+                100% { opacity: 0.4; }
+              }
               .welcome-modal::-webkit-scrollbar { width: 4px; }
               .welcome-modal::-webkit-scrollbar-track { background: transparent; }
               .welcome-modal::-webkit-scrollbar-thumb { background: rgba(138, 92, 255, 0.3); border-radius: 2px; }
