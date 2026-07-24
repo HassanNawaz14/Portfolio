@@ -1,92 +1,59 @@
-# Mobile/Desktop Code Separation Plan
+# Portfolio AI Assistant — Implementation Plan
 
-## Goal
-Make the portfolio website mobile-compatible by creating parallel mobile versions of all files, keeping original desktop files untouched, with a toggle button to switch between modes.
+## Phase 1 — Content Layer (single source of truth)
 
----
+**Create:** `src/content/types.ts`, `sitemap.ts`, `projects.ts`, `experience.ts`, `skills.ts`, `announcements.ts`
 
-## 1. Mirror Directory Structure
+**Modify:** `src/components/Projects.jsx`, `Experience.jsx`, `Skills.jsx` — replace inline data with imports from `src/content/`
 
-Create `src/mobile/` that mirrors the current `src/` structure:
+**Modify:** `src/mobile/components/Projects.jsx`, `Experience.jsx`, `Skills.jsx` — same treatment, importing from the same content modules
 
-```
-src/
-├── components/          (DESKTOP - untouched)
-├── pages/               (DESKTOP - untouched)
-├── assets/              (shared - reused by both)
-├── App.jsx              │
-├── App.css              ├── (DESKTOP - untouched)
-├── index.css            │
-├── main.jsx             │
-│
-├── context/
-│   └── ModeContext.jsx  (NEW)
-│
-└── mobile/
-    ├── components/      (copies of all 14 components → adapted for mobile)
-    ├── pages/           (copies of all 5 pages → adapted for mobile)
-    ├── App.jsx          (mobile routing – adapted)
-    ├── App.css          (mobile styles – rewritten)
-    └── index.css        (mobile global styles – rewritten)
-```
+## Phase 2 — Knowledge Base Compiler
 
-## 2. Mode Switching (`src/context/ModeContext.jsx`)
+**Create:** `src/lib/buildPortfolioKnowledge.ts` — pure function that flattens all Phase 1 content into a markdown string for the system prompt. Called at request time inside the serverless function.
 
-- **React Context** providing `mode` (`'desktop'` | `'mobile'`) and `setMode`
-- Persisted in `localStorage` so preference survives refreshes
-- Adds class `mode-desktop` or `mode-mobile` to `<body>` for CSS namespacing
-- Exports `ModeProvider` wrapper and `useMode` hook
+## Phase 3 — Vercel Serverless Functions
 
-## 3. Minimal Modifications to Original Files
+**Create:** `api/chat.js` (POST) — Gemini → Grok fallback with `navigate_to` tool calling, reads keys from env
 
-Only two files change in the original codebase:
+**Create:** `api/greeting.js` (POST) — small prompt with announcements + date, same fallback
 
-| File | Change |
-|------|--------|
-| `src/main.jsx` | Wrap `<App />` with `<ModeProvider>` |
-| `src/App.jsx` | Use `React.lazy()` to dynamically load desktop or mobile component trees based on mode + render floating toggle button |
+**Modify:** `vercel.json` — adjust rewrites so `/api/*` routes aren't caught by the catch-all
 
-No other original file is touched.
+**Install:** `@google/generative-ai` npm package
 
-## 4. Lazy Loading (in modified `src/App.jsx`)
+**Client-side guard:** Session message cap (50), request size limit, graceful fallback
 
-```jsx
-const DesktopHome = lazy(() => import('./pages/Home'))
-const MobileHome  = lazy(() => import('./mobile/pages/Home'))
-// ... same for all 5 pages and 14 components
-```
+## Phase 4 — Chat Widget (both desktop & mobile)
 
-Active mode determines which set of imports renders. Switching modes cleanly unmounts one tree and mounts the other.
+**Create:** `src/components/ChatWidget.jsx` — floating button → expandable panel, calls `/api/chat`, renders inline nav buttons for `navigate_to` actions
 
-## 5. CSS Strategy
+**Create:** `src/mobile/components/ChatWidget.jsx` — same logic, mobile-styled
 
-- **Desktop CSS** stays as-is (global selectors) — always imported
-- **Mobile CSS** selectors prefixed with `.mode-mobile` (e.g., `.mode-mobile .hero`)
-- Body class changes with mode, so mobile styles only apply when `.mode-mobile` is active
-- Both CSS files imported globally — no conflict because mobile rules are scoped
+**Modify:** `src/components/Layout.jsx` — render ChatWidget site-wide
 
-## 6. Toggle Button
+**Modify:** `src/mobile/components/Layout.jsx` — same
 
-- Small floating button (bottom-right, matching site's glass aesthetic)
-- Icon: `fa-mobile-screen-button` / `fa-desktop` (FontAwesome)
-- Toggles mode → updates localStorage → body class changes → lazy components re-render
-- Animated with Framer Motion
+## Phase 5 — Welcome Popup (both desktop & mobile)
 
-## 7. Workflow Per Section
+**Create:** `src/components/WelcomePopup.jsx` — `localStorage`-gated (once/day), static shell from `sitemap.ts` + `announcements.ts`, dynamic greeting from `/api/greeting` with `sessionStorage` cache + shimmer skeleton
 
-For each section (Hero, About, Skills, Experience, Contact, etc.):
+**Create:** `src/mobile/components/WelcomePopup.jsx` — mobile-styled variant
 
-1. Copy the `.jsx` file to `src/mobile/components/`
-2. Rewrite JSX for mobile layout (stack vertically, smaller, touch-friendly)
-3. Copy relevant CSS to `src/mobile/index.css` / `src/mobile/App.css`
-4. Prefix selectors with `.mode-mobile`
-5. Redesign as needed — desktop version remains pristine
+**Modify:** `src/components/Layout.jsx` + `src/mobile/components/Layout.jsx` — render WelcomePopup
 
-## Key Advantages
+## Key Decisions
 
-- ✅ Zero modification to existing desktop code (except `main.jsx` + `App.jsx`)
-- ✅ Desktop continues to work exactly as before
-- ✅ Mobile versions evolve independently, file-by-file
-- ✅ Clean separation — easy to reason about and debug
-- ✅ Shared assets (images, PDFs) reused, not duplicated
-- ✅ Mode persists across sessions via localStorage
+- **Animation:** Framer Motion throughout (consistent with existing codebase — GSAP/react-spring mentions in spec adapted to match current setup)
+- **API routes:** Plain `.js` files (no build step needed on Vercel)
+- **Platform:** Both desktop and mobile get Chat Widget + Welcome Popup
+- **No old AI calls to remove** — building AI calling from scratch
+
+## Acceptance Checklist
+
+- [ ] No Gemini/Grok API keys in the client bundle (`dist/`)
+- [ ] Editing `content/projects.ts` changes both the rendered project page and the AI's answers
+- [ ] Adding an entry to `content/announcements.ts` changes both the popup's static list and the AI greeting
+- [ ] Chat widget correctly answers "where can I find X" and offers a working navigation action
+- [ ] Popup shows on first visit, doesn't re-trigger more than once/day, and degrades gracefully with a static fallback
+- [ ] Existing page visuals/animations are unchanged

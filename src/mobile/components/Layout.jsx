@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import Footer from './Footer';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocation } from 'react-router-dom';
+import ChatWidget from './ChatWidget';
+import WelcomePopup from './WelcomePopup';
 
 const Layout = ({ children }) => {
   const { pathname } = useLocation();
@@ -46,6 +48,9 @@ const Layout = ({ children }) => {
       </main>
 
       <Footer />
+
+      <ChatWidget />
+      <WelcomePopup />
 
       <div className="scroll-progress" aria-hidden="true">
         <div style={{ width: `${scrollProgress}%` }} />
