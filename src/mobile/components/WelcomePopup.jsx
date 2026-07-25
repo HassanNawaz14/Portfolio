@@ -7,7 +7,7 @@ const LS_KEY = 'portfolio_welcome_last_shown'
 const SS_KEY = 'portfolio_welcome_greeting'
 const ONE_DAY_MS = 86400000
 
-const staticGreeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. Feel free to explore!"
+const staticGreeting = "Welcome to Hassan Nawaz's portfolio — where data science meets creative engineering. This space is built with AI at its core, featuring a smart chat assistant that knows every project, skill, and page. Feel free to explore, ask questions, and see how modern web technologies come together to create something unique."
 
 function shouldShow() {
   const stored = localStorage.getItem(LS_KEY)
@@ -40,36 +40,34 @@ function setCachedGreeting(greeting) {
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(() => shouldShow())
   const cachedGreeting = useState(() => getCachedGreeting())[0]
-  const [greeting, setGreeting] = useState(cachedGreeting)
-  const [loading, setLoading] = useState(!cachedGreeting)
+  const [greeting, setGreeting] = useState(cachedGreeting || staticGreeting)
+  const [loading, setLoading] = useState(false)
   const fetchedRef = useRef(false)
 
   useEffect(() => {
     if (!visible || greeting || fetchedRef.current) return
     fetchedRef.current = true
 
-    let cancelled = false
-
-    fetch('/api/greeting', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ announcements }),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (cancelled) return
-        const msg = data.greeting || staticGreeting
-        setGreeting(msg)
-        setCachedGreeting(msg)
-      })
-      .catch(() => {
-        if (!cancelled) setGreeting(staticGreeting)
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false)
-      })
-
-    return () => { cancelled = true }
+    // fetch('/api/greeting', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ announcements }),
+    // })
+    //   .then((r) => r.json())
+    //   .then((data) => {
+    //     if (cancelled) return
+    //     const msg = data.greeting || staticGreeting
+    //     setGreeting(msg)
+    //     setCachedGreeting(msg)
+    //   })
+    //   .catch(() => {
+    //     if (!cancelled) setGreeting(staticGreeting)
+    //   })
+    //   .finally(() => {
+    //     if (!cancelled) setLoading(false)
+    //   })
+    //
+    // return () => { cancelled = true }
   }, [visible, greeting])
 
   const handleClose = useCallback(() => {
@@ -149,31 +147,240 @@ export default function WelcomePopup() {
             <div style={{ marginBottom: '20px' }}>
               <div
                 style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '50%',
-                  background: '#37d8ff',
-                  boxShadow: '0 0 10px rgba(55, 216, 255, 0.6)',
-                  marginBottom: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  marginBottom: '4px',
                 }}
-              />
+              >
+                <div
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    background: '#37d8ff',
+                    boxShadow: '0 0 8px rgba(55, 216, 255, 0.6)',
+                  }}
+                />
+                <span
+                  style={{
+                    fontSize: '0.6rem',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.25em',
+                    color: '#8a5cff',
+                    fontWeight: 700,
+                  }}
+                >
+                  Welcome
+                </span>
+              </div>
+              <h1
+                style={{
+                  fontSize: '1.2rem',
+                  fontWeight: 800,
+                  color: '#f5f5ff',
+                  margin: 0,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.3,
+                }}
+              >
+                Hassan Nawaz<span style={{ color: '#37d8ff' }}>'</span>s Portfolio
+              </h1>
+              <p style={{ color: '#a1a1c2', fontSize: '0.72rem', margin: '3px 0 0', lineHeight: 1.5 }}>
+                AI-powered portfolio with a smart assistant — explore, learn, and connect effortlessly.
+              </p>
+            </div>
+
+            <div style={{
+              marginBottom: '20px',
+              padding: '18px',
+              borderRadius: '14px',
+              background: 'rgba(138, 92, 255, 0.06)',
+              border: '1px solid rgba(138, 92, 255, 0.18)',
+              position: 'relative',
+              overflow: 'hidden',
+            }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  fontSize: '0.58rem',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.18em',
+                  color: '#8a5cff',
+                  fontWeight: 700,
+                  marginBottom: '10px',
+                }}
+              >
+                <i className="fa-solid fa-wand-magic-sparkles" style={{ fontSize: '0.6rem' }} />
+                AI Generated
+              </div>
               {loading ? (
-                <div>
-                  <div style={{ height: '14px', width: '80%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', marginBottom: '6px', animation: 'mwelcomeShimmer 1.5s infinite' }} />
-                  <div style={{ height: '14px', width: '60%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', animation: 'mwelcomeShimmer 1.5s infinite 0.3s' }} />
+                <div style={{ marginBottom: '12px' }}>
+                  <div style={{ height: '12px', width: '80%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', marginBottom: '6px', animation: 'mwelcomeShimmer 1.5s infinite' }} />
+                  <div style={{ height: '12px', width: '60%', background: 'rgba(138, 92, 255, 0.15)', borderRadius: '8px', animation: 'mwelcomeShimmer 1.5s infinite 0.3s' }} />
                 </div>
               ) : (
-                <p style={{ color: '#f5f5ff', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ color: '#e0e0f0', fontSize: '0.82rem', lineHeight: 1.7, margin: 0, marginBottom: '14px' }}>
                   {greeting}
                 </p>
               )}
+              <div style={{ display: 'flex', gap: '6px' }}>
+                {[
+                  { icon: 'fa-brain', label: 'AI-Powered', desc: 'Gemini & Grok APIs' },
+                  { icon: 'fa-robot', label: 'Assistant', desc: 'Chat knows every page' },
+                  { icon: 'fa-bolt', label: 'Modern Stack', desc: 'React + Vite + Motion' },
+                ].map((f) => (
+                  <div
+                    key={f.label}
+                    style={{
+                      flex: 1,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '3px',
+                      padding: '6px 4px',
+                      borderRadius: '8px',
+                      background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(138, 92, 255, 0.1)',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: '22px',
+                        height: '22px',
+                        borderRadius: '6px',
+                        background: 'rgba(55, 216, 255, 0.12)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#37d8ff',
+                        fontSize: '0.6rem',
+                      }}
+                    >
+                      <i className={`fa-solid ${f.icon}`} />
+                    </div>
+                    <div style={{ fontWeight: 600, fontSize: '0.6rem', color: '#f5f5ff', lineHeight: 1.1 }}>{f.label}</div>
+                    <div style={{ fontSize: '0.52rem', color: '#a1a1c2', lineHeight: 1.2 }}>{f.desc}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
+            {announcements.length > 0 && (
+              <div style={{ marginBottom: '20px' }}>
+                <h3 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8a5cff', marginBottom: '2px', fontWeight: 600 }}>
+                  Announcements
+                </h3>
+                <p style={{ color: '#a1a1c2', fontSize: '0.68rem', margin: '0 0 10px', lineHeight: 1.4 }}>
+                  Latest updates on what I'm building, learning, and shipping.
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  {announcements.map((a) => {
+                    const accentMap = { cyan: '#37d8ff', violet: '#8a5cff', pink: '#f056c4', green: '#00ff88' }
+                    const accent = accentMap[a.color || 'cyan']
+                    return (
+                      <div
+                        key={a.id}
+                        style={{
+                          display: 'flex',
+                          gap: '10px',
+                          padding: '10px 12px',
+                          borderRadius: '10px',
+                          background: `rgba(55, 216, 255, 0.03)`,
+                          border: `1px solid ${accent}22`,
+                          borderLeft: `3px solid ${accent}`,
+                          fontSize: '0.8rem',
+                          color: '#f5f5ff',
+                          transition: 'all 0.2s',
+                          position: 'relative',
+                          overflow: 'hidden',
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = `${accent}0d`; e.currentTarget.style.borderColor = `${accent}44` }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(55, 216, 255, 0.03)'; e.currentTarget.style.borderColor = `${accent}22` }}
+                      >
+                        <div
+                          style={{
+                            width: '28px',
+                            height: '28px',
+                            minWidth: '28px',
+                            borderRadius: '7px',
+                            background: `${accent}15`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: accent,
+                            fontSize: '0.8rem',
+                          }}
+                        >
+                          <i className={`fa-solid ${a.icon || 'fa-bullhorn'}`} />
+                        </div>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '3px', flexWrap: 'wrap' }}>
+                            <span style={{ color: accent, fontWeight: 600, fontSize: '0.72rem', whiteSpace: 'nowrap' }}>
+                              {a.date}
+                            </span>
+                            {a.label && (
+                              <span
+                                style={{
+                                  fontSize: '0.58rem',
+                                  fontWeight: 700,
+                                  textTransform: 'uppercase',
+                                  letterSpacing: '0.08em',
+                                  padding: '1px 6px',
+                                  borderRadius: '99px',
+                                  background: `${accent}20`,
+                                  color: accent,
+                                  border: `1px solid ${accent}30`,
+                                }}
+                              >
+                                {a.label}
+                              </span>
+                            )}
+                          </div>
+                          <span style={{ color: '#e0e0f0' }}>{a.text}</span>
+                          {a.link && (
+                            <a
+                              href={a.link}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'center',
+                                gap: '4px',
+                                padding: '3px 10px',
+                                borderRadius: '99px',
+                                background: `${accent}15`,
+                                color: accent,
+                                border: `1px solid ${accent}30`,
+                                fontWeight: 600,
+                                fontSize: '0.65rem',
+                                textDecoration: 'none',
+                                transition: 'all 0.2s',
+                                cursor: 'pointer',
+                                marginTop: '6px',
+                              }}
+                              onMouseEnter={(e) => { e.currentTarget.style.background = `${accent}30`; e.currentTarget.style.borderColor = `${accent}60` }}
+                              onMouseLeave={(e) => { e.currentTarget.style.background = `${accent}15`; e.currentTarget.style.borderColor = `${accent}30` }}
+                            >
+                              Learn more <i className="fa-solid fa-arrow-right" style={{ fontSize: '0.55rem' }} />
+                            </a>
+                          )}
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
             <div style={{ marginBottom: '20px' }}>
-              <h3 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8a5cff', marginBottom: '12px', fontWeight: 600 }}>
+              <h3 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8a5cff', marginBottom: '10px', fontWeight: 600 }}>
                 Explore
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
                 {sitemap.map((entry) => (
                   <a
                     key={entry.route}
@@ -186,58 +393,24 @@ export default function WelcomePopup() {
                     style={{
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '10px',
-                      padding: '8px 12px',
-                      borderRadius: '8px',
+                      gap: '6px',
+                      padding: '7px 12px',
+                      borderRadius: '99px',
                       background: 'rgba(255,255,255,0.03)',
                       border: '1px solid rgba(138, 92, 255, 0.1)',
                       color: '#f5f5ff',
                       textDecoration: 'none',
-                      fontSize: '0.85rem',
+                      fontSize: '0.78rem',
+                      fontWeight: 500,
+                      transition: 'all 0.2s',
                     }}
                   >
-                    <i className={`fa-solid ${entry.icon}`} style={{ color: '#37d8ff', width: '18px', textAlign: 'center' }} />
-                    <div>
-                      <div style={{ fontWeight: 600, fontSize: '0.85rem' }}>{entry.title}</div>
-                      <div style={{ color: '#a1a1c2', fontSize: '0.75rem' }}>
-                        {entry.sections.map((s) => s.title).join(' · ')}
-                      </div>
-                    </div>
+                    <i className={`fa-solid ${entry.icon}`} style={{ color: '#37d8ff', fontSize: '0.7rem' }} />
+                    {entry.title}
                   </a>
                 ))}
               </div>
             </div>
-
-            {announcements.length > 0 && (
-              <div>
-                <h3 style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#8a5cff', marginBottom: '10px', fontWeight: 600 }}>
-                  Announcements
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  {announcements.map((a) => (
-                    <div
-                      key={a.id}
-                      style={{
-                        padding: '8px 12px',
-                        borderRadius: '8px',
-                        background: 'rgba(55, 216, 255, 0.04)',
-                        border: '1px solid rgba(55, 216, 255, 0.1)',
-                        fontSize: '0.82rem',
-                        color: '#f5f5ff',
-                      }}
-                    >
-                      <span style={{ color: '#37d8ff', fontWeight: 600, marginRight: '6px' }}>{a.date}</span>
-                      {a.text}
-                      {a.link && (
-                        <a href={a.link} target="_blank" rel="noreferrer" style={{ color: '#37d8ff', marginLeft: '4px', textDecoration: 'underline' }}>
-                          Learn more
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
             <style>{`
               @keyframes mwelcomeShimmer {

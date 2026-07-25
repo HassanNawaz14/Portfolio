@@ -60,4 +60,7 @@ export interface Announcement {
   date: string
   text: string
   link?: string
+  label?: string
+  icon?: string
+  color?: 'cyan' | 'violet' | 'pink' | 'green'
 }
