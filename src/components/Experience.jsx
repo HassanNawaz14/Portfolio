@@ -36,7 +36,13 @@ const Experience = () => {
                   highlights={item.highlights || []}
                 />
                 {showArrow && (
-                  <svg className={`exp-arrow ${isLeft ? 'arrow-left' : 'arrow-right'}`} viewBox="0 0 320 250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMin meet">
+                  <svg
+                    className={`exp-arrow ${isLeft ? 'arrow-left' : 'arrow-right'}`}
+                    viewBox="0 0 320 250"
+                    xmlns="http://www.w3.org/2000/svg"
+                    preserveAspectRatio="xMidYMin meet"
+                    style={{ width: 'min(280px, 32vw)', height: '140px', maxWidth: '100%', display: 'block' }}
+                  >
                     <defs>
                       <linearGradient id={`ag-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
                         <stop offset="0%" stopColor="#c084fc" />

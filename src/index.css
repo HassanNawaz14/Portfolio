@@ -4402,3 +4402,86 @@ section { padding: 8rem 0; position: relative; z-index: 2; }
   .sectors-grid-compact { grid-template-columns: 1fr; }
   .sectors-hub { max-width: 100%; }
 }
+
+/* ─── Experience Section ─── */
+.experience-section {
+  padding: 6rem 0;
+  background: radial-gradient(circle at 100% 0%, rgba(138, 92, 255, 0.04), transparent 50%);
+}
+
+.experience-zigzag {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.experience-zigzag-item {
+  display: flex;
+  width: 100%;
+}
+
+.experience-zigzag-item.left {
+  justify-content: flex-start;
+  padding-left: 5%;
+}
+
+.experience-zigzag-item.right {
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+
+.experience-zigzag-item {
+  position: relative;
+}
+
+.exp-arrow {
+  position: absolute;
+  width: min(280px, 32vw);
+  height: 140px;
+  max-width: 100%;
+  top: 100%;
+  pointer-events: none;
+  z-index: 5;
+  display: block;
+  overflow: visible;
+}
+
+.experience-zigzag-item.left .exp-arrow {
+  left: calc(5% + 280px);
+}
+
+.experience-zigzag-item.right .exp-arrow {
+  right: calc(5% + 280px);
+}
+
+@media (max-width: 850px) {
+  .exp-arrow {
+    display: none;
+  }
+}
+
+@keyframes exp-card-spin {
+  to { transform: rotate(360deg); }
+}
+
+.exp-card-spinner {
+  animation: exp-card-spin 12s linear infinite;
+}
+
+.exp-card-btn {
+  transition: all 0.3s ease;
+}
+
+.exp-card-btn:hover {
+  background: rgba(249, 250, 251, 0.3) !important;
+}
+
+@media (max-width: 850px) {
+  .experience-zigzag-item.left,
+  .experience-zigzag-item.right {
+    justify-content: center;
+    padding: 0;
+  }
+}
