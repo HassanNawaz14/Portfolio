@@ -99,7 +99,8 @@ const Footer = () => {
               </ul>
               <ul>
                 <li><Link to="/projects">Projects</Link></li>
-                <li><Link to="/" onClick={() => scrollToSection('experience')}>Education</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('experience')}>Experience</Link></li>
+                <li><Link to="/" onClick={() => scrollToSection('education')}>Education</Link></li>
                 <li><Link to="/profiles">Profiles</Link></li>
                 <li><Link to="/" onClick={() => scrollToSection('contact')}>Contact</Link></li>
               </ul>

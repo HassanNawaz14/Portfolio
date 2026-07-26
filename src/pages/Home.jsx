@@ -5,7 +5,9 @@ import NavigationStrip from '../components/NavigationStrip';
 import SectorHeader from '../components/SectorHeader';
 import About from '../components/About';
 import Skills from '../components/Skills';
+import Education from '../components/Education';
 import Experience from '../components/Experience';
+import Courses from '../components/Courses';
 import Contact from '../components/Contact';
 import profilePic from '../assets/ProfilePic.jpeg';
 
@@ -33,7 +35,7 @@ const Home = () => {
   });
 
   const sections = useMemo(
-    () => ['home', 'about', 'nav-strip', 'skills', 'experience', 'contact'],
+    () => ['home', 'about', 'nav-strip', 'skills', 'experience', 'education', 'courses', 'contact'],
     []
   );
 
@@ -43,7 +45,9 @@ const Home = () => {
       { id: 'about', label: 'About', icon: 'fa-user-astronaut' },
       { id: 'nav-strip', label: 'Sectors', icon: 'fa-compass' },
       { id: 'skills', label: 'Arsenal', icon: 'fa-bolt' },
-      { id: 'experience', label: 'Journey', icon: 'fa-graduation-cap' },
+      { id: 'experience', label: 'Work', icon: 'fa-briefcase' },
+      { id: 'education', label: 'Journey', icon: 'fa-graduation-cap' },
+      { id: 'courses', label: 'Courses', icon: 'fa-book-open' },
       { id: 'contact', label: 'Contact', icon: 'fa-paper-plane' }
     ],
     []
@@ -175,6 +179,8 @@ const Home = () => {
       <NavigationStrip containerRef={navStripRef} morphProgress={smoothMorphProgress} />
       <Skills />
       <Experience />
+      <Education />
+      <Courses />
       <Contact />
 
       <nav className={`floating-dock ${showDockCompact ? 'dock-compact' : ''}`}>

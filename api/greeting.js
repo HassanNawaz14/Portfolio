@@ -9,7 +9,7 @@ function buildGreetingPrompt(items) {
     'Below are the current announcements for the portfolio:',
     ...items.map((a) => `- ${a.date}: ${a.text}${a.link ? ` (${a.link})` : ''}`),
     '',
-    'Write a warm, welcoming greeting of 2-3 sentences that introduces Hassan Nawaz and references the most relevant announcement above.',
+    'Write a warm, welcoming greeting of 1-2 sentences that introduces Hassan Nawaz and references the announcements above.',
     'Keep it concise, friendly, and professional. Do not use markdown — just plain text.',
   ].join('\n')
 }
@@ -20,7 +20,7 @@ async function callGemini(prompt) {
 
   const body = {
     contents: [{ role: 'user', parts: [{ text: prompt }] }],
-    generationConfig: { temperature: 0.8, maxOutputTokens: 200 },
+    generationConfig: { temperature: 0.8, maxOutputTokens: 120 },
   }
 
   const res = await fetch(
@@ -50,7 +50,7 @@ async function callGroq(prompt) {
         model,
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.8,
-        max_tokens: 200,
+        max_tokens: 120,
       }
 
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {

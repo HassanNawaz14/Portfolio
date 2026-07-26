@@ -1,5 +1,6 @@
 import { sitemap } from '../content/sitemap.js'
 import { projects } from '../content/projects.js'
+import { education } from '../content/education.js'
 import { experience } from '../content/experience.js'
 import { skillCategories } from '../content/skills.js'
 import { announcements } from '../content/announcements.js'
@@ -42,6 +43,19 @@ export function buildPortfolioKnowledge() {
 
   lines.push('## Experience')
   for (const e of experience) {
+    lines.push(`- **${e.role}** @ ${e.company} (${e.duration})`)
+    lines.push(`  ${e.description}`)
+    if (e.technologies?.length) {
+      lines.push(`  Tech: ${e.technologies.join(', ')}`)
+    }
+    if (e.achievements?.length) {
+      lines.push(`  Achievements: ${e.achievements.map((a) => a.label).join(', ')}`)
+    }
+  }
+  lines.push('')
+
+  lines.push('## Education')
+  for (const e of education) {
     lines.push(`- **${e.degree}** @ ${e.institution} (${e.date})`)
     lines.push(`  ${e.desc}`)
     if (e.achievements?.length) {

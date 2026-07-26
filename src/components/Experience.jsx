@@ -41,7 +41,7 @@ const Experience = () => {
                     viewBox="0 0 320 250"
                     xmlns="http://www.w3.org/2000/svg"
                     preserveAspectRatio="xMidYMin meet"
-                    style={{ width: 'min(280px, 32vw)', height: '140px', maxWidth: '100%', display: 'block' }}
+                    style={{ width: 'min(440px, 48vw)', height: '200px', maxWidth: '100%', display: 'block' }}
                   >
                     <defs>
                       <linearGradient id={`ag-${i}`} x1="0%" y1="0%" x2="100%" y2="0%">
@@ -49,33 +49,26 @@ const Experience = () => {
                         <stop offset="100%" stopColor="#6366f1" />
                       </linearGradient>
                       <filter id={`af-${i}`}>
-                        <feGaussianBlur stdDeviation="3" result="blur" />
-                        <feMerge>
-                          <feMergeNode in="blur" />
-                          <feMergeNode in="SourceGraphic" />
-                        </feMerge>
+                        <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#a78bfa" floodOpacity="0.6" />
                       </filter>
                     </defs>
                     <path
-                      d={isLeft ? 'M 30,0 L 30,193 A 15 15 0 0 1 45,208 L 310,208' : 'M 290,0 L 290,193 A 15 15 0 0 1 275,208 L 10,208'}
+                      d={isLeft ? 'M 30,10 C 30,80 220,195 315,195' : 'M 290,10 C 290,80 100,195 5,195'}
                       stroke={`url(#ag-${i})`}
-                      strokeWidth="5"
+                      strokeWidth="6"
                       fill="none"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       filter={`url(#af-${i})`}
                     />
                     <path
-                      d={isLeft ? 'M 297,195 L 310,208 L 297,221' : 'M 23,195 L 10,208 L 23,221'}
-                      stroke={`url(#ag-${i})`}
-                      strokeWidth="4"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
+                      d={isLeft ? 'M 288,172 L 315,195 L 288,218 Z' : 'M 32,172 L 5,195 L 32,218 Z'}
+                      fill={`url(#ag-${i})`}
+                      stroke="none"
                       filter={`url(#af-${i})`}
                     />
-                    <circle cx={isLeft ? 30 : 290} cy="0" r="4" fill="#c084fc" opacity="0.8" />
-                    <circle cx={isLeft ? 300 : 20} cy="208" r="3" fill="#6366f1" opacity="0.5" />
+                    <circle cx={isLeft ? 30 : 290} cy="10" r="6" fill="#c084fc" opacity="0.9" />
+                    <circle cx={isLeft ? 305 : 15} cy="195" r="6" fill="#6366f1" opacity="0.8" />
                   </svg>
                 )}
               </motion.div>

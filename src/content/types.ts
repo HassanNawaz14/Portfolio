@@ -30,7 +30,19 @@ export interface Achievement {
   color: string
 }
 
-export interface Experience {
+export interface WorkExperience {
+  id: string
+  role: string
+  company: string
+  location: string
+  duration: string
+  description: string
+  technologies: string[]
+  achievements?: Achievement[]
+  color?: string
+}
+
+export interface Education {
   date: string
   degree: string
   institution: string
@@ -53,6 +65,34 @@ export interface SkillCategory {
   icon: string
   description: string
   skills: SkillItem[]
+}
+
+export interface Certification {
+  id: string
+  title: string
+  issuer: string
+  tag: string
+  category: string
+  date: string
+  url?: string
+  credentialId?: string
+  credentialUrl?: string
+  color?: string
+}
+
+export interface CourseItem {
+  title: string
+  category: string
+}
+
+export interface CourseGroup {
+  id: string
+  issuer: string
+  tag: string
+  category: string
+  date: string
+  courses: CourseItem[]
+  color?: string
 }
 
 export interface Announcement {

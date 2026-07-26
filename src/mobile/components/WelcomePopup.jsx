@@ -40,34 +40,42 @@ function setCachedGreeting(greeting) {
 export default function WelcomePopup() {
   const [visible, setVisible] = useState(() => shouldShow())
   const cachedGreeting = useState(() => getCachedGreeting())[0]
-  const [greeting, setGreeting] = useState(cachedGreeting || staticGreeting)
+  const [greeting, setGreeting] = useState(cachedGreeting || null)
   const [loading, setLoading] = useState(false)
   const fetchedRef = useRef(false)
 
   useEffect(() => {
     if (!visible || greeting || fetchedRef.current) return
     fetchedRef.current = true
+    setLoading(true)
 
-    // fetch('/api/greeting', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ announcements }),
-    // })
-    //   .then((r) => r.json())
-    //   .then((data) => {
-    //     if (cancelled) return
-    //     const msg = data.greeting || staticGreeting
-    //     setGreeting(msg)
-    //     setCachedGreeting(msg)
-    //   })
-    //   .catch(() => {
-    //     if (!cancelled) setGreeting(staticGreeting)
-    //   })
-    //   .finally(() => {
-    //     if (!cancelled) setLoading(false)
-    //   })
-    //
-    // return () => { cancelled = true }
+    let cancelled = false
+    const controller = new AbortController()
+
+    fetch('/api/greeting', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ announcements }),
+      signal: controller.signal,
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (cancelled) return
+        const msg = data.greeting || staticGreeting
+        setGreeting(msg)
+        setCachedGreeting(msg)
+      })
+      .catch(() => {
+        if (!cancelled) setGreeting(staticGreeting)
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false)
+      })
+
+    return () => {
+      cancelled = true
+      controller.abort()
+    }
   }, [visible, greeting])
 
   const handleClose = useCallback(() => {
@@ -223,7 +231,7 @@ export default function WelcomePopup() {
                 </div>
               ) : (
                 <p style={{ color: '#e0e0f0', fontSize: '0.82rem', lineHeight: 1.7, margin: 0, marginBottom: '14px' }}>
-                  {greeting}
+                  {greeting || staticGreeting}
                 </p>
               )}
               <div style={{ display: 'flex', gap: '6px' }}>

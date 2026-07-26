@@ -20,7 +20,8 @@ export default function ChatWidget() {
 
   const sectionLabels = {
     home: 'my work', about: 'who I am', 'nav-strip': 'where to go',
-    skills: 'my toolkit', experience: 'my journey', contact: 'how to reach me',
+    skills: 'my toolkit', education: 'my journey', experience: 'my career',
+    courses: 'my courses', contact: 'how to reach me',
     startup: 'QuickSite', 'currently-building': 'what I\'m building',
     'featured-projects': 'my best work', projects: 'all my projects',
     profiles: 'my network',
@@ -30,20 +31,20 @@ export default function ChatWidget() {
     '/building': 'Lab Access', '/projects': 'the archives', '/profiles': 'my network',
   }
 
+  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
+
   useEffect(() => {
     const handleScroll = () => {
-      const ids = Object.keys(sectionLabels)
-      for (const id of ids) {
+      for (const id of sectionOrder) {
         const el = document.getElementById(id)
         if (el) {
           const rect = el.getBoundingClientRect()
-          if (rect.top <= window.innerHeight * 0.4 && rect.bottom >= 0) {
+          if (rect.top >= 0 && rect.top <= window.innerHeight * 0.4) {
             setCurrentSection(id)
             return
           }
         }
       }
-      setCurrentSection('')
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -69,7 +70,9 @@ export default function ChatWidget() {
       about: { left: vw - gw - m, bottom: m },
       'nav-strip': { left: m, bottom: vh / 2 - gh / 2 },
       skills: { left: vw - gw - m, bottom: vh / 2 - gh / 2 },
+      education: { left: vw - gw - m, bottom: m },
       experience: { left: m, bottom: m },
+      courses: { left: vw - gw - m, bottom: vh / 2 - gh / 2 },
       contact: { left: vw - gw - m, bottom: m },
     }
 
@@ -100,7 +103,9 @@ export default function ChatWidget() {
         about: { left: vw - rect.width - m, bottom: m },
         'nav-strip': { left: m, bottom: vh / 2 - rect.height / 2 },
         skills: { left: vw - rect.width - m, bottom: vh / 2 - rect.height / 2 },
+        education: { left: vw - rect.width - m, bottom: m },
         experience: { left: m, bottom: m },
+        courses: { left: vw - rect.width - m, bottom: vh / 2 - rect.height / 2 },
         contact: { left: vw - rect.width - m, bottom: m },
       }
       const target = positions[currentSection]
@@ -130,7 +135,9 @@ export default function ChatWidget() {
       about: { left: vw - pw - m, bottom: m + gh + 20 },
       'nav-strip': { left: m, bottom: m },
       skills: { left: vw - pw - m, bottom: m },
+      education: { left: vw - pw - m, bottom: m + gh + 20 },
       experience: { left: m, bottom: m + gh + 20 },
+      courses: { left: vw - pw - m, bottom: m + gh + 20 },
       contact: { left: vw - pw - m, bottom: m + gh + 20 },
     }
     const target = positions[currentSection]
@@ -202,7 +209,14 @@ export default function ChatWidget() {
     }
   }, [handleSend])
 
-  const rightSide = ['about', 'skills', 'contact'].includes(currentSection)
+  const rightSide = (() => {
+    const el = groupRef.current
+    if (el) {
+      const left = parseFloat(el.style.left)
+      if (!isNaN(left)) return left > window.innerWidth / 2
+    }
+    return ['about', 'skills', 'courses', 'contact', 'education'].includes(currentSection)
+  })()
 
   return (
     <>
@@ -230,7 +244,7 @@ export default function ChatWidget() {
               padding: '8px 14px',
               fontSize: '0.82rem',
               color: '#a1a1c2',
-              whiteSpace: 'nowrap',
+              maxWidth: 'calc(100vw - 80px)',
               userSelect: 'none',
               cursor: 'default',
             }}

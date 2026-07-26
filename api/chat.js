@@ -22,7 +22,7 @@ const navigateToTool = {
       },
       anchor: {
         type: 'string',
-        description: 'Optional section anchor to scroll to (e.g. "#skills", "#experience", "#about")',
+        description: 'Optional section anchor to scroll to (e.g. "#skills", "#education", "#about")',
       },
     },
     required: ['route'],
