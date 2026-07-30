@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 
 const contactColors = ['#8a5cff', '#37d8ff', '#f056c4', '#fbbf24'];
 
@@ -101,12 +101,7 @@ const Contact = () => {
             </div>
           </div>
 
-          <motion.div 
-            className="contact-form-container"
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
+          <div className="contact-form-container">
             <div className="form-glass-panel">
               <div className="form-header">
                 <i className="fa-solid fa-paper-plane"></i>
@@ -158,18 +153,16 @@ const Contact = () => {
                 </div>
                 
                 <div className="form-actions">
-                  <motion.button 
+                  <button 
                     type="submit" 
                     className={`btn-glitch ${status === 'sending' ? 'loading' : ''}`}
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
                     disabled={status === 'sending'}
                   >
                     <span className="btn-text">
                       {status === 'sending' ? 'Transmitting...' : 'Initiate Send'}
                     </span>
                     <i className="fa-solid fa-bolt"></i>
-                  </motion.button>
+                  </button>
                 </div>
 
                 <AnimatePresence>
@@ -196,7 +189,7 @@ const Contact = () => {
                 </AnimatePresence>
               </form>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

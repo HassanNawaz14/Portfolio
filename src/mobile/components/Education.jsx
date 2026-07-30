@@ -1,33 +1,12 @@
 import { useState, useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { education } from '../../content/education';
-
-const sparkleVariants = {
-  hidden: { scale: 0, opacity: 0 },
-  visible: (i) => ({
-    scale: 1,
-    opacity: [0, 1, 0],
-    x: Math.cos(i * 1.256) * 40,
-    y: Math.sin(i * 1.256) * 40,
-    transition: { duration: 0.6, delay: i * 0.04, ease: 'easeOut' }
-  })
-};
 
 const Education = () => {
   const sectionRef = useRef(null);
   const [expandedIndex, setExpandedIndex] = useState(null);
-  const [sparkleKey, setSparkleKey] = useState(0);
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start center', 'end center']
-  });
-
-  const railFill = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
 
   const toggleExpand = (i) => {
     setExpandedIndex(expandedIndex === i ? null : i);
-    setSparkleKey((k) => k + 1);
   };
 
   return (
@@ -40,7 +19,7 @@ const Education = () => {
 
         <div className="journey-wrapper">
           <div className="journey-rail">
-            <motion.div className="journey-rail-fill" style={{ height: railFill }} />
+            <div className="journey-rail-fill" />
           </div>
 
           {education.map((item, i) => {
@@ -48,26 +27,17 @@ const Education = () => {
             const isEven = i % 2 === 0;
 
             return (
-              <motion.div
-                key={i}
-                className={`journey-item ${isEven ? 'journey-left' : 'journey-right'}`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-60px' }}
-                transition={{ duration: 0.6, delay: i * 0.15, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
+              <div key={i} className={`journey-item ${isEven ? 'journey-left' : 'journey-right'}`}>
                 <div className="journey-node-wrap">
-                  <motion.button
+                  <button
                     className={`journey-node ${isExpanded ? 'journey-node-active' : ''}`}
                     onClick={() => toggleExpand(i)}
-                    whileHover={{ scale: 1.25 }}
-                    whileTap={{ scale: 0.85 }}
                     aria-label={`Toggle details for ${item.degree}`}
                   >
                     <span className="journey-node-dot" style={{ borderColor: item.color }} />
                     <span className="journey-node-ring" style={{ borderColor: item.color }} />
                     <span className="journey-node-pulse" style={{ background: item.color }} />
-                  </motion.button>
+                  </button>
                 </div>
 
                 <div className="journey-card">
@@ -102,92 +72,56 @@ const Education = () => {
                       <span>{item.progress}%</span>
                     </div>
                     <div className="journey-progress-track">
-                      <motion.div
+                      <div
                         className="journey-progress-fill"
-                        style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color === '#8a5cff' ? '#37d8ff' : item.color})` }}
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${item.progress}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1.2, delay: i * 0.2, ease: 'easeOut' }}
+                        style={{ width: `${item.progress}%`, background: `linear-gradient(90deg, ${item.color}, ${item.color === '#8a5cff' ? '#37d8ff' : item.color})` }}
                       />
                     </div>
                   </div>
 
-                  <motion.div
-                    className="journey-expandable"
-                    initial={false}
-                    animate={{ height: isExpanded ? 'auto' : 0, opacity: isExpanded ? 1 : 0 }}
-                    transition={{ duration: 0.4, ease: 'easeInOut' }}
-                  >
-                    <div className="journey-expandable-inner">
-                      <div className="journey-expandable-divider" style={{ background: `linear-gradient(90deg, transparent, ${item.color}40, transparent)` }} />
-                      <p className="journey-expandable-text">
-                        My time at {item.institution} was a defining chapter that shaped my discipline, curiosity, and drive for innovation.
-                      </p>
-                      <div className="journey-expandable-stats">
-                        <div className="journey-stat">
-                          <span className="journey-stat-value" style={{ color: item.color }}>{item.yearRange.split(' - ')[0]}</span>
-                          <span className="journey-stat-label">Start Year</span>
-                        </div>
-                        <div className="journey-stat">
-                          <span className="journey-stat-value" style={{ color: item.color }}>{item.yearRange.split(' - ')[1]}</span>
-                          <span className="journey-stat-label">End Year</span>
-                        </div>
-                        <div className="journey-stat">
-                          <span className="journey-stat-value" style={{ color: item.color }}>{item.progress}%</span>
-                          <span className="journey-stat-label">Complete</span>
+                  {isExpanded && (
+                    <div className="journey-expandable">
+                      <div className="journey-expandable-inner">
+                        <div className="journey-expandable-divider" style={{ background: `linear-gradient(90deg, transparent, ${item.color}40, transparent)` }} />
+                        <p className="journey-expandable-text">
+                          My time at {item.institution} was a defining chapter that shaped my discipline, curiosity, and drive for innovation.
+                        </p>
+                        <div className="journey-expandable-stats">
+                          <div className="journey-stat">
+                            <span className="journey-stat-value" style={{ color: item.color }}>{item.yearRange.split(' - ')[0]}</span>
+                            <span className="journey-stat-label">Start Year</span>
+                          </div>
+                          <div className="journey-stat">
+                            <span className="journey-stat-value" style={{ color: item.color }}>{item.yearRange.split(' - ')[1]}</span>
+                            <span className="journey-stat-label">End Year</span>
+                          </div>
+                          <div className="journey-stat">
+                            <span className="journey-stat-value" style={{ color: item.color }}>{item.progress}%</span>
+                            <span className="journey-stat-label">Complete</span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </motion.div>
-
-                  {isExpanded && (
-                    <div className="journey-sparkles" key={sparkleKey}>
-                      {[...Array(8)].map((_, s) => (
-                        <motion.span
-                          key={s}
-                          className="journey-sparkle"
-                          custom={s}
-                          variants={sparkleVariants}
-                          initial="hidden"
-                          animate="visible"
-                          style={{ background: item.color }}
-                        />
-                      ))}
-                    </div>
                   )}
 
-                  <motion.button
+                  <button
                     className={`journey-expand-btn ${isExpanded ? 'journey-expand-btn-active' : ''}`}
                     onClick={() => toggleExpand(i)}
-                    whileHover={{ scale: 1.15 }}
-                    whileTap={{ scale: 0.85 }}
                     aria-label={isExpanded ? 'Collapse details' : 'Expand details'}
                     style={{ borderColor: `${item.color}50`, background: `${item.color}15` }}
                   >
-                    <motion.i
-                      className="fa-solid fa-plus"
-                      animate={{ rotate: isExpanded ? 45 : 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
-                      style={{ color: item.color }}
-                    />
-                  </motion.button>
+                    <i className={`fa-solid fa-plus ${isExpanded ? 'journey-icon-rotated' : ''}`} style={{ color: item.color }} />
+                  </button>
 
                   <div className="journey-card-corner" style={{ borderColor: item.color }} />
                 </div>
-              </motion.div>
+              </div>
             );
           })}
 
-          <motion.div
-            className="journey-cap"
-            style={{ top: railFill }}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-          >
+          <div className="journey-cap">
             <i className="fa-solid fa-graduation-cap" />
-          </motion.div>
+          </div>
 
           <div className="journey-footer-note">
             <i className="fa-solid fa-arrow-up" />

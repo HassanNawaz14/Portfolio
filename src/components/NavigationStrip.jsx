@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { motion, useTransform, useMotionTemplate } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
 const sectors = [
@@ -38,16 +38,10 @@ function TiltGateway({ children, className }) {
   );
 }
 
-const NavigationStrip = ({ containerRef, morphProgress }) => {
-  const scale = useTransform(morphProgress, [0, 0.3], [1, 0.92]);
-  const opacity = useTransform(morphProgress, [0, 0.25], [1, 0]);
-  const y = useTransform(morphProgress, [0, 0.3], [0, 100]);
-  const blurValue = useTransform(morphProgress, [0, 0.3], [0, 6]);
-  const filter = useMotionTemplate`blur(${blurValue}px)`;
-
+const NavigationStrip = ({ containerRef }) => {
   return (
     <section id="nav-strip" className="gateway-section" ref={containerRef}>
-      <motion.div className="gateway-container" style={{ scale, opacity, y, filter }}>
+      <div className="gateway-container">
         <div className="gateway-top">
           <div className="gateway-hud">
             <span className="gateway-hud-dot" />
@@ -65,14 +59,7 @@ const NavigationStrip = ({ containerRef, morphProgress }) => {
 
         <div className="gateway-cards">
           {sectors.map((sector, i) => (
-            <motion.div
-              key={sector.id}
-              className="gateway-card-wrap"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div key={sector.id} className="gateway-card-wrap">
               <TiltGateway className="gateway-card">
                 <Link to={sector.path} className="gateway-card-link">
                   <div className="gateway-card-bg" style={{ background: `radial-gradient(ellipse 120% 60% at 50% 0%, ${sector.color}18, transparent 70%)` }} />
@@ -102,14 +89,14 @@ const NavigationStrip = ({ containerRef, morphProgress }) => {
                   <div className="gateway-card-border-hover" style={{ borderColor: sector.color }} />
                 </Link>
               </TiltGateway>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         <div className="gateway-marquee">
           <span>SYSTEMS ONLINE // ALL SECTORS OPERATIONAL // NAVIGATION LOCKED //</span>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 };

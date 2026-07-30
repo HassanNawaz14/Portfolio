@@ -56,6 +56,10 @@ const Courses = () => {
 
   return (
     <section id="courses" className="cl-section" aria-label="Courses">
+      <div className="section-header">
+        <h2 className="section-title">Continuous <span>Learning</span></h2>
+        <p className="section-subtitle">A curated log of online courses and extracurricular studies from top institutions.</p>
+      </div>
       <div className="cl-window">
         <div className="cl-titlebar">
           <div className="cl-dots">
@@ -167,7 +171,8 @@ const Courses = () => {
           width: 100%;
           padding: 4rem 0;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
+          align-items: center;
         }
 
         .cl-window {

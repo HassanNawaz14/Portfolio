@@ -1,4 +1,4 @@
-const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [] }) => {
+const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [], bgParallax, contentParallax }) => {
   return (
     <div
       style={{
@@ -20,6 +20,7 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
           position: 'absolute',
           inset: 0,
           background: color,
+          transform: bgParallax || 'none',
         }}
       >
         <div
@@ -43,6 +44,7 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderRadius: '16px',
+          transform: bgParallax || 'none',
         }}
       >
         <div
@@ -65,6 +67,7 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
           justifyContent: 'space-between',
           position: 'absolute',
           inset: 0,
+          transform: contentParallax || 'none',
         }}
       >
         <div

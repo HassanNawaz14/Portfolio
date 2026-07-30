@@ -20,7 +20,7 @@ export default function ChatWidget() {
 
   const sectionLabels = {
     home: 'my work', about: 'who I am', 'nav-strip': 'where to go',
-    skills: 'my toolkit', education: 'my journey', experience: 'my career',
+    skills: 'my toolkit', certifications: 'my credentials', education: 'my journey', experience: 'my career',
     courses: 'my courses', contact: 'how to reach me',
     startup: 'QuickSite', 'currently-building': 'what I\'m building',
     'featured-projects': 'my best work', projects: 'all my projects',
@@ -31,7 +31,7 @@ export default function ChatWidget() {
     '/building': 'Lab Access', '/projects': 'the archives', '/profiles': 'my network',
   }
 
-  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
+  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'certifications', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
 
   useEffect(() => {
     const handleScroll = () => {
@@ -73,6 +73,7 @@ export default function ChatWidget() {
       about: { left: vw - gw - m, top: centerY },
       'nav-strip': { left: m, top: upY },
       skills: { left: vw - gw - m, top: upY },
+      certifications: { left: vw - gw - m, top: centerY },
       education: { left: vw - gw - m, top: downY },
       experience: { left: m, top: downY },
       courses: { left: vw - gw - m, top: upY },
@@ -103,6 +104,7 @@ export default function ChatWidget() {
         about: { left: vw - rect.width - m, top: centerY },
         'nav-strip': { left: m, top: upY },
         skills: { left: vw - rect.width - m, top: upY },
+        certifications: { left: vw - rect.width - m, top: centerY },
         education: { left: vw - rect.width - m, top: downY },
         experience: { left: m, top: downY },
         courses: { left: vw - rect.width - m, top: upY },
@@ -200,7 +202,7 @@ export default function ChatWidget() {
                 const left = parseFloat(el.style.left)
                 if (!isNaN(left)) return left > window.innerWidth / 2
               }
-              return ['about', 'skills', 'courses', 'contact', 'education'].includes(currentSection)
+              return ['about', 'skills', 'certifications', 'courses', 'contact', 'education'].includes(currentSection)
             })()
             return (
               <>

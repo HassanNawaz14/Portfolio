@@ -20,7 +20,7 @@ export default function ChatWidget() {
 
   const sectionLabels = {
     home: 'my work', about: 'who I am', 'nav-strip': 'where to go',
-    skills: 'my toolkit', education: 'my journey', experience: 'my career',
+    skills: 'my toolkit', certifications: 'my credentials', education: 'my journey', experience: 'my career',
     courses: 'my courses', contact: 'how to reach me',
     startup: 'QuickSite', 'currently-building': 'what I\'m building',
     'featured-projects': 'my best work', projects: 'all my projects',
@@ -31,7 +31,7 @@ export default function ChatWidget() {
     '/building': 'Lab Access', '/projects': 'the archives', '/profiles': 'my network',
   }
 
-  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
+  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'certifications', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,6 +70,7 @@ export default function ChatWidget() {
       about: { left: vw - gw - m, bottom: m },
       'nav-strip': { left: m, bottom: vh / 2 - gh / 2 },
       skills: { left: vw - gw - m, bottom: vh / 2 - gh / 2 },
+      certifications: { left: m, bottom: vh / 2 - gh / 2 },
       education: { left: vw - gw - m, bottom: m },
       experience: { left: m, bottom: m },
       courses: { left: vw - gw - m, bottom: vh / 2 - gh / 2 },
@@ -103,6 +104,7 @@ export default function ChatWidget() {
         about: { left: vw - rect.width - m, bottom: m },
         'nav-strip': { left: m, bottom: vh / 2 - rect.height / 2 },
         skills: { left: vw - rect.width - m, bottom: vh / 2 - rect.height / 2 },
+        certifications: { left: m, bottom: vh / 2 - rect.height / 2 },
         education: { left: vw - rect.width - m, bottom: m },
         experience: { left: m, bottom: m },
         courses: { left: vw - rect.width - m, bottom: vh / 2 - rect.height / 2 },
@@ -135,6 +137,7 @@ export default function ChatWidget() {
       about: { left: vw - pw - m, bottom: m + gh + 20 },
       'nav-strip': { left: m, bottom: m },
       skills: { left: vw - pw - m, bottom: m },
+      certifications: { left: m, bottom: m + gh + 20 },
       education: { left: vw - pw - m, bottom: m + gh + 20 },
       experience: { left: m, bottom: m + gh + 20 },
       courses: { left: vw - pw - m, bottom: m + gh + 20 },
@@ -215,7 +218,7 @@ export default function ChatWidget() {
       const left = parseFloat(el.style.left)
       if (!isNaN(left)) return left > window.innerWidth / 2
     }
-    return ['about', 'skills', 'courses', 'contact', 'education'].includes(currentSection)
+    return ['about', 'skills', 'certifications', 'courses', 'contact', 'education'].includes(currentSection)
   })()
 
   return (

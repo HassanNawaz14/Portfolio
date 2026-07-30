@@ -59,14 +59,7 @@ const NavigationStrip = ({ containerRef }) => {
 
         <div className="gateway-cards">
           {sectors.map((sector, i) => (
-            <motion.div
-              key={sector.id}
-              className="gateway-card-wrap"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.12, duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
+            <div key={sector.id} className="gateway-card-wrap">
               <TiltGateway className="gateway-card">
                 <Link to={sector.path} className="gateway-card-link">
                   <div className="gateway-card-bg" style={{ background: `radial-gradient(ellipse 120% 60% at 50% 0%, ${sector.color}18, transparent 70%)` }} />
@@ -96,7 +89,7 @@ const NavigationStrip = ({ containerRef }) => {
                   <div className="gateway-card-border-hover" style={{ borderColor: sector.color }} />
                 </Link>
               </TiltGateway>
-            </motion.div>
+            </div>
           ))}
         </div>
 
