@@ -857,7 +857,7 @@ section {
   border-radius: 20px;
   padding: 4rem;
   position: relative;
-  min-height: 600px;
+  min-height: 480px;
   overflow: hidden;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
@@ -873,7 +873,7 @@ section {
 }
 
 .cat-meta {
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
 .cat-meta-header {
@@ -5654,27 +5654,25 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24rem;
+  gap: 2rem;
   margin-top: 3rem;
 }
 
 .experience-zigzag-item {
+  position: relative;
   display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
 .experience-zigzag-item.left {
-  justify-content: flex-start;
+  align-items: flex-start;
   padding-left: 5%;
 }
 
 .experience-zigzag-item.right {
-  justify-content: flex-end;
+  align-items: flex-end;
   padding-right: 5%;
-}
-
-.experience-zigzag-item {
-  position: relative;
 }
 
 .exp-arrow {
@@ -5682,7 +5680,7 @@ section {
   width: min(440px, 48vw);
   height: 200px;
   max-width: 100%;
-  top: calc(100% + 180px);
+  top: calc(100% + 60px);
   pointer-events: none;
   z-index: 5;
   display: block;
@@ -5690,11 +5688,11 @@ section {
 }
 
 .experience-zigzag-item.left .exp-arrow {
-  left: calc(5% + 420px);
+  left: calc(5% + 300px);
 }
 
 .experience-zigzag-item.right .exp-arrow {
-  right: calc(5% + 420px);
+  right: calc(5% + 300px);
 }
 
 @media (max-width: 850px) {
@@ -5725,7 +5723,7 @@ section {
 
   .experience-zigzag-item.left,
   .experience-zigzag-item.right {
-    justify-content: center;
+    align-items: center;
     padding: 0;
   }
 }

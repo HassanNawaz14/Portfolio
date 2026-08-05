@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+
+const EASE = [0.22, 1, 0.36, 1];
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -62,16 +64,35 @@ const Contact = () => {
   return (
     <section id="contact" className="contact-section">
       <div className="container">
-        <div className="section-header">
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <h2 className="section-title">Get In <span>Touch</span></h2>
           <p className="section-subtitle">Establish a secure connection and let&apos;s build the future together.</p>
-        </div>
+        </motion.div>
         
         <div className="contact-grid">
-          <div className="contact-info-col">
+          <motion.div
+            className="contact-info-col"
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: EASE }}
+          >
             <div className="contact-details-grid">
-              {contactDetails.map((detail) => (
-                <div key={detail.id} className="contact-info-card">
+              {contactDetails.map((detail, di) => (
+                <motion.div
+                  key={detail.id}
+                  className="contact-info-card"
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 0.5, delay: di * 0.08 + 0.15, ease: EASE }}
+                >
                   <div className="info-card-icon">
                     <i className={`fa-solid ${detail.icon}`}></i>
                   </div>
@@ -84,21 +105,33 @@ const Contact = () => {
                     )}
                     <span className="info-sub">{detail.sub}</span>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
             
-            <div className="contact-social-prompt">
+            <motion.div
+              className="contact-social-prompt"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.45, ease: EASE }}
+            >
               <h3>Social Connectivity</h3>
               <p>Prefer a different frequency? Find me on social platforms.</p>
               <div className="social-quick-links">
                 <a href="https://github.com/HassanNawaz14" target="_blank" rel="noreferrer"><i className="fa-brands fa-github"></i></a>
                 <a href="https://www.linkedin.com/in/hafiz-m-hassan-322331256" target="_blank" rel="noreferrer"><i className="fa-brands fa-linkedin-in"></i></a>
               </div>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="contact-form-container">
+          <motion.div
+            className="contact-form-container"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.15 }}
+          >
             <div className="form-glass-panel">
               <div className="form-header">
                 <i className="fa-solid fa-paper-plane"></i>
@@ -186,7 +219,7 @@ const Contact = () => {
                 </AnimatePresence>
               </form>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

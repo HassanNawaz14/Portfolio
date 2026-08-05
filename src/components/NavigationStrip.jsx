@@ -2,6 +2,15 @@ import { useRef, useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
+const EASE = [0.22, 1, 0.36, 1];
+
+const CARD_ENTRANCES = [
+  { opacity: 0, x: -60 },
+  { opacity: 0, y: 50 },
+  { opacity: 0, x: 60 },
+  { opacity: 0, y: -25 },
+];
+
 const sectors = [
   { id: 'quicksite', title: 'QuickSite', icon: 'fa-rocket', path: '/quicksite', color: '#37d8ff', tag: 'Startup', desc: 'Launch instant sites' },
   { id: 'building', title: 'Lab Access', icon: 'fa-hammer', path: '/building', color: '#8a5cff', tag: 'Research', desc: 'Explore experiments' },
@@ -42,13 +51,19 @@ const NavigationStrip = ({ containerRef }) => {
   return (
     <section id="nav-strip" className="gateway-section" ref={containerRef}>
       <div className="gateway-container">
-        <div className="gateway-top">
+        <motion.div
+          className="gateway-top"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <div className="gateway-hud">
             <span className="gateway-hud-dot" />
             <span className="gateway-hud-text">SELECT DESTINATION</span>
             <span className="gateway-hud-line" />
           </div>
-        </div>
+        </motion.div>
 
         <div className="gateway-nexus">
           <div className="gateway-nexus-beam" />
@@ -59,7 +74,14 @@ const NavigationStrip = ({ containerRef }) => {
 
         <div className="gateway-cards">
           {sectors.map((sector, i) => (
-            <div key={sector.id} className="gateway-card-wrap">
+            <motion.div
+              key={sector.id}
+              className="gateway-card-wrap"
+              initial={CARD_ENTRANCES[i % CARD_ENTRANCES.length]}
+              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.65, delay: i * 0.12, ease: EASE }}
+            >
               <TiltGateway className="gateway-card">
                 <Link to={sector.path} className="gateway-card-link">
                   <div className="gateway-card-bg" style={{ background: `radial-gradient(ellipse 120% 60% at 50% 0%, ${sector.color}18, transparent 70%)` }} />
@@ -89,7 +111,7 @@ const NavigationStrip = ({ containerRef }) => {
                   <div className="gateway-card-border-hover" style={{ borderColor: sector.color }} />
                 </Link>
               </TiltGateway>
-            </div>
+            </motion.div>
           ))}
         </div>
 

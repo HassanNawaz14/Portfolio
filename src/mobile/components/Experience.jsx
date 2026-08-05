@@ -1,41 +1,9 @@
-import { useRef, useEffect } from 'react';
-import { animated, useScroll, useSpring } from '@react-spring/web';
 import { experience } from '../../content/experience';
 import ExperienceCard from '../../components/ExperienceCard';
 
-const useItemParallax = () => {
-  const ref = useRef(null);
-  const topRef = useRef(0);
-  const { scrollY } = useScroll();
-
-  useEffect(() => {
-    const update = () => {
-      if (ref.current) topRef.current = ref.current.getBoundingClientRect().top + window.scrollY;
-    };
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
-
-  const raw = scrollY.to(y => {
-    const top = topRef.current;
-    return top ? y - top + window.innerHeight * 0.5 : 0;
-  });
-  const { offset } = useSpring({ offset: raw, config: { mass: 1, tension: 280, friction: 60 } });
-  const p = (speed) => offset.to(v => Math.max(-350, Math.min(350, -v * speed)));
-
-  return { ref, p };
-};
-
-function ZigzagItem({ item, isLeft, i }) {
-  const { ref, p } = useItemParallax();
-
+function ZigzagItem({ item, isLeft }) {
   return (
-    <animated.div
-      ref={ref}
-      className={`experience-zigzag-item ${isLeft ? 'left' : 'right'}`}
-      style={{ transform: p(0.14 + i * 0.05).to(v => `translateY(${v}px)`) }}
-    >
+    <div className={`experience-zigzag-item ${isLeft ? 'left' : 'right'}`}>
       <ExperienceCard
         title={item.role}
         subtitle={item.company}
@@ -43,10 +11,8 @@ function ZigzagItem({ item, isLeft, i }) {
         year={item.duration}
         color={item.color}
         highlights={item.highlights || []}
-        bgParallax={p(0.20 + i * 0.06).to(v => `translateY(${v}px)`)}
-        contentParallax={p(0.10 + i * 0.04).to(v => `translateY(${v}px)`)}
       />
-    </animated.div>
+    </div>
   );
 }
 
@@ -61,7 +27,7 @@ const Experience = () => {
 
         <div className="experience-zigzag">
           {experience.map((item, i) => (
-            <ZigzagItem key={item.id} item={item} isLeft={i % 2 === 0} i={i} />
+            <ZigzagItem key={item.id} item={item} isLeft={i % 2 === 0} />
           ))}
         </div>
       </div>

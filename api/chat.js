@@ -80,7 +80,7 @@ async function callGemini(messages, knowledge) {
   return { reply: part.text || '', toolCalls: null }
 }
 
-const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
+const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']
 
 async function callGroq(messages, knowledge) {
   const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY
@@ -162,7 +162,6 @@ export default async function handler(req, res) {
       return res.status(200).json(result)
     } catch (geminiError) {
       console.warn('Gemini failed, trying Groq:', geminiError.message)
-      const isQuota = geminiError.message.includes('quota') || geminiError.message.includes('429')
       try {
         const result = await callGroq(messages, knowledge)
         return res.status(200).json(result)

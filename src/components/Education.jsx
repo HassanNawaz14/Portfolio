@@ -2,6 +2,8 @@ import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { education } from '../content/education';
 
+const EASE = [0.22, 1, 0.36, 1];
+
 function TiltCard({ children, className }) {
   const ref = useRef(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
@@ -53,14 +55,27 @@ const Education = () => {
   return (
     <section id="education" className="education-section-v2" ref={sectionRef}>
       <div className="container">
-        <div className="section-header">
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <h2 className="section-title">Academic <span>Journey</span></h2>
           <p className="section-subtitle">My educational background and academic milestones.</p>
-        </div>
+        </motion.div>
 
         <div className="journey-wrapper">
           <div className="journey-rail">
-            <div className="journey-rail-fill" />
+            <motion.div
+              className="journey-rail-fill"
+              style={{ height: '100%', transformOrigin: 'top' }}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.05 }}
+              transition={{ duration: 1.8, ease: 'easeInOut' }}
+            />
           </div>
 
           {education.map((item, i) => {
@@ -68,7 +83,14 @@ const Education = () => {
             const isEven = i % 2 === 0;
 
             return (
-              <div key={i} className={`journey-item ${isEven ? 'journey-left' : 'journey-right'}`}>
+              <motion.div
+                key={i}
+                className={`journey-item ${isEven ? 'journey-left' : 'journey-right'}`}
+                initial={{ opacity: 0, x: isEven ? -80 : 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.7, delay: i * 0.06, ease: EASE }}
+              >
                 <div className="journey-node-wrap">
                   <button
                     className={`journey-node ${isExpanded ? 'journey-node-active' : ''}`}
@@ -156,7 +178,7 @@ const Education = () => {
 
                   <div className="journey-card-corner" style={{ borderColor: item.color }} />
                 </TiltCard>
-              </div>
+              </motion.div>
             );
           })}
 

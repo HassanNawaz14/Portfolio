@@ -1,4 +1,4 @@
-const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [], bgParallax, contentParallax }) => {
+const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [] }) => {
   return (
     <div
       style={{
@@ -12,17 +12,16 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
         flexShrink: 0,
       }}
     >
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          padding: '4px',
-          position: 'absolute',
-          inset: 0,
-          background: color,
-          transform: bgParallax || 'none',
-        }}
-      >
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            padding: '4px',
+            position: 'absolute',
+            inset: 0,
+            background: color,
+          }}
+        >
         <div
           style={{
             width: '100%',
@@ -44,7 +43,6 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
           backdropFilter: 'blur(16px)',
           WebkitBackdropFilter: 'blur(16px)',
           borderRadius: '16px',
-          transform: bgParallax || 'none',
         }}
       >
         <div
@@ -58,18 +56,17 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
         />
       </div>
 
-      <div
-        style={{
-          width: '100%',
-          height: '100%',
-          padding: '10px',
-          display: 'flex',
-          justifyContent: 'space-between',
-          position: 'absolute',
-          inset: 0,
-          transform: contentParallax || 'none',
-        }}
-      >
+        <div
+          style={{
+            width: '100%',
+            height: '100%',
+            padding: '10px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            position: 'absolute',
+            inset: 0,
+          }}
+        >
         <div
           style={{
             width: '60%',

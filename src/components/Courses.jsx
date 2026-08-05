@@ -1,5 +1,8 @@
 import { useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
 import { courses } from '../content/courses'
+
+const EASE = [0.22, 1, 0.36, 1]
 
 const ISSUER_STYLES = {
   harvard: { glyph: 'H', color: '#B3453A' },
@@ -56,11 +59,23 @@ const Courses = () => {
 
   return (
     <section id="courses" className="cl-section" aria-label="Courses">
-      <div className="section-header">
+      <motion.div
+        className="section-header"
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.5 }}
+        transition={{ duration: 0.6, ease: EASE }}
+      >
         <h2 className="section-title">Continuous <span>Learning</span></h2>
         <p className="section-subtitle">A curated log of online courses and extracurricular studies from top institutions.</p>
-      </div>
-      <div className="cl-window">
+      </motion.div>
+      <motion.div
+        className="cl-window"
+        initial={{ opacity: 0, x: 70 }}
+        whileInView={{ opacity: 1, x: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+      >
         <div className="cl-titlebar">
           <div className="cl-dots">
             <span className="cl-dot" style={{ '--d': '#B3453A' }} />
@@ -106,7 +121,14 @@ const Courses = () => {
         <ul className="cl-log" role="list">
           {rows.map((entry, i) =>
             entry.type === 'group' ? (
-              <li key={entry.id} className="cl-row-wrap">
+              <motion.li
+                key={entry.id}
+                className="cl-row-wrap"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.45, delay: (i % 12) * 0.04, ease: EASE }}
+              >
                 <div className="cl-row" style={{ '--delay': `${i * 40}ms` }}>
                   <span className="cl-idx">{String(i + 1).padStart(2, '0')}</span>
                   <IssuerGlyph tag={entry.tag} />
@@ -129,9 +151,16 @@ const Courses = () => {
                   <span className="cl-date">{entry.date}</span>
                   <span className="cl-verify" aria-hidden="true">verified</span>
                 </div>
-              </li>
+              </motion.li>
             ) : (
-              <li key={entry.id} className="cl-row-wrap">
+              <motion.li
+                key={entry.id}
+                className="cl-row-wrap"
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.45, delay: (i % 12) * 0.04, ease: EASE }}
+              >
                 <div className="cl-row" style={{ '--delay': `${i * 40}ms` }}>
                   <span className="cl-idx">{String(i + 1).padStart(2, '0')}</span>
                   <IssuerGlyph tag={entry.tag} />
@@ -146,7 +175,7 @@ const Courses = () => {
                   <span className="cl-date">{entry.date}</span>
                   <span className="cl-verify" aria-hidden="true">verified</span>
                 </div>
-              </li>
+              </motion.li>
             )
           )}
         </ul>
@@ -154,7 +183,7 @@ const Courses = () => {
         {rows.length === 0 && (
           <p className="cl-empty">no entries match this filter yet.</p>
         )}
-      </div>
+      </motion.div>
 
       <style>{`
         .cl-section {

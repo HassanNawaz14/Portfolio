@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import profilePic from '../assets/ProfilePic.jpeg';
 
+const EASE = [0.22, 1, 0.36, 1];
+
 const About = ({ portraitAnchorRef }) => {
   const [activeTab, setActiveTab] = useState('background');
 
@@ -27,25 +29,49 @@ const About = ({ portraitAnchorRef }) => {
   return (
     <section id="about" className="about-section">
       <div className="container">
-        <div className="section-header">
+        <motion.div
+          className="section-header"
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.6, ease: EASE }}
+        >
           <h2 className="section-title">Beyond the <span>Code</span></h2>
           <p className="section-subtitle">Decoding my journey as a developer and scientist.</p>
-        </div>
+        </motion.div>
         
         <div className="about-grid">
-          <div className="about-visual">
+          <motion.div
+            className="about-visual"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.9, ease: EASE }}
+          >
             <div ref={portraitAnchorRef} className="about-image-anchor">
               <div className="anchor-glow" />
               <img src={profilePic} alt="Hassan Nawaz" />
               <div className="anchor-border" />
             </div>
-            <div className="about-experience-badge">
+            <motion.div
+              className="about-experience-badge"
+              initial={{ opacity: 0, scale: 0.6, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ delay: 0.45, type: 'spring', stiffness: 200, damping: 16 }}
+            >
               <span className="years">06+</span>
               <span className="text">Years of Evolution</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
 
-          <div className="about-content">
+          <motion.div
+            className="about-content"
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
+          >
             <div className="about-kicker-wrapper">
               <span className="kicker-label">Current Node:</span>
               <h1 className="typing">Data Scientist & Web Architect</h1>
@@ -126,7 +152,7 @@ const About = ({ portraitAnchorRef }) => {
                 </AnimatePresence>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
