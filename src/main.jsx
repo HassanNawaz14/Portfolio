@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import './mobile/index.css'
+import './car/index.css'
 import { ModeProvider } from './context/ModeContext'
 import App from './App.jsx'
 

@@ -1,0 +1,604 @@
+/* ============================================================
+   CAR MODE — Car-theme desktop theme
+   Loaded LAST in src/main.jsx so it can override index.css /
+   mobile/index.css for car-specific elements. Everything is
+   scoped under .mode-car so other modes are unaffected.
+
+   Palette base: carbon / racing red / amber gauges / night asphalt
+   ============================================================ */
+
+body.mode-car {
+  --car-bg0: #0a0a0c;
+  --car-bg1: #121216;
+  --car-bg2: #1a1a20;
+  --car-panel: #16161b;
+  --car-red: #e03131;
+  --car-ash: #ffb020;
+  --car-cyan: #2f9bd6;
+  --car-text: #f1f1f4;
+  --car-muted: #9a9aa5;
+  --car-accent: #e03131;
+  --car-line: rgba(255, 255, 255, 0.08);
+}
+
+/* --- shell ----------------------------------------------------------------- */
+body.mode-car .car-app {
+  min-height: 100vh;
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(224, 49, 49, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--car-bg1), var(--car-bg0));
+  color: var(--car-text);
+}
+
+/* --- section shells reused by content components --- */
+body.mode-car .car-section {
+  position: relative;
+  padding: 6rem 0;
+}
+
+body.mode-car .car-section-header h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: var(--car-text);
+}
+
+body.mode-car .car-section-header h2 span {
+  color: var(--car-accent);
+}
+
+body.mode-car .car-section-header p {
+  color: var(--car-muted);
+  margin: 0 0 24px;
+}
+
+body.mode-car .car-sub-page-nav {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 50;
+}
+
+body.mode-car .car-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1px solid var(--car-line);
+  border-radius: 10px;
+  background: var(--car-panel);
+  color: var(--car-text);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+body.mode-car .car-back-link:hover {
+  border-color: rgba(224, 49, 49, 0.5);
+  color: var(--car-accent);
+}
+
+body.mode-car .car-placeholder {
+  padding: 20px 24px;
+  border: 1px dashed rgba(224, 49, 49, 0.4);
+  border-radius: 12px;
+  color: var(--car-muted);
+  font-size: 0.85rem;
+  background: rgba(224, 49, 49, 0.04);
+  margin-top: 16px;
+}
+
+/* ============================================================
+   VIDEO HERO — comp25.mp4 background (minimal overlay)
+   Typography-led, monochrome with a single red accent, hairline
+   rules, thin line-art car. No boxes, no gauges, no HUD chrome.
+   ============================================================ */
+body.mode-car .car-hero {
+  position: relative;
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body.mode-car .car-hero__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -2;
+}
+
+body.mode-car .car-hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, rgba(10, 10, 12, 0.72) 0%, rgba(10, 10, 12, 0.18) 35%, rgba(10, 10, 12, 0.22) 60%, rgba(10, 10, 12, 0.7) 100%);
+  pointer-events: none;
+}
+
+/* --- top strip: brand + nav --- */
+body.mode-car .car-hero__top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 26px 44px;
+}
+
+body.mode-car .car-hero__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: var(--car-text);
+}
+
+body.mode-car .car-hero__brand-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--car-accent);
+}
+
+body.mode-car .car-hero__brand-sep {
+  color: var(--car-muted);
+  font-weight: 400;
+}
+
+body.mode-car .car-hero__nav {
+  display: flex;
+  gap: 26px;
+}
+
+body.mode-car .car-hero__nav-link {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(241, 241, 244, 0.65);
+  transition: color 0.25s;
+}
+
+body.mode-car .car-hero__nav-link:hover {
+  color: var(--car-accent);
+}
+
+body.mode-car .car-hero__nav-link.is-static {
+  cursor: default;
+  color: rgba(241, 241, 244, 0.4);
+}
+
+/* --- centered content --- */
+body.mode-car .car-hero__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  padding: 0 24px;
+  width: min(760px, 90vw);
+}
+
+body.mode-car .car-hero__eyebrow {
+  margin: 0 0 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--car-accent);
+  animation: car-fade-up 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.1s both;
+}
+
+body.mode-car .car-hero__title {
+  margin: 0;
+  font-size: clamp(2.6rem, 7.5vw, 5.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  color: var(--car-text);
+  text-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+  animation: car-fade-up 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.22s both;
+}
+
+body.mode-car .car-hero__title span {
+  color: var(--car-accent);
+}
+
+body.mode-car .car-hero__tagline {
+  margin: 0 auto 34px;
+  max-width: 520px;
+  color: #cfcfd8;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  font-weight: 400;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  animation: car-fade-up 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.34s both;
+}
+
+body.mode-car .car-hero__rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+body.mode-car .car-hero__rule i {
+  height: 1px;
+  width: 72px;
+  background: rgba(255, 255, 255, 0.55);
+  margin-right: 14px;
+  animation: car-rule-grow 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.4s both;
+}
+
+body.mode-car .car-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--car-text);
+  transition: color 0.25s, gap 0.25s;
+}
+
+body.mode-car .car-hero__link span {
+  color: var(--car-accent);
+  transition: transform 0.25s;
+}
+
+body.mode-car .car-hero__link:hover {
+  color: var(--car-accent);
+}
+
+body.mode-car .car-hero__link:hover span {
+  transform: translateX(5px);
+}
+
+/* --- bottom strip: meta + scroll --- */
+body.mode-car .car-hero__foot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 44px 30px;
+}
+
+body.mode-car .car-hero__meta,
+body.mode-car .car-hero__scroll {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(241, 241, 244, 0.55);
+}
+
+body.mode-car .car-hero__scroll {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(241, 241, 244, 0.35);
+}
+
+body.mode-car .car-hero__scroll i {
+  display: block;
+  width: 1px;
+  height: 26px;
+  background: linear-gradient(180deg, var(--car-accent), transparent);
+  animation: car-scroll-pulse 1.8s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+/* --- line-art car: minimal graphic telling the car story --- */
+body.mode-car .car-hero__art {
+  position: absolute;
+  bottom: 90px;
+  left: 44px;
+  z-index: 2;
+  opacity: 0.35;
+  color: #ececec;
+  pointer-events: none;
+}
+
+body.mode-car .car-hero__car {
+  width: 240px;
+  overflow: visible;
+}
+
+body.mode-car .car-hero__car-body,
+body.mode-car .car-hero__car-roof {
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+body.mode-car .car-hero__car-wheel {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+
+body.mode-car .car-hero__car-speed,
+body.mode-car .car-hero__car-line {
+  stroke: currentColor;
+  stroke-width: 1;
+}
+
+body.mode-car .car-hero__car-stripe {
+  stroke: var(--car-accent);
+  stroke-width: 1.4;
+  opacity: 0.8;
+}
+
+body.mode-car .car-hero__code {
+  display: block;
+  margin-top: 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  color: rgba(236, 236, 236, 0.8);
+}
+
+/* --- misc reused animation --- */
+@keyframes car-fade-up {
+  from { opacity: 0;
+  transform: translateY(18px);
+}
+  to { opacity: 1;
+  transform: none; }
+}
+
+@keyframes car-rule-grow {
+  from { transform: scaleX(0);
+  opacity: 0;
+}
+  to { transform: scaleX(1);
+  opacity: 1; }
+}
+
+@keyframes car-scroll-pulse {
+  0% { transform: scaleY(0.45); opacity: 1; }
+  70% { transform: scaleY(1); opacity: 0.1; }
+  100% { transform: scaleY(0.45); opacity: 1; }
+}
+
+/* ============================================================
+   POST-HERO MINIMAL CREAM SECTIONS — 5 dummy, data-driven
+   White/cream ground, hairline typography, faint texture and a
+   single line-art graphic (bottom-left) per section.
+
+   Layering (all in the root stacking context):
+     hero on top      -> z-index 3  (covers the canvas over the hero)
+     section text     -> z-index 3  (reads above the cars)
+     fixed 3D canvas  -> z-index 2  (cars draw over the cream ground)
+     cream sections   -> z-index 0  (beneath the cars)
+
+   The 3D canvas is position: fixed full-viewport, so it is pinned for the
+   entire journey; the .car-show wrapper (5 x 100vh + 100vh trailer = 600vh)
+   is what the ScrollTrigger measures.
+   ============================================================ */
+body.mode-car .car-hero {
+  z-index: 3;
+}
+
+body.mode-car .car-show {
+  position: relative;
+}
+
+body.mode-car .car-home-3d {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* --- 3D preload loader (sits over the fixed canvas) --- */
+body.mode-car .car-3d-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  background: rgba(246, 243, 236, 0.85);
+  backdrop-filter: blur(2px);
+}
+
+body.mode-car .car-3d-loader__label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #1c1c20;
+  animation: car-scroll-pulse 1.6s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+body.mode-car .car-3d-loader__track {
+  width: 200px;
+  height: 2px;
+  background: rgba(28, 28, 32, 0.12);
+  overflow: hidden;
+}
+
+body.mode-car .car-3d-loader__bar {
+  height: 100%;
+  background: var(--car-red);
+  transition: width 0.3s linear;
+}
+
+body.mode-car .car-home {
+  position: relative;
+}
+
+body.mode-car .car-home-section {
+  position: relative;
+  overflow: hidden;
+  background: #f6f3ec;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 10rem min(9vw, 120px);
+  color: #1c1c20;
+}
+
+/* --- trailing scroll headroom so the last section gets its own keyframe --- */
+body.mode-car .car-home-trailer {
+  height: 100vh;
+  background: #efece3;
+}
+
+body.mode-car .car-home-section:nth-child(odd) {
+  background: #efece3;
+}
+
+body.mode-car .car-home-section__inner {
+  position: relative;
+  z-index: 3;
+  max-width: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+body.mode-car .car-home-section--right .car-home-section__inner {
+  align-items: flex-end;
+  text-align: right;
+}
+
+body.mode-car .car-home-section--center .car-home-section__inner {
+  align-items: center;
+  text-align: center;
+}
+
+body.mode-car .car-home-section--center .car-home-section__text {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body.mode-car .car-home-section__no {
+  margin: 0 0 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--car-red);
+}
+
+body.mode-car .car-home-section__kicker {
+  margin: 0 0 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+body.mode-car .car-home-section__title {
+  margin: 0 0 16px;
+  font-size: clamp(1.8rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+}
+
+body.mode-car .car-home-section__text {
+  margin: 0;
+  max-width: 520px;
+  color: #5c5c63;
+  line-height: 1.7;
+}
+
+/* --- faint background texture per section --- */
+body.mode-car .car-home-section__tex {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+body.mode-car .car-home-section__tex--dots {
+  background-image: radial-gradient(rgba(28, 28, 32, 0.06) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+}
+
+body.mode-car .car-home-section__tex--grid {
+  background-image:
+    linear-gradient(rgba(28, 28, 32, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(28, 28, 32, 0.05) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+body.mode-car .car-home-section__tex--diag {
+  background-image: repeating-linear-gradient(45deg, rgba(28, 28, 32, 0.055) 0 1px, transparent 1px 14px);
+}
+
+body.mode-car .car-home-section__tex--lines {
+  background-image: repeating-linear-gradient(90deg, rgba(28, 28, 32, 0.05) 0 1px, transparent 1px 11px);
+}
+
+body.mode-car .car-home-section__tex--halo {
+  background: radial-gradient(closest-side, rgba(28, 28, 32, 0.06), transparent);
+}
+
+/* --- bottom-left line-art graphic --- */
+body.mode-car .car-home-section__art {
+  position: absolute;
+  left: min(9vw, 120px);
+  bottom: 26px;
+  opacity: 0.5;
+  color: #1c1c20;
+  pointer-events: none;
+}
+
+body.mode-car .car-home-art__svg {
+  width: 200px;
+  height: auto;
+  overflow: visible;
+}
+
+body.mode-car .car-home-art__line {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+}
+
+body.mode-car .car-home-art__dash {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.3;
+  stroke-dasharray: 3 10;
+}
+
+body.mode-car .car-home-art__ink {
+  stroke: currentColor;
+  stroke-width: 1.6;
+}
+
+body.mode-car .car-home-art__stripe {
+  stroke: var(--car-red);
+  stroke-width: 1.4;
+  fill: none;
+  opacity: 0.85;
+}

@@ -3,6 +3,9 @@ import { certifications } from '../content/certifications';
 const certImages = {
   cs50: '/assets/certificates/CS50x26%20Certificate.png',
   claude101: '/assets/certificates/cert_cluade_101.png',
+  'agent-skills': '/assets/certificates/agent_skills.png',
+  'claude-code-101': '/assets/certificates/claude_code_101.png',
+  'claude-code-in-action': '/assets/certificates/claude_code_in_action.png',
   genai: '/assets/certificates/Gen_AI_Badge.png',
   llm: '/assets/certificates/LLM_Badge.png',
   pandas: '/assets/certificates/hassan.nawaz1423%20-%20Pandas.png',

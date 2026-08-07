@@ -213,9 +213,9 @@ const cyberStyles = `
 `;
 
 const OPTIONS = [
-  { index: 0, id: 'cyber-opt-0', fa: 'fa-house', label: 'Home (Desktop mode)', mode: 'desktop' },
+  { index: 0, id: 'cyber-opt-0', fa: 'fa-house', label: 'Desktop mode', mode: 'desktop' },
   { index: 1, id: 'cyber-opt-1', fa: 'fa-mobile-screen-button', label: 'Mobile mode', mode: 'mobile' },
-  { index: 2, id: 'cyber-opt-2', fa: 'fa-car', label: 'Third mode - coming soon', mode: null },
+  { index: 2, id: 'cyber-opt-2', fa: 'fa-car', label: 'Car mode', mode: 'car' },
 ];
 
 function ModeSwitch() {
@@ -237,7 +237,7 @@ function ModeSwitch() {
     return () => window.removeEventListener('scroll', check);
   }, []);
 
-  const activeIdx = mode === 'mobile' ? 1 : 0;
+  const activeIdx = mode === 'mobile' ? 1 : mode === 'car' ? 2 : 0;
 
   const handlePick = (option) => {
     if (option.mode) setMode(option.mode);

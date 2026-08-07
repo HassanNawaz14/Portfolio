@@ -5621,7 +5621,6 @@ section {
 
 .certifications-cards-row {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
   transform-style: preserve-3d;
   perspective: 1000px;
@@ -5629,6 +5628,7 @@ section {
 }
 
 .mcerts-row {
+  flex-wrap: wrap;
   align-items: stretch;
 }
 
