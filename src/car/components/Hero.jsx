@@ -1,7 +1,32 @@
+import { useEffect, useRef } from 'react';
+
 const Hero = () => {
+  const videoRef = useRef();
+
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    // The looped video decodes at full rate forever when mounted; pause it
+    // the moment the hero scrolls out of view. Capturing/play-only when back
+    // inside keeps the GPU and decoder idle below the fold.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.play().catch(() => {});
+        } else {
+          el.pause();
+        }
+      },
+      { threshold: 0.05 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="car-hero" id="car-home">
       <video
+        ref={videoRef}
         className="car-hero__media"
         src="/assets/cars/comp25_clean.mp4"
         autoPlay
@@ -9,7 +34,8 @@ const Hero = () => {
         loop
         playsInline
         preload="auto"
-        poster="/assets/cars/comp25_clean.mp4"
+        disablePictureInPicture
+        disableRemotePlayback
         aria-hidden="true"
       />
       <div className="car-hero__veil" aria-hidden="true" />

@@ -14,9 +14,7 @@ const Layout = ({ children }) => {
     <div className="car-app">
       <main>
         <AnimatePresence mode="wait">
-          {/* Opacity-only transition. Animating `transform` on this wrapper
-              would make it the containing block for the fixed 3D canvas,
-              breaking the viewport-sized canvas. */}
+          {/* Opacity-only transition. */}
           <motion.div
             key={pathname}
             initial={{ opacity: 0 }}

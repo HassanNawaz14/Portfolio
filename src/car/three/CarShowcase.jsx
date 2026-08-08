@@ -106,10 +106,47 @@ function SceneRig() {
     if (!supraReady || !skyReady) return;
 
     const wrap = document.querySelector('.car-show');
+    const canvas = document.querySelector('.car-home-3d');
     if (!wrap || !supraRef.current || !skyRef.current) return;
 
     const supra = supraRef.current;
     const sky = skyRef.current;
+
+    // --- Canvas visibility gate -----------------------------------------
+    // The canvas is position:fixed so it spans the full viewport at all times.
+    // We hide it while the Hero is on screen and show it only when .car-show
+    // enters the viewport — this prevents models from leaking into the Hero
+    // and lets the video render unobstructed.
+    let visST;
+    if (canvas) {
+      canvas.style.opacity = '0';
+      canvas.style.visibility = 'hidden';
+      visST = ScrollTrigger.create({
+        trigger: wrap,
+        start: 'top bottom',   // canvas appears as .car-show bottom edge hits viewport bottom
+        end: 'bottom top',     // canvas disappears when .car-show top edge leaves viewport top
+        onEnter: () => {
+          canvas.style.visibility = 'visible';
+          gsap.to(canvas, { opacity: 1, duration: 0.35, ease: 'none' });
+        },
+        onLeave: () => {
+          gsap.to(canvas, {
+            opacity: 0, duration: 0.25, ease: 'none',
+            onComplete: () => { canvas.style.visibility = 'hidden'; },
+          });
+        },
+        onEnterBack: () => {
+          canvas.style.visibility = 'visible';
+          gsap.to(canvas, { opacity: 1, duration: 0.2, ease: 'none' });
+        },
+        onLeaveBack: () => {
+          gsap.to(canvas, {
+            opacity: 0, duration: 0.25, ease: 'none',
+            onComplete: () => { canvas.style.visibility = 'hidden'; },
+          });
+        },
+      });
+    }
 
     // World-space half extent of a rotated car along the X axis, measured live
     // from the scaled geometry so it stays correct at any viewport size.
@@ -140,33 +177,73 @@ function SceneRig() {
     });
 
     // ---- Supra: S1 front 3/4 (right) -> S2 rear 3/4 (left) -> S3 slot -----
-    tl.to(supra.position, { x: () => halfW() * POSE_X_FRONT, y: 0, z: 0.15 }, 0)
-      .to(supra.rotation, { y: yaw(POSES.supra.aRot) }, 0)
-      .to(supra.position, { x: () => -halfW() * POSE_X_FRONT, y: 0, z: -0.15 }, 0.2)
-      .to(supra.rotation, { y: yaw(POSES.supra.bRot) }, 0.2)
+    // FIX: fromTo gives the Supra an explicit start pose at progress=0 so
+    // it is already in the S1 position when the section first enters the
+    // viewport. A bare tl.to() at position 0 uses the Three.js mount value
+    // (origin) as the from-state, so the car starts at center-screen and
+    // drifts rightward through section 1 — visually wrong and not reversible.
+    tl.fromTo(
+        supra.position,
+        { x: () => halfW() * POSE_X_FRONT, y: 0, z: 0.15 },
+        { x: () => -halfW() * POSE_X_FRONT, y: 0, z: -0.15 },
+        0,
+      )
+      .fromTo(
+        supra.rotation,
+        { y: yaw(POSES.supra.aRot) },
+        { y: yaw(POSES.supra.bRot) },
+        0,
+      )
+      // S2 -> S3: Supra slides to off-screen-left slot (section 3 dual view)
       .to(
         supra.position,
         { x: () => s3X(supraRef, yaw(POSES.supra.s3Rot), -1), y: 0, z: 0 },
-        0.4,
+        0.2,
       )
-      .to(supra.rotation, { y: yaw(POSES.supra.s3Rot) }, 0.4)
-      .to(supra.position, { x: () => -(halfW() + PARK_MARGIN), y: 0, z: 0 }, 0.585)
-      .to(supra.rotation, { y: yaw(POSES.supra.aRot) }, 0.6);
+      .to(supra.rotation, { y: yaw(POSES.supra.s3Rot) }, 0.2)
+      // S3 -> park: Supra exits left, fully off-screen before section 4
+      .to(supra.position, { x: () => -(halfW() + PARK_MARGIN), y: 0, z: 0 }, 0.385)
+      .to(supra.rotation, { y: yaw(POSES.supra.aRot) }, 0.4);
 
-    // ---- Skyline: parked under the stage -> S3 slot (right) -> S4 -> S5 ---
-    // The skyline waits far below the ground plane (frustum-culled, no draw
-    // cost) and only rises into its S3 slot right at the section-3 boundary.
-    tl.set(sky.position, { x: () => s3X(skyRef, yaw(POSES.skyline.s3Rot), 1), y: -40, z: 0 }, 0.335)
-      .to(sky.position, { y: 0 }, 0.4)
-      .to(sky.rotation, { y: yaw(POSES.skyline.s3Rot) }, 0.4)
-      .to(sky.position, { x: () => -halfW() * POSE_X_FRONT, y: 0, z: -0.1 }, 0.6)
-      .to(sky.rotation, { y: yaw(POSES.skyline.aRot) }, 0.6)
-      .to(sky.position, { x: () => halfW() * POSE_X_REAR, y: 0, z: 0.15 }, 0.8)
-      .to(sky.rotation, { y: yaw(POSES.skyline.bRot) }, 0.8)
+    // ---- Skyline: parked underground -> S3 slot (right) -> S4 -> S5 ---
+    // FIX: tl.set()+tl.to() was broken on scroll-up: the set snaps on
+    // reverse and the to() tween only specified y, leaving x un-reversed.
+    // Replaced with:
+    //   1) A zero-duration fromTo that holds the underground park from 0→0.335
+    //      (gives GSAP a recorded from-value so reverse works cleanly)
+    //   2) A fromTo that spans 0.335→0.4 for the rise, including x so the
+    //      car rises and falls in-place without drifting sideways on reverse.
+    tl.fromTo(
+        sky.position,
+        { x: () => halfW() + PARK_MARGIN, y: -40, z: 0 },
+        { x: () => halfW() + PARK_MARGIN, y: -40, z: 0 },
+        0,
+      )
+      // Rise from underground into S3 right-slot at the section-3 boundary
+      .fromTo(
+        sky.position,
+        { x: () => s3X(skyRef, yaw(POSES.skyline.s3Rot), 1), y: -40, z: 0 },
+        { x: () => s3X(skyRef, yaw(POSES.skyline.s3Rot), 1), y: 0,   z: 0 },
+        0.335,
+      )
+      .fromTo(
+        sky.rotation,
+        { y: 0 },
+        { y: yaw(POSES.skyline.s3Rot) },
+        0.335,
+      )
+      // S3 -> S4: Skyline moves to left-of-frame front 3/4
+      .to(sky.position, { x: () => -halfW() * POSE_X_FRONT, y: 0, z: -0.1 }, 0.4)
+      .to(sky.rotation, { y: yaw(POSES.skyline.aRot) }, 0.4)
+      // S4 -> S5: Skyline moves to right-of-frame rear 3/4
+      .to(sky.position, { x: () => halfW() * POSE_X_REAR, y: 0, z: 0.15 }, 0.6)
+      .to(sky.rotation, { y: yaw(POSES.skyline.bRot) }, 0.6)
+      // S5 -> trailer: park off-screen right
       .to(sky.position, { x: () => halfW() + PARK_MARGIN, y: 0, z: 0 }, 0.82);
 
     const st = tl.scrollTrigger;
     return () => {
+      if (visST) visST.kill();
       if (st) st.kill();
       tl.kill();
     };
@@ -179,12 +256,14 @@ function SceneRig() {
       <directionalLight position={[-4, 3, -3]} intensity={0.45} color="#ffd8a8" />
       <pointLight position={[0, -2, 2]} intensity={0.4} color="#e03131" />
       <ContactShadows position={[0, -0.03, 0]} opacity={0.45} scale={16} blur={2.4} far={3.2} color="#1a1410" frames={Infinity} />
-      <CarRig url={SUPRA_URL} rigRef={supraRef} onReady={onSupraReady} />
+      {/* Supra: parked far off-screen left at mount; GSAP fromTo takes over on scroll */}
+      <CarRig url={SUPRA_URL} rigRef={supraRef} onReady={onSupraReady} position={[-200, 0, 0]} />
+      {/* Skyline: parked far off-screen right AND underground at mount */}
       <CarRig
         url={SKYLINE_URL}
         rigRef={skyRef}
         onReady={onSkyReady}
-        position={[0, -40, 0]}
+        position={[200, -40, 0]}
       />
     </>
   );

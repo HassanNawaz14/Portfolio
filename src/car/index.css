@@ -385,16 +385,6 @@ body.mode-car .car-hero__code {
    POST-HERO MINIMAL CREAM SECTIONS — 5 dummy, data-driven
    White/cream ground, hairline typography, faint texture and a
    single line-art graphic (bottom-left) per section.
-
-   Layering (all in the root stacking context):
-     hero on top      -> z-index 3  (covers the canvas over the hero)
-     section text     -> z-index 3  (reads above the cars)
-     fixed 3D canvas  -> z-index 2  (cars draw over the cream ground)
-     cream sections   -> z-index 0  (beneath the cars)
-
-   The 3D canvas is position: fixed full-viewport, so it is pinned for the
-   entire journey; the .car-show wrapper (5 x 100vh + 100vh trailer = 600vh)
-   is what the ScrollTrigger measures.
    ============================================================ */
 body.mode-car .car-hero {
   z-index: 3;
@@ -402,51 +392,6 @@ body.mode-car .car-hero {
 
 body.mode-car .car-show {
   position: relative;
-}
-
-body.mode-car .car-home-3d {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* --- 3D preload loader (sits over the fixed canvas) --- */
-body.mode-car .car-3d-loader {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  background: rgba(246, 243, 236, 0.85);
-  backdrop-filter: blur(2px);
-}
-
-body.mode-car .car-3d-loader__label {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: #1c1c20;
-  animation: car-scroll-pulse 1.6s cubic-bezier(0.23, 1, 0.32, 1) infinite;
-}
-
-body.mode-car .car-3d-loader__track {
-  width: 200px;
-  height: 2px;
-  background: rgba(28, 28, 32, 0.12);
-  overflow: hidden;
-}
-
-body.mode-car .car-3d-loader__bar {
-  height: 100%;
-  background: var(--car-red);
-  transition: width 0.3s linear;
 }
 
 body.mode-car .car-home {
@@ -462,12 +407,6 @@ body.mode-car .car-home-section {
   align-items: center;
   padding: 10rem min(9vw, 120px);
   color: #1c1c20;
-}
-
-/* --- trailing scroll headroom so the last section gets its own keyframe --- */
-body.mode-car .car-home-trailer {
-  height: 100vh;
-  background: #efece3;
 }
 
 body.mode-car .car-home-section:nth-child(odd) {
@@ -572,6 +511,22 @@ body.mode-car .car-home-section__art {
   pointer-events: none;
 }
 
+body.mode-car .car-home-section__art--right {
+  left: auto;
+  right: min(9vw, 120px);
+}
+
+/* Section 3 (dual models): the line art lives inside the centred content
+   column instead of a bottom corner. */
+body.mode-car .car-home-section__art--center {
+  position: static;
+  margin: 3rem auto 0;
+}
+
+body.mode-car .car-home-section__art--center .car-home-art__svg {
+  width: 160px;
+}
+
 body.mode-car .car-home-art__svg {
   width: 200px;
   height: auto;
@@ -601,4 +556,95 @@ body.mode-car .car-home-art__stripe {
   stroke-width: 1.4;
   fill: none;
   opacity: 0.85;
+}
+
+/* --- Section 1: interactive 3D model viewer (Supra) --- */
+body.mode-car .car-home-section__model {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: min(720px, 52vw);
+  aspect-ratio: 16 / 9;
+  z-index: 4;
+  pointer-events: auto;
+  cursor: grab;
+  background: transparent;
+  will-change: transform;
+}
+
+body.mode-car .car-home-section__model--left {
+  left: 0;
+  right: auto;
+}
+
+/* Section 3 hosts both models (Supra right + GTR left) behind centred
+   content, so each box narrows to keep the flanks clear of the text. */
+body.mode-car .car-home-section--center .car-home-section__model {
+  width: min(600px, 42vw);
+}
+
+/* Entry sweep layer: fills the anchored box exactly so both the entry
+   (inner) and exit (outer) sweeps travel the same distance. */
+body.mode-car .car-home-section__model-inner {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+body.mode-car .car-home-section__model:active {
+  cursor: grabbing;
+}
+
+body.mode-car .car-viewer {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+}
+
+body.mode-car .car-viewer canvas {
+  touch-action: none;
+  background: transparent;
+  display: block;
+}
+
+/* Mirror for section2: flip only the rendered WebGL image (canvas), so
+   the loader overlay above it stays upright. Geometry is untouched. */
+body.mode-car .car-viewer--flip canvas {
+  transform: scaleX(-1);
+}
+
+body.mode-car .car-viewer-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background: rgba(246, 243, 236, 0.85);
+  backdrop-filter: blur(2px);
+}
+
+body.mode-car .car-viewer-loader__label {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #1c1c20;
+  animation: car-scroll-pulse 1.6s cubic-bezier(0.23, 1, 0.32, 1) infinite;
+}
+
+body.mode-car .car-viewer-loader__track {
+  width: 160px;
+  height: 2px;
+  background: rgba(28, 28, 32, 0.12);
+  overflow: hidden;
+}
+
+body.mode-car .car-viewer-loader__bar {
+  height: 100%;
+  background: var(--car-red);
+  transition: width 0.3s linear;
 }
