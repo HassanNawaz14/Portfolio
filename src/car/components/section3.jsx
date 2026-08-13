@@ -22,8 +22,13 @@ const Section3 = () => {
       <div className="car-home-section__inner">
         <p className="car-home-section__no">03</p>
         <p className="car-home-section__kicker">the drive</p>
-        <h2 className="car-home-section__title">Two edges, one mind lane.</h2>
-        <p className="car-home-section__text">A placeholder line for the third section — the long straight stretch of a build.</p>
+        <h2 className="car-home-section__title">Shifting Gears. Never Braking.</h2>
+        <p className="car-home-section__text">
+          Co-founding QuickSite (15+ flawless builds, 95+ Lighthouse top speed).
+          Tuning ML models at FlyRank AI Chicago. Wrenching on game logic at GamiTron.
+          TA at FAST NUCES and former Game Dev Trainer. I don&apos;t just stay in my lane—I
+          own the whole grid. Five different roles, all pulling max torque.
+        </p>
         <div className="car-home-section__art car-home-section__art--center" aria-hidden="true">
           <RoadArt />
         </div>

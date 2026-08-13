@@ -25,8 +25,13 @@ const Section4 = () => {
       <div className="car-home-section__inner">
         <p className="car-home-section__no">04</p>
         <p className="car-home-section__kicker">the finish</p>
-        <h2 className="car-home-section__title">Lap done, next grid spot.</h2>
-        <p className="car-home-section__text">A placeholder line for the fifth section — the calm after the chequered flag.</p>
+        <h2 className="car-home-section__title">Qualifying Laps &amp; Track Records.</h2>
+        <p className="car-home-section__text">
+          Running a BS in Data Science at FAST NUCES—full ride, 2× Dean&apos;s List.
+          Logged heavy track time with Harvard, MIT, Stanford, Oxford, and Google Cloud.
+          Certified by Anthropic and Kaggle. Academic hardware isn&apos;t the finish line—it&apos;s
+          just me warming up the tires before the real race begins.
+        </p>
       </div>
       <div className="car-home-section__art" aria-hidden="true">
         <FlagArt />

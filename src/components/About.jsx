@@ -20,6 +20,8 @@ const About = ({ portraitAnchorRef }) => {
     { name: 'Node.js', color: '#339933' },
     { name: 'C & C++', color: '#00599C' },
     { name: 'SkLearn', color: '#F7931E' },
+    { name: 'TensorFlow', color: '#FF6F40' },
+    { name: 'Keras', color: '#FF6F90' },
     { name: 'Pandas', color: '#150458' },
     { name: 'Game Dev', color: '#E34F26' },
     { name: 'MERN Stack', color: '#47A248' },
@@ -39,7 +41,7 @@ const About = ({ portraitAnchorRef }) => {
           <h2 className="section-title">Beyond the <span>Code</span></h2>
           <p className="section-subtitle">Decoding my journey as a developer and scientist.</p>
         </motion.div>
-        
+
         <div className="about-grid">
           <motion.div
             className="about-visual"
@@ -76,7 +78,7 @@ const About = ({ portraitAnchorRef }) => {
               <span className="kicker-label">Current Node:</span>
               <h1 className="typing">Data Scientist & Web Architect</h1>
             </div>
-            
+
             <div className="about-glass-panel">
               <div className="about-tabs">
                 {tabs.map((tab) => (
@@ -133,8 +135,8 @@ const About = ({ portraitAnchorRef }) => {
                         <p>A curated selection of the core technologies that power my daily creative and analytical output.</p>
                         <div className="premium-skill-grid">
                           {skillPills.map((skill, index) => (
-                            <motion.div 
-                              key={skill.name} 
+                            <motion.div
+                              key={skill.name}
                               className="skill-pill-modern"
                               initial={{ opacity: 0, scale: 0.8 }}
                               animate={{ opacity: 1, scale: 1 }}

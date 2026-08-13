@@ -23,8 +23,13 @@ const Section2 = () => {
       <div className="car-home-section__inner">
         <p className="car-home-section__no">02</p>
         <p className="car-home-section__kicker">the chassis</p>
-        <h2 className="car-home-section__title">A round wheel, a square deal.</h2>
-        <p className="car-home-section__text">A placeholder line for the second section — keeps score, keeps shape, keeps going.</p>
+        <h2 className="car-home-section__title">Forged Internals. Maximum Grip.</h2>
+        <p className="car-home-section__text">
+          You don&apos;t hit top speed on a weak frame. I&apos;m running C++ and Python forged
+          internals, with React and MERN keeping the chassis stiff and responsive.
+          TensorFlow and Pandas for the ECU tuning, and Git for the telemetry.
+          No bolt-on mods—just pure, dialed-in tech built for handling the heavy corners.
+        </p>
       </div>
       <div className="car-home-section__art car-home-section__art--right" aria-hidden="true">
         <RimArt />

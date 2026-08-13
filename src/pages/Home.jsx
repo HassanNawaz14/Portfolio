@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
-import { useSpring as useSpringR, useTrail, animated } from '@react-spring/web';
+import { useScroll, useSpring } from 'framer-motion';
 import Hero from '../components/Hero';
 import NavigationStrip from '../components/NavigationStrip';
 import SectorHeader from '../components/SectorHeader';
@@ -70,7 +69,6 @@ const Home = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             entry.target.classList.add('animate');
-            setActiveSection(entry.target.id);
           }
         });
       },
@@ -85,6 +83,31 @@ const Home = () => {
     });
 
     return () => observer.disconnect();
+  }, [sections]);
+
+  useEffect(() => {
+    const nodes = sections
+      .map((id) => ({ id, node: document.getElementById(id) }))
+      .filter((s) => s.node);
+
+    const updateActive = () => {
+      const mid = window.scrollY + window.innerHeight * 0.5;
+      let active = sections[0];
+      for (const { id, node } of nodes) {
+        const top = node.getBoundingClientRect().top + window.scrollY;
+        if (top <= mid) active = id;
+        else break;
+      }
+      setActiveSection(active);
+    };
+
+    updateActive();
+    window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive);
+    return () => {
+      window.removeEventListener('scroll', updateActive);
+      window.removeEventListener('resize', updateActive);
+    };
   }, [sections]);
 
   useEffect(() => {

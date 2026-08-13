@@ -54,8 +54,14 @@ npm run build                 # NOT allowed unless the user explicitly says so
 
 - API endpoints: `POST /api/chat`, `POST /api/greeting`, `GET /api/debug`,
   `GET /api/testchat`.
-- Provider chain: Gemini → Groq (models `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`) →
-  static fallback.
+- Provider chain: Gemini (`gemini-flash-lite-latest` alias — pinned `gemini-2.0-flash` 404s) → Groq
+  (models `llama-3.3-70b-versatile`, `llama-3.1-8b-instant`) → static fallback.
+- Groq may inline tool calls as `<function=navigate_to>{...}</function>` text — `api/chat.js`
+  `extractInlineToolCalls` normalizes that into real `toolCalls` (keep it).
+- Gemini new models emit "thought"-style parts — parse by scanning `parts` for `text`/`functionCall`,
+  never trust `parts[0]` and skip parts with a `thought` field.
+- `gemini-flash-latest` is unreliable on this account (sometimes returns zero candidates/empty text);
+  stick to `gemini-flash-lite-latest` for chat/greeting/debug probes.
 - Keys: `GEMINI_API_KEY`, `GROQ_API_KEY` **or** `GROK_API_KEY` (from `.env`).
   **Never log full keys; only masked prefixes (4 chars prefix + masked tail) in diagnostics.**
 - Chat tool-calling: `navigate_to` → handled client-side in `ChatWidget`.
@@ -65,7 +71,8 @@ npm run build                 # NOT allowed unless the user explicitly says so
 
 - Production Vercel has **zero env vars set** — chat/greeting fall back to static. Adding
   env vars is the fix (user-approved step).
-- Gemini key hits **HTTP 429 quota** — Groq fallback is the working provider currently.
+- Gemini key works with the `gemini-flash-lite-latest` alias (2.x models 404; `*-pro` variants hit
+  429 quota). Groq fallback is healthy with both llama models.
 - `/debug` page + `/api/debug` is the canonical way to check the live state of both providers.
 - `vercel dev` is the only local way to test `/api/*`+ the bot. Do not use `--port` (use `--listen`).
 

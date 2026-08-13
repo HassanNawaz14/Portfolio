@@ -189,7 +189,10 @@ All AI lives in `api/` serverless functions. The browser **never** sees API keys
 
 ### Provider strategy (both chat & greeting)
 
-1. **Gemini** (primary): `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent`
+1. **Gemini** (primary): `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent`
+   (`gemini-flash-lite-latest` is Google's alias that always points at the newest Flash-Lite model —
+   the old pinned `gemini-2.0-flash` was decommissioned and returns 404; `gemini-flash-latest` can
+   return empty candidates on this account, so the lite alias is preferred.)
 2. **Groq** (fallback): `https://api.groq.com/openai/v1/chat/completions`,
    models `llama-3.3-70b-versatile` → `llama-3.1-8b-instant` (decommissioned
    models were removed).
@@ -272,10 +275,13 @@ npm run lint
 From the `/api/debug` tool, the current known facts:
 
 1. **Production missing keys** → static fallback (biggest cause of "chatbot not working").
-2. **Gemini quota 429** — free-tier limits exhausted for `gemini-2.0-flash`;
-   fallback currently carries the load (Groq works). Fix: reset/wait or upgrade billing or
-   a fresh AI-Studio project.
-3. **Decommissioned models** — `mixtral-8x7b-32768` was removed from the Groq model lists.
+2. **Old model pinned in code** — `gemini-2.0-flash` was decommissioned (HTTP 404, "no longer
+   available"); fixed by switching to the `gemini-flash-lite-latest` alias (`api/chat.js`,
+   `api/greeting.js`, `api/debug.js`). New Gemini "thought"-style responses: code scans `parts` for
+   `text`/`functionCall` (skipping `thought` parts) rather than trusting `parts[0]`.
+3. **Groq sometimes inlines tool calls** — `llama-3.3-70b-versatile` occasionally writes
+   `<function=navigate_to>{...}</function>` into the reply text instead of the structured `tool_calls`
+   field; `api/chat.js` now detects and strips that syntax into real `toolCalls`.
 4. Port name & `--port` deprecated → use `--listen`.
 5. `vercel dev` + `.env` = keys available; plain Vite ≠ API.
 

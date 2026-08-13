@@ -10,6 +10,8 @@ const SYSTEM_PROMPT_BASE = `You are a helpful portfolio assistant for Hassan Naw
 Knowledge base:
 `
 
+const GEMINI_MODEL = 'gemini-flash-lite-latest'
+
 const navigateToTool = {
   name: 'navigate_to',
   description: 'Navigate the user to a specific page and optionally scroll to a section on that page',
@@ -48,7 +50,7 @@ async function callGemini(messages, knowledge) {
   }
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${apiKey}`,
     { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
   )
 
@@ -64,23 +66,40 @@ async function callGemini(messages, knowledge) {
     throw new Error(`No candidate from Gemini (blocked: ${reason})`)
   }
 
-  const part = candidate.content?.parts?.[0]
-  if (!part) return { reply: '', toolCalls: null }
-
-  if (part.functionCall) {
+  const parts = candidate.content?.parts || []
+  const funcPart = parts.find((p) => p.functionCall)
+  if (funcPart) {
     return {
       reply: '',
       toolCalls: [{
-        name: part.functionCall.name,
-        args: part.functionCall.args,
+        name: funcPart.functionCall.name,
+        args: funcPart.functionCall.args,
       }],
     }
   }
 
-  return { reply: part.text || '', toolCalls: null }
+  const textPart = parts.find((p) => typeof p.text === 'string' && !p.thought)
+  if (!textPart) return { reply: '', toolCalls: null }
+  return { reply: textPart.text, toolCalls: null }
 }
 
 const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']
+
+function extractInlineToolCalls(content) {
+  if (typeof content !== 'string') return { clean: content || '', toolCalls: null }
+  const re = /<function=([a-zA-Z_][\w-]*)>(.*?)<\/function>/gs
+  const toolCalls = []
+  let m
+  while ((m = re.exec(content)) !== null) {
+    try {
+      toolCalls.push({ name: m[1], args: JSON.parse(m[2]) })
+    } catch {
+      // malformed inline call — skip
+    }
+  }
+  if (!toolCalls.length) return { clean: content, toolCalls: null }
+  return { clean: content.replace(re, '').trim(), toolCalls }
+}
 
 async function callGroq(messages, knowledge) {
   const apiKey = process.env.GROQ_API_KEY || process.env.GROK_API_KEY
@@ -120,12 +139,14 @@ async function callGroq(messages, knowledge) {
       const choice = data.choices?.[0]
       if (!choice) throw new Error('No choice returned from Groq')
 
-      const toolCalls = choice.message?.tool_calls?.map((tc) => ({
+      const structuredToolCalls = choice.message?.tool_calls?.map((tc) => ({
         name: tc.function.name,
         args: JSON.parse(tc.function.arguments),
       })) || null
 
-      return { reply: choice.message?.content || '', toolCalls }
+      const { clean, toolCalls: inlineToolCalls } = extractInlineToolCalls(choice.message?.content)
+
+      return { reply: clean, toolCalls: structuredToolCalls || inlineToolCalls }
     } catch (e) {
       lastErr = e
     }

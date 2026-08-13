@@ -24,8 +24,13 @@ const Section1 = () => {
       <div className="car-home-section__inner">
         <p className="car-home-section__no">01</p>
         <p className="car-home-section__kicker">the ignition</p>
-        <h2 className="car-home-section__title">Cooling down, then revving up.</h2>
-        <p className="car-home-section__text">A placeholder line for the first section — short, calm, and vaguely mechanical in tone.</p>
+        <h2 className="car-home-section__title">Full Throttle Data. Custom Frontend Aero.</h2>
+        <p className="car-home-section__text">
+          I&apos;m Hassan Nawaz—running a fully built data science setup at FAST NUCES
+          (100% scholarship, zero lifting off the gas). Day shift: crunching numbers and
+          tuning ML pipelines. Night shift: crafting slick frontend bodywork as Co-founder
+          of QuickSite. 6+ years of keeping the RPMs high and pushing raw data into the redline.
+        </p>
       </div>
       <div className="car-home-section__art" aria-hidden="true">
         <DialArt />

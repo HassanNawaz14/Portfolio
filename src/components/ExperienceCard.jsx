@@ -1,4 +1,4 @@
-const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [] }) => {
+const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName, highlights = [], link }) => {
   return (
     <div
       style={{
@@ -157,14 +157,31 @@ const ExperienceCard = ({ title, subtitle, year, color = '#a78bfa', companyName,
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
               background: 'rgba(249, 250, 251, 0.2)',
-              cursor: 'pointer',
+              cursor: link ? 'pointer' : 'default',
+              opacity: link ? 1 : 0.45,
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" style={{ width: 16, height: 16 }}>
-              <g fill="none">
-                <path d="M4.646 2.146a.5.5 0 0 0 0 .708L7.793 6L4.646 9.146a.5.5 0 1 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" fill="currentColor" />
-              </g>
-            </svg>
+            {link ? (
+              <a
+                href={link}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Visit ${title}`}
+                style={{ display: 'flex', color: 'inherit', lineHeight: 0 }}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" style={{ width: 16, height: 16 }}>
+                  <g fill="none">
+                    <path d="M4.646 2.146a.5.5 0 0 0 0 .708L7.793 6L4.646 9.146a.5.5 0 1 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" fill="currentColor" />
+                  </g>
+                </svg>
+              </a>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" style={{ width: 16, height: 16 }}>
+                <g fill="none">
+                  <path d="M4.646 2.146a.5.5 0 0 0 0 .708L7.793 6L4.646 9.146a.5.5 0 1 0 .708.708l3.5-3.5a.5.5 0 0 0 0-.708l-3.5-3.5a.5.5 0 0 0-.708 0z" fill="currentColor" />
+                </g>
+              </svg>
+            )}
           </div>
         </div>
       </div>

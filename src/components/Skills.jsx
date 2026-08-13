@@ -4,6 +4,27 @@ import { skillCategories as categories } from '../content/skills';
 
 const EASE = [0.22, 1, 0.36, 1];
 
+const skillMeta = {
+  Python: { icon: 'fab fa-python', color: '#4d9fff' },
+  'C++': { icon: 'fas fa-plus', color: '#37d8ff' },
+  JavaScript: { icon: 'fab fa-js', color: '#ffd166' },
+  'ASM x86': { icon: 'fas fa-microchip', color: '#59c2ff' },
+  React: { icon: 'fab fa-react', color: '#37d8ff' },
+  Flask: { icon: 'fas fa-flask', color: '#4ade80' },
+  'HTML/CSS': { icon: 'fas fa-code', color: '#ff8f6b' },
+  'MERN Stack': { icon: 'fas fa-layer-group', color: '#8a5cff' },
+  'Machine Learning': { icon: 'fas fa-brain', color: '#f056c4' },
+  'Deep Learning': { icon: 'fas fa-circle-nodes', color: '#b388ff' },
+  'Natural Language Processing': { icon: 'fas fa-language', color: '#2dd4bf' },
+  'Data Analysis': { icon: 'fas fa-magnifying-glass-chart', color: '#ffb84d' },
+  'Git & GitHub': { icon: 'fab fa-git-alt', color: '#ff6b6b' },
+  Unity: { icon: 'fas fa-gamepad', color: '#c0c0d8' },
+  'MS Office': { icon: 'fas fa-file-word', color: '#4d9fff' },
+  Ubuntu: { icon: 'fab fa-ubuntu', color: '#e95420' },
+};
+
+const skillMetaFallback = { icon: 'fas fa-code', color: '#8a5cff' };
+
 const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('programming');
   const activeData = categories.find((cat) => cat.id === activeCategory);
@@ -100,33 +121,32 @@ const Skills = () => {
 };
 
 const SkillItem = ({ title, percent }) => {
-  const circumference = 2 * Math.PI * 32;
+  const meta = skillMeta[title] || skillMetaFallback;
+  const { icon, color } = meta;
 
   return (
     <div className="interactive-skill-card">
       <div className="skill-card-inner">
-        <div className="skill-visual-aside">
-          <div className="skill-ring-wrapper">
-            <svg width="70" height="70" viewBox="0 0 80 80">
-              <circle className="skill-ring-bg" cx="40" cy="40" r="32" />
-              <motion.circle
-                className="skill-ring-fill"
-                cx="40" cy="40" r="32"
-                initial={{ strokeDashoffset: circumference }}
-                animate={{ strokeDashoffset: circumference - (percent / 100) * circumference }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: 0.3 }}
-                style={{ strokeDasharray: circumference }}
-              />
-            </svg>
-            <span className="skill-percentage">{percent}%</span>
-          </div>
+        <div
+          className="skill-icon-badge"
+          style={{
+            color,
+            background: `${color}14`,
+            borderColor: `${color}55`,
+            boxShadow: `0 0 18px ${color}30, inset 0 0 12px ${color}14`,
+          }}
+        >
+          <i className={icon} />
         </div>
 
         <div className="skill-content-main">
           <div className="skill-info-row">
             <h4>{title}</h4>
-            <span className="proficiency-level">
-              {percent >= 90 ? 'Expert' : percent >= 80 ? 'Advanced' : 'Proficient'}
+            <span
+              className="skill-percent-badge"
+              style={{ color, background: `${color}14`, border: `1px solid ${color}44` }}
+            >
+              {percent}%
             </span>
           </div>
           <div className="skill-bar-wrapper">
@@ -136,9 +156,10 @@ const SkillItem = ({ title, percent }) => {
                 initial={{ width: 0 }}
                 animate={{ width: `${percent}%` }}
                 transition={{ duration: 1.2, ease: "easeOut", delay: 0.4 }}
+                style={{ background: `linear-gradient(90deg, ${color}, ${color}77)`, boxShadow: `0 0 15px ${color}55` }}
               />
             </div>
-            <div className="skill-bar-ghost" style={{ width: `${percent}%` }} />
+            <div className="skill-bar-ghost" style={{ width: `${percent}%`, background: color }} />
           </div>
         </div>
       </div>

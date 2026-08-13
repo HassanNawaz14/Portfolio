@@ -8,6 +8,26 @@ const API_URL = '/api/chat'
 
 const staticFallback = "I'm sorry, I'm having trouble connecting right now. Please try again later."
 
+const suggestions = [
+  { icon: 'fa-user-astronaut', label: 'Who is Hassan?', prompt: 'Who is Hassan Nawaz?' },
+  { icon: 'fa-diagram-project', label: 'Featured projects', prompt: 'Show me your featured projects' },
+  { icon: 'fa-rocket', label: 'About QuickSite', prompt: 'Tell me about QuickSite' },
+  { icon: 'fa-envelope', label: 'Get in touch', prompt: 'How can I contact you?' },
+]
+
+const routeLabels = {
+  '/': 'Home',
+  '/quicksite': 'QuickSite',
+  '/building': 'Lab Access',
+  '/projects': 'Projects',
+  '/profiles': 'Profiles',
+}
+
+const formatTime = (d = new Date()) =>
+  d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+
+const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'certifications', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
+
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [messages, setMessages] = useState([])
@@ -31,7 +51,9 @@ export default function ChatWidget() {
     '/building': 'Lab Access', '/projects': 'the archives', '/profiles': 'my network',
   }
 
-  const sectionOrder = ['home', 'about', 'nav-strip', 'skills', 'certifications', 'experience', 'education', 'courses', 'contact', 'startup', 'currently-building', 'featured-projects', 'projects', 'profiles']
+  const rightSideForSection = {
+    about: true, skills: true, education: true, courses: true, contact: true,
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -131,8 +153,7 @@ export default function ChatWidget() {
     const rect = el.getBoundingClientRect()
     const gh = rect.height
     const vw = window.innerWidth
-    const vh = window.innerHeight
-    const pw = 360
+    const pw = 372
     const positions = {
       about: { left: vw - pw - m, bottom: m + gh + 20 },
       'nav-strip': { left: m, bottom: m },
@@ -151,7 +172,7 @@ export default function ChatWidget() {
   const addMsg = useCallback((role, content) => {
     setMessages((prev) => {
       if (prev.length >= MAX_SESSION_MSGS) return prev
-      return [...prev, { role, content }]
+      return [...prev, { role, content, time: formatTime() }]
     })
   }, [])
 
@@ -161,10 +182,10 @@ export default function ChatWidget() {
     }
   }, [messages])
 
-  const handleSend = useCallback(async () => {
-    const text = input.trim()
+  const handleSend = useCallback(async (preset) => {
+    const text = (preset ?? input).trim()
     if (!text || busy) return
-    setInput('')
+    if (!preset) setInput('')
     addMsg('user', text)
     setBusy(true)
 
@@ -212,14 +233,27 @@ export default function ChatWidget() {
     }
   }, [handleSend])
 
-  const rightSide = (() => {
-    const el = groupRef.current
-    if (el) {
-      const left = parseFloat(el.style.left)
-      if (!isNaN(left)) return left > window.innerWidth / 2
-    }
-    return ['about', 'skills', 'certifications', 'courses', 'contact', 'education'].includes(currentSection)
-  })()
+  const rightSide = !!rightSideForSection[currentSection]
+
+  const botAvatar = (
+    <div
+      style={{
+        width: '30px',
+        height: '30px',
+        minWidth: '30px',
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, #8a5cff, #37d8ff)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        color: '#fff',
+        fontSize: '0.72rem',
+        boxShadow: '0 0 12px rgba(138, 92, 255, 0.45)',
+      }}
+    >
+      <i className="fa-solid fa-robot" />
+    </div>
+  )
 
   return (
     <>
@@ -366,78 +400,195 @@ export default function ChatWidget() {
           <motion.div
             ref={panelRef}
             className="chat-panel"
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            initial={{ opacity: 0, scale: 0.92, y: 24 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            exit={{ opacity: 0, scale: 0.92, y: 24 }}
             transition={{ duration: 0.25, ease: 'easeOut' }}
             style={{
               position: 'fixed',
-              zIndex: 9997,
-              width: '360px',
+              zIndex: 9999,
+              width: '372px',
               maxWidth: 'calc(100vw - 48px)',
-              height: '520px',
+              height: '540px',
               maxHeight: 'calc(100vh - 140px)',
-              background: 'rgba(13, 11, 33, 0.85)',
-              backdropFilter: 'blur(24px) saturate(180%)',
-              WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-              border: '1px solid rgba(138, 92, 255, 0.24)',
-              borderRadius: '16px',
-              boxShadow: '0 20px 60px rgba(0,0,0,0.5), 0 0 30px rgba(138, 92, 255, 0.15)',
+              background: 'linear-gradient(180deg, rgba(17, 14, 44, 0.95), rgba(10, 8, 26, 0.95))',
+              backdropFilter: 'blur(28px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(28px) saturate(180%)',
+              border: '1px solid rgba(138, 92, 255, 0.28)',
+              borderRadius: '20px',
+              boxShadow: '0 24px 70px rgba(0,0,0,0.55), 0 0 40px rgba(138, 92, 255, 0.14), inset 0 1px 0 rgba(255,255,255,0.06)',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
             }}
           >
+            {/* ------- Header ------- */}
             <div
               style={{
-                padding: '14px 18px',
-                borderBottom: '1px solid rgba(138, 92, 255, 0.15)',
+                padding: '14px 16px',
+                borderBottom: '1px solid rgba(138, 92, 255, 0.16)',
                 display: 'flex',
                 alignItems: 'center',
-                gap: '10px',
+                gap: '12px',
+                background: 'linear-gradient(90deg, rgba(138, 92, 255, 0.08), rgba(55, 216, 255, 0.04))',
               }}
             >
+              <div style={{ position: 'relative', flexShrink: 0 }}>
+                <div
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '50%',
+                    background: 'linear-gradient(135deg, #8a5cff 0%, #37d8ff 100%)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: '#fff',
+                    fontSize: '0.95rem',
+                    boxShadow: '0 0 16px rgba(138, 92, 255, 0.5)',
+                  }}
+                >
+                  <i className="fa-solid fa-robot" />
+                </div>
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: '-1px',
+                    right: '-1px',
+                    width: '11px',
+                    height: '11px',
+                    borderRadius: '50%',
+                    background: '#00ff88',
+                    border: '2px solid #0f0e2c',
+                    boxShadow: '0 0 8px rgba(0, 255, 136, 0.7)',
+                  }}
+                />
+              </div>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: '#f5f5ff', letterSpacing: '-0.01em' }}>
+                  Hassan's AI Assistant
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', fontSize: '0.7rem' }}>
+                  <span className="chat-status-pulse" style={{ width: 6, height: 6, borderRadius: '50%', background: '#00ff88', boxShadow: '0 0 6px rgba(0, 255, 136, 0.8)', flexShrink: 0 }} />
+                  <span style={{ color: '#00ff88' }}>Online</span>
+                  <span style={{ color: '#b9b3d9', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                    · Lost? Ask me!
+                  </span>
+                </div>
+              </div>
               <div
                 style={{
-                  width: '10px',
-                  height: '10px',
+                  padding: '3px 10px',
+                  borderRadius: '99px',
+                  background: 'rgba(138, 92, 255, 0.12)',
+                  border: '1px solid rgba(138, 92, 255, 0.25)',
+                  color: '#b9a8ff',
+                  fontSize: '0.68rem',
+                  fontWeight: 600,
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {messages.length}/{MAX_SESSION_MSGS}
+              </div>
+              <button
+                onClick={() => setOpen(false)}
+                style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(138, 92, 255, 0.22)',
                   borderRadius: '50%',
-                  background: '#37d8ff',
-                  boxShadow: '0 0 8px rgba(55, 216, 255, 0.6)',
+                  width: '30px',
+                  height: '30px',
+                  color: '#a1a1c2',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '0.9rem',
+                  transition: 'all 0.2s',
                   flexShrink: 0,
                 }}
-              />
-              <span style={{ fontWeight: 600, fontSize: '0.95rem', color: '#f5f5ff' }}>
-                Portfolio Assistant
-              </span>
-              <span style={{ marginLeft: 'auto', fontSize: '0.75rem', color: '#a1a1c2' }}>
-                {messages.length}/{MAX_SESSION_MSGS}
-              </span>
+                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = '#f5f5ff' }}
+                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#a1a1c2' }}
+                aria-label="Close chat"
+              >
+                <i className="fa-solid fa-xmark" />
+              </button>
             </div>
 
+            {/* ------- Messages ------- */}
             <div
               ref={listRef}
+              aria-live="polite"
               style={{
                 flex: 1,
                 overflowY: 'auto',
-                padding: '12px 14px',
+                padding: '14px 14px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '10px',
+                gap: '14px',
               }}
             >
               {messages.length === 0 && (
-                <div
-                  style={{
-                    textAlign: 'center',
-                    color: '#a1a1c2',
-                    fontSize: '0.85rem',
-                    padding: '40px 16px',
-                    lineHeight: 1.6,
-                  }}
-                >
-                  <i className="fa-solid fa-robot" style={{ fontSize: '2rem', color: '#8a5cff', marginBottom: '12px', opacity: 0.6 }} />
-                  <div>Ask me anything about Hassan's work, skills, or projects!</div>
+                <div style={{ textAlign: 'center', padding: '18px 12px 8px' }}>
+                  <motion.div
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 15 }}
+                    style={{
+                      width: '64px',
+                      height: '64px',
+                      margin: '0 auto 14px',
+                      borderRadius: '20px',
+                      background: 'radial-gradient(circle at 30% 25%, rgba(55, 216, 255, 0.35), rgba(138, 92, 255, 0.12) 60%, rgba(240, 86, 196, 0.08))',
+                      border: '1px solid rgba(138, 92, 255, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#37d8ff',
+                      fontSize: '1.5rem',
+                      boxShadow: '0 0 30px rgba(138, 92, 255, 0.25)',
+                      animation: 'chatGlowFloat 3.5s ease-in-out infinite',
+                    }}
+                  >
+                    <i className="fa-solid fa-wand-magic-sparkles" />
+                  </motion.div>
+                  <div style={{ color: '#f5f5ff', fontWeight: 700, fontSize: '0.98rem', marginBottom: '4px' }}>
+                    Hi, I'm Hassan's AI assistant
+                  </div>
+                  <div style={{ color: '#9a9abf', fontSize: '0.78rem', lineHeight: 1.6, maxWidth: '280px', margin: '0 auto 16px' }}>
+                    Ask me anything about his work, skills, or projects — or jump straight in with a suggestion.
+                  </div>
+                  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px' }}>
+                    {suggestions.map((s) => (
+                      <button
+                        key={s.prompt}
+                        onClick={() => handleSend(s.prompt)}
+                        disabled={busy}
+                        className="chat-suggestion"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '10px 12px',
+                          borderRadius: '12px',
+                          background: 'rgba(138, 92, 255, 0.1)',
+                          border: '1px solid rgba(138, 92, 255, 0.22)',
+                          color: '#d6cdff',
+                          fontSize: '0.76rem',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          textAlign: 'left',
+                          fontFamily: 'inherit',
+                          transition: 'all 0.2s',
+                        }}
+                        onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(138, 92, 255, 0.2)'; e.currentTarget.style.borderColor = 'rgba(138, 92, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(-1px)' }}
+                        onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(138, 92, 255, 0.1)'; e.currentTarget.style.borderColor = 'rgba(138, 92, 255, 0.22)'; e.currentTarget.style.transform = 'translateY(0)' }}
+                      >
+                        <i className={`fa-solid ${s.icon}`} style={{ color: '#37d8ff', fontSize: '0.85rem', width: '16px', textAlign: 'center' }} />
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
 
@@ -446,28 +597,74 @@ export default function ChatWidget() {
                   try {
                     const tc = typeof msg.content === 'string' ? JSON.parse(msg.content) : msg.content
                     if (tc.name === 'navigate_to') {
+                      const route = tc.args?.route || '/'
+                      const anchor = tc.args?.anchor
+                      const label = routeLabels[route] || route
                       return (
-                        <div key={i} style={{ textAlign: 'center', padding: '4px 0' }}>
-                          <button
-                            onClick={() => handleNavAction(tc.args.route, tc.args.anchor)}
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 8 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          className="chat-nav-card"
+                          style={{
+                            alignSelf: 'center',
+                            width: '92%',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '10px',
+                            padding: '10px 12px',
+                            borderRadius: '14px',
+                            background: 'linear-gradient(90deg, rgba(138, 92, 255, 0.14), rgba(55, 216, 255, 0.07))',
+                            border: '1px solid rgba(138, 92, 255, 0.3)',
+                            boxShadow: '0 4px 18px rgba(0,0,0,0.25)',
+                            transition: 'all 0.2s',
+                          }}
+                        >
+                          <div
                             style={{
-                              background: 'rgba(138, 92, 255, 0.15)',
-                              border: '1px solid rgba(138, 92, 255, 0.3)',
-                              borderRadius: '8px',
-                              padding: '8px 16px',
+                              width: '34px',
+                              height: '34px',
+                              minWidth: '34px',
+                              borderRadius: '10px',
+                              background: 'linear-gradient(135deg, rgba(138, 92, 255, 0.3), rgba(55, 216, 255, 0.2))',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
                               color: '#37d8ff',
-                              cursor: 'pointer',
-                              fontSize: '0.85rem',
-                              fontWeight: 600,
-                              transition: 'all 0.2s',
+                              fontSize: '0.9rem',
                             }}
-                            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(138, 92, 255, 0.25)' }}
-                            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(138, 92, 255, 0.15)' }}
                           >
-                            <i className="fa-solid fa-location-arrow" style={{ marginRight: 6 }} />
-                            Take me there
+                            <i className="fa-solid fa-location-arrow" />
+                          </div>
+                          <div style={{ flex: 1, minWidth: 0 }}>
+                            <div style={{ fontSize: '0.62rem', textTransform: 'uppercase', letterSpacing: '0.12em', color: '#8f8fc0', marginBottom: '2px' }}>
+                              Navigate to
+                            </div>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 700, color: '#f5f5ff' }}>
+                              {label}{anchor ? <span style={{ color: '#37d8ff', fontWeight: 600 }}> · {anchor.slice(1)}</span> : null}
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleNavAction(route, anchor)}
+                            style={{
+                              padding: '7px 14px',
+                              borderRadius: '99px',
+                              border: 'none',
+                              background: 'linear-gradient(135deg, #8a5cff, #37d8ff)',
+                              color: '#fff',
+                              fontSize: '0.72rem',
+                              fontWeight: 700,
+                              cursor: 'pointer',
+                              transition: 'all 0.2s',
+                              fontFamily: 'inherit',
+                            }}
+                            onMouseEnter={(e) => { e.currentTarget.style.filter = 'brightness(1.15)'; e.currentTarget.style.boxShadow = '0 0 14px rgba(138, 92, 255, 0.5)' }}
+                            onMouseLeave={(e) => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.boxShadow = 'none' }}
+                            aria-label={`Take me to ${label}`}
+                          >
+                            Go <i className="fa-solid fa-arrow-right" style={{ marginLeft: 3, fontSize: '0.6rem' }} />
                           </button>
-                        </div>
+                        </motion.div>
                       )
                     }
                   } catch {
@@ -478,94 +675,160 @@ export default function ChatWidget() {
 
                 const isUser = msg.role === 'user'
                 return (
-                  <div
+                  <motion.div
                     key={i}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.2 }}
                     style={{
+                      display: 'flex',
+                      flexDirection: isUser ? 'row-reverse' : 'row',
+                      alignItems: 'flex-end',
+                      gap: '8px',
                       alignSelf: isUser ? 'flex-end' : 'flex-start',
-                      maxWidth: '85%',
-                      background: isUser
-                        ? 'linear-gradient(135deg, rgba(138, 92, 255, 0.3), rgba(55, 216, 255, 0.1))'
-                        : 'rgba(255,255,255,0.06)',
-                      borderRadius: isUser ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                      padding: '10px 14px',
-                      color: '#f5f5ff',
-                      fontSize: '0.88rem',
-                      lineHeight: 1.5,
-                      border: `1px solid ${isUser ? 'rgba(138, 92, 255, 0.15)' : 'rgba(255,255,255,0.06)'}`,
+                      maxWidth: '88%',
                     }}
                   >
-                    {msg.content}
-                  </div>
+                    {!isUser && botAvatar}
+                    <div style={{ display: 'flex', flexDirection: 'column', alignItems: isUser ? 'flex-end' : 'flex-start', maxWidth: '100%' }}>
+                      <div
+                        style={{
+                          background: isUser
+                            ? 'linear-gradient(135deg, rgba(138, 92, 255, 0.38), rgba(55, 216, 255, 0.16))'
+                            : 'rgba(255,255,255,0.065)',
+                          borderRadius: isUser ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
+                          padding: '10px 14px',
+                          color: '#f5f5ff',
+                          fontSize: '0.87rem',
+                          lineHeight: 1.55,
+                          whiteSpace: 'pre-wrap',
+                          wordBreak: 'break-word',
+                          border: `1px solid ${isUser ? 'rgba(138, 92, 255, 0.28)' : 'rgba(255,255,255,0.08)'}`,
+                          boxShadow: isUser ? '0 4px 14px rgba(138, 92, 255, 0.12)' : '0 2px 10px rgba(0,0,0,0.15)',
+                        }}
+                      >
+                        {msg.content}
+                      </div>
+                      <div style={{ fontSize: '0.62rem', color: '#5f5f82', marginTop: '4px', padding: '0 4px' }}>
+                        {msg.time}
+                      </div>
+                    </div>
+                  </motion.div>
                 )
               })}
 
               {busy && (
-                <div
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
                   style={{
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    gap: '8px',
                     alignSelf: 'flex-start',
-                    background: 'rgba(255,255,255,0.06)',
-                    borderRadius: '14px 14px 14px 4px',
-                    padding: '12px 18px',
-                    color: '#a1a1c2',
-                    fontSize: '0.85rem',
                   }}
                 >
-                  <span className="chat-typing-dot" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#8a5cff', marginRight: 4, animation: 'chatBounce 1.2s infinite' }} />
-                  <span className="chat-typing-dot" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#8a5cff', marginRight: 4, animation: 'chatBounce 1.2s infinite 0.2s' }} />
-                  <span className="chat-typing-dot" style={{ display: 'inline-block', width: 6, height: 6, borderRadius: '50%', background: '#8a5cff', animation: 'chatBounce 1.2s infinite 0.4s' }} />
-                </div>
+                  {botAvatar}
+                  <div
+                    style={{
+                      background: 'rgba(255,255,255,0.065)',
+                      border: '1px solid rgba(255,255,255,0.08)',
+                      borderRadius: '16px 16px 16px 4px',
+                      padding: '12px 16px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                    }}
+                  >
+                    <span className="chat-type-dot" style={{ width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg, #8a5cff, #37d8ff)', animation: 'chatBounce 1.2s infinite' }} />
+                    <span className="chat-type-dot" style={{ width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg, #37d8ff, #f056c4)', animation: 'chatBounce 1.2s infinite 0.18s' }} />
+                    <span className="chat-type-dot" style={{ width: 7, height: 7, borderRadius: '50%', background: 'linear-gradient(135deg, #f056c4, #8a5cff)', animation: 'chatBounce 1.2s infinite 0.36s' }} />
+                    <span style={{ color: '#9a9abf', fontSize: '0.72rem', marginLeft: 4 }}>thinking…</span>
+                  </div>
+                </motion.div>
               )}
             </div>
 
+            {/* ------- Input ------- */}
             <div
               style={{
-                padding: '10px 12px',
-                borderTop: '1px solid rgba(138, 92, 255, 0.15)',
-                display: 'flex',
-                gap: '8px',
+                padding: '12px 12px',
+                paddingBottom: 'calc(12px + env(safe-area-inset-bottom, 0px))',
+                borderTop: '1px solid rgba(138, 92, 255, 0.16)',
+                background: 'linear-gradient(180deg, rgba(138, 92, 255, 0.03), transparent)',
               }}
             >
-              <input
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
-                placeholder="Ask about Hassan's work..."
-                disabled={busy || messages.length >= MAX_SESSION_MSGS}
+              <div
                 style={{
-                  flex: 1,
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(138, 92, 255, 0.2)',
-                  borderRadius: '10px',
-                  padding: '10px 14px',
-                  color: '#f5f5ff',
-                  fontSize: '0.88rem',
-                  outline: 'none',
-                  fontFamily: 'inherit',
-                }}
-              />
-              <motion.button
-                onClick={handleSend}
-                disabled={!input.trim() || busy}
-                whileTap={{ scale: 0.9 }}
-                style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  border: 'none',
-                  background: 'linear-gradient(135deg, #8a5cff, #37d8ff)',
-                  color: '#fff',
-                  fontSize: '1rem',
-                  cursor: input.trim() && !busy ? 'pointer' : 'not-allowed',
-                  opacity: input.trim() && !busy ? 1 : 0.4,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
-                  flexShrink: 0,
+                  gap: '8px',
+                  padding: '5px 6px 5px 16px',
+                  borderRadius: '99px',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(138, 92, 255, 0.25)',
+                  transition: 'border-color 0.2s, box-shadow 0.2s',
                 }}
-                aria-label="Send message"
+                onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'rgba(138, 92, 255, 0.45)' }}
+                onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(138, 92, 255, 0.25)' }}
               >
-                <i className="fa-solid fa-paper-plane" />
-              </motion.button>
+                <input
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder="Ask about Hassan's work..."
+                  disabled={busy || messages.length >= MAX_SESSION_MSGS}
+                  aria-label="Message the assistant"
+                  style={{
+                    flex: 1,
+                    background: 'transparent',
+                    border: 'none',
+                    padding: '8px 0',
+                    color: '#f5f5ff',
+                    fontSize: '0.88rem',
+                    outline: 'none',
+                    fontFamily: 'inherit',
+                    minWidth: '0',
+                  }}
+                />
+                <motion.button
+                  onClick={() => handleSend()}
+                  disabled={!input.trim() || busy}
+                  whileTap={{ scale: 0.88 }}
+                  style={{
+                    width: '38px',
+                    height: '38px',
+                    minWidth: '38px',
+                    borderRadius: '50%',
+                    border: 'none',
+                    background: input.trim() && !busy
+                      ? 'linear-gradient(135deg, #8a5cff, #37d8ff)'
+                      : 'rgba(138, 92, 255, 0.15)',
+                    boxShadow: input.trim() && !busy ? '0 0 16px rgba(138, 92, 255, 0.35)' : 'none',
+                    color: input.trim() && !busy ? '#fff' : '#6b6b8a',
+                    fontSize: '0.9rem',
+                    cursor: input.trim() && !busy ? 'pointer' : 'not-allowed',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'all 0.25s',
+                    fontFamily: 'inherit',
+                  }}
+                  onMouseEnter={(e) => {
+                    if (input.trim() && !busy) {
+                      e.currentTarget.style.filter = 'brightness(1.18)'
+                      e.currentTarget.style.boxShadow = '0 0 22px rgba(138, 92, 255, 0.55)'
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.filter = 'none'
+                    e.currentTarget.style.boxShadow = input.trim() && !busy ? '0 0 16px rgba(138, 92, 255, 0.35)' : 'none'
+                  }}
+                  aria-label="Send message"
+                >
+                  <i className="fa-solid fa-paper-plane" />
+                </motion.button>
+              </div>
             </div>
           </motion.div>
         )}
@@ -585,19 +848,31 @@ export default function ChatWidget() {
           animation: chatSparkleAnim 1.5s linear 0.5s infinite;
           transform-origin: center;
         }
-        .chat-typing-dot {
-          animation: chatBounce 1.2s infinite;
-        }
-        .chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
-        .chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
         @keyframes chatBounce {
-          0%, 60%, 100% { transform: translateY(0); opacity: 0.3; }
-          30% { transform: translateY(-6px); opacity: 1; }
+          0%, 60%, 100% { transform: translateY(0); opacity: 0.35; }
+          30% { transform: translateY(-5px); opacity: 1; }
         }
-        .chat-panel::-webkit-scrollbar { width: 4px; }
+        @keyframes chatGlowFloat {
+          0%, 100% { transform: translateY(0); box-shadow: 0 0 30px rgba(138, 92, 255, 0.25); }
+          50% { transform: translateY(-5px); box-shadow: 0 0 44px rgba(55, 216, 255, 0.3); }
+        }
+        .chat-panel::-webkit-scrollbar { width: 5px; }
         .chat-panel::-webkit-scrollbar-track { background: transparent; }
-        .chat-panel::-webkit-scrollbar-thumb { background: rgba(138, 92, 255, 0.3); border-radius: 2px; }
+        .chat-panel::-webkit-scrollbar-thumb { background: rgba(138, 92, 255, 0.28); border-radius: 3px; }
+        .chat-panel::-webkit-scrollbar-thumb:hover { background: rgba(138, 92, 255, 0.5); }
         input::placeholder { color: #6b6b8a; }
+        .chat-suggestion:focus-visible,
+        .chat-nav-card button:focus-visible,
+        .chat-panel button:focus-visible {
+          outline: 2px solid #37d8ff;
+          outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .chat-type-dot, .chat-status-pulse, .chat-fab .chat-sparkle-path {
+            animation: none !important;
+          }
+          *[style*="chatGlowFloat"] { animation: none !important; }
+        }
       `}</style>
     </>
   )

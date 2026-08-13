@@ -20,6 +20,7 @@ function ZigzagItem({ item, isLeft, showArrow, i }) {
         year={item.duration}
         color={item.color}
         highlights={item.highlights || []}
+        link={item.link}
       />
       {showArrow && (
         <svg

@@ -11,6 +11,7 @@ function ZigzagItem({ item, isLeft }) {
         year={item.duration}
         color={item.color}
         highlights={item.highlights || []}
+        link={item.link}
       />
     </div>
   );

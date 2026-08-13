@@ -6,7 +6,7 @@ const cyberStyles = `
   position: fixed;
   top: 16px;
   right: 20px;
-  z-index: 9999;
+  z-index: 9990;
   transition: top 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 

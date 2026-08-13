@@ -6,14 +6,15 @@ const EASE = [0.22, 1, 0.36, 1]
 
 const ISSUER_STYLES = {
   harvard: { glyph: 'H', color: '#B3453A' },
-  mit: { glyph: 'M', color: '#A31F34' },
+  mit: { glyph: 'MIT', color: '#A31F34' },
   oxford: { glyph: 'O', color: '#002147' },
   stanford: { glyph: 'S', color: '#8C1515' },
   google: { glyph: 'G', color: '#5B8FD9' },
   kaggle: { glyph: 'K', color: '#4FA6A0' },
   anthropic: { glyph: 'A', color: '#D97757' },
-  'uc-berkeley': { glyph: 'U', color: '#003262' },
-  freecodecamp: { glyph: 'F', color: '#0A0A23' },
+  'uc-berkeley': { glyph: 'UC', color: '#003262' },
+  freecodecamp: { glyph: 'FCC', color: '#0A0A23' },
+  microsoft: { glyph: 'MS', color: '#737373' },
   default: { glyph: '•', color: '#8A8171' },
 }
 

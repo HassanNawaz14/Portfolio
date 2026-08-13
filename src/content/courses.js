@@ -42,10 +42,21 @@ export const courses = [
     category: 'Artificial Intelligence',
     date: '2024-2025',
     courses: [
-      { title: 'CS231n: CNN & RNN', category: 'Artificial Intelligence' },
+      { title: 'CS231n: Deep Learning for Computer Vision', category: 'Artificial Intelligence' },
       { title: 'CS224N: Natural Language Processing', category: 'Artificial Intelligence' },
     ],
     color: '#8C1515',
+  },
+  {
+    id: 'uc-berkeley',
+    issuer: 'UC Berkeley',
+    tag: 'uc-berkeley',
+    category: 'Data Science',
+    date: '2024',
+    courses: [
+      { title: 'Data 100: Principles and Techniques of Data Science', category: 'Data Science' },
+    ],
+    color: '#003262',
   },
   {
     id: 'google',
@@ -58,6 +69,17 @@ export const courses = [
       { title: 'Large Language Models', category: 'Artificial Intelligence' },
     ],
     color: '#5B8FD9',
+  },
+  {
+    id: 'microsoft',
+    issuer: 'Microsoft',
+    tag: 'microsoft',
+    category: 'Data Science',
+    date: '2025-2026',
+    courses: [
+      { title: 'DP-900: Azure Data Fundamentals', category: 'Data Science' },
+    ],
+    color: '#737373',
   },
   {
     id: 'kaggle',
@@ -80,19 +102,26 @@ export const courses = [
     courses: [
       { title: 'Claude 101', category: 'Artificial Intelligence' },
       { title: 'AI Fluency', category: 'Artificial Intelligence' },
+      { title: 'Claude Code 101', category: 'Artificial Intelligence' },
+      { title: 'Claude Code in Action', category: 'Artificial Intelligence' },
+      { title: 'Agent Skills', category: 'Artificial Intelligence' },
     ],
     color: '#D97757',
   },
   {
-    id: 'uc-berkeley',
-    issuer: 'UC Berkeley',
-    tag: 'uc-berkeley',
+    id: 'campusx',
+    issuer: 'CampusX',
+    tag: 'campusx',
     category: 'Data Science',
-    date: '2024',
+    date: '2024-Cont.',
     courses: [
-      { title: 'Data 100: Principles and Techniques of Data Science', category: 'Data Science' },
+      { title: '100 Days of Machine Learning', category: 'Data Science' },
+      { title: '100 Days of Deep Learning', category: 'Data Science' },
+      { title: 'Natural Language Processing', category: 'Data Science' },
+      { title: 'Generative AI', category: 'Artificial Intelligence' },
+
     ],
-    color: '#003262',
+    color: '#0A0A23',
   },
   {
     id: 'freecodecamp',

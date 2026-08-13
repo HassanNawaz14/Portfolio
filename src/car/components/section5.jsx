@@ -27,8 +27,13 @@ const Section5 = () => {
       <div className="car-home-section__inner">
         <p className="car-home-section__no">05</p>
         <p className="car-home-section__kicker">the engine</p>
-        <h2 className="car-home-section__title">Locomotives of logic.</h2>
-        <p className="car-home-section__text">A placeholder line for the fourth section — cog, cog, wheel, crankshaft of code.</p>
+        <h2 className="car-home-section__title">13 Custom Builds. Zero Idle Time.</h2>
+        <p className="car-home-section__text">
+          My garage is stacked. Stellar DNA (astrophysics sim pushing Python to its limits).
+          GearPro (a dedicated spec database for the real gearheads). Sentiment Predictor,
+          CPU-Storm, and raw Assembly x86 builds like Space Shooter. 13 unique engines,
+          different displacements, all tuned to smoke the competition off the line.
+        </p>
       </div>
       <div className="car-home-section__art car-home-section__art--right" aria-hidden="true">
         <GearArt />

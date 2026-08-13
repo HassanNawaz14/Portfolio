@@ -12,6 +12,7 @@ export const experience = [
     highlights: ['Built 15+ polished sites', 'Achieved 95+ Lighthouse scores', 'Cut hosting costs with free-tier setup'],
     technologies: ['React.js', 'Responsive Web Design', 'UI/UX Design', 'Performance Optimization', 'Vercel', 'Git/GitHub', 'Modern CSS', 'Web Development'],
     color: '#a78bfa',
+    link: 'https://quick-site-00.vercel.app/',
   },
   {
     id: 'exp-2',
@@ -23,17 +24,19 @@ export const experience = [
     highlights: ['12-week AI internship cohort', 'Built production-style ML workflows', 'Delivered a portfolio-ready capstone'],
     technologies: ['Machine Learning', 'Python', 'AI Engineering', 'Model Evaluation', 'Production ML'],
     color: '#60a5fa',
+    link: 'https://flyrank.ai/',
   },
   {
     id: 'exp-3',
-    role: 'Game Development Intern',
+    role: 'Data Analyst Intern',
     company: 'The GamiTron (PVT) LTD',
     location: 'Lahore',
-    duration: 'June 2026 - Present',
-    description: 'Contributed to the design and development of interactive game features, focusing on gameplay mechanics and performance optimization. Assisted in implementing core systems, debugging issues, and refining user experience. Collaborated with the team to deliver creative solutions while gaining hands-on exposure to industry-standard tools and workflows.',
-    highlights: ['Shaped gameplay systems', 'Improved performance and polish', 'Worked in a studio-style workflow'],
-    technologies: ['Game Development', 'Gameplay Mechanics', 'Performance Optimization', 'Debugging'],
+    duration: 'June 2026 - August 2026',
+    description: 'Contributed to the Analysis of real time company data, identifying trends and insights to support strategic decision-making. Utilized SQL and Python for data manipulation and visualization, ensuring accurate reporting and actionable intelligence.',
+    highlights: ['Analyzed real-time company data', 'Identified trends and insights', 'Supported strategic decision-making'],
+    technologies: ['Data Analysis', 'SQL', 'Python', 'Data Visualization'],
     color: '#34d399',
+    link: 'https://www.thegamitron.com/',
   },
   {
     id: 'exp-4',
@@ -45,6 +48,7 @@ export const experience = [
     highlights: ['Guided programming labs', 'Managed quizzes and projects', 'Mentored students toward stronger fundamentals'],
     technologies: ['Programming Fundamentals', 'Academic Guidance', 'Course Management', 'Leadership'],
     color: '#f472b6',
+    link: 'https://lhr.nu.edu.pk/',
   },
   {
     id: 'exp-5',
@@ -56,5 +60,6 @@ export const experience = [
     highlights: ['Taught game dev concepts', 'Mentored student projects', 'Delivered practical creative training'],
     technologies: ['Game Development', 'Teaching', 'Mentoring', 'Curriculum Delivery'],
     color: '#fbbf24',
+    link: 'https://gcu.edu.pk/',
   },
 ]

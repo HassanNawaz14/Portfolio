@@ -24,7 +24,7 @@ async function callGemini(prompt) {
   }
 
   const res = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+    `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-lite-latest:generateContent?key=${apiKey}`,
     { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
   )
 
@@ -34,7 +34,8 @@ async function callGemini(prompt) {
   }
 
   const data = await res.json()
-  return data.candidates?.[0]?.content?.parts?.[0]?.text || ''
+  const parts = data.candidates?.[0]?.content?.parts || []
+  return parts.find((p) => typeof p.text === 'string' && !p.thought)?.text || ''
 }
 
 const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']

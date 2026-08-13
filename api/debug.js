@@ -1,7 +1,7 @@
-const GEMINI_MODEL = 'gemini-2.0-flash'
+const GEMINI_MODEL = 'gemini-flash-lite-latest'
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`
 const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions'
-const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant', 'mixtral-8x7b-32768']
+const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant']
 const PROBE_PROMPT = 'Reply with exactly one word: OK'
 
 function mask(key) {
@@ -77,7 +77,7 @@ async function probeGemini() {
         http: res.status,
         ms,
         type: 'ok',
-        reply: (parsed.candidates[0]?.content?.parts?.[0]?.text || '').trim().slice(0, 50),
+        reply: (parsed.candidates[0]?.content?.parts?.find((p) => typeof p.text === 'string' && !p.thought)?.text || '').trim().slice(0, 50),
       }
     }
 
@@ -193,7 +193,7 @@ export default async function handler(req, res) {
       diagnosis.push('Groq fallback is healthy — at least one model returned a reply.')
       if (groq.models.some((m) => !m.ok)) {
         diagnosis.push(`Some Groq models fail (${groq.models.filter((m) => !m.ok).map((m) => `${m.model}[${m.type}]`).join(', ')}) — harmless while an earlier model works.`)
-        fixes.push('Remove decommissioned models (e.g. mixtral-8x7b-32768) from GROQ_MODELS in api/chat.js to make the fallback fully clean.')
+        fixes.push('Remove failing/decommissioned models from GROQ_MODELS to make the fallback fully clean.')
       }
     } else {
       diagnosis.push('Groq fallback FAILED — no model returned a reply.')
