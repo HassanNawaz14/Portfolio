@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import profilePic from '../assets/ProfilePic.jpeg';
+import profilePic from '../assets/ProfilePic.png';
 import cvStandard from '../assets/CV.pdf';
 import cvATS from '../assets/Hassan_CV_ATS.pdf';
 

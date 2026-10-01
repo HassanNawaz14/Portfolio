@@ -120,7 +120,7 @@ Example Structure (does not include all files)
 │   │   └── pages/
 │   │       ├── Home.jsx           # Hero + placeholder car sections
 │   │       ├── QuickSitePage.jsx  BuildingPage.jsx  ProjectsPage.jsx  ProfilesPage.jsx
-│   └── assets/                    # hero.png, ProfilePic.jpeg, CVs
+│   └── assets/                    # hero.png, ProfilePic.png, CVs
 ├── vercel.json                 # rewrites /api/* to the serverless functions
 ├── vite.config.js
 ├── package.json  package-lock.json

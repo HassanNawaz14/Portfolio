@@ -10,7 +10,7 @@ import Education from '../components/Education';
 import Experience from '../components/Experience';
 import Courses from '../components/Courses';
 import Contact from '../components/Contact';
-import profilePic from '../assets/ProfilePic.jpeg';
+import profilePic from '../assets/ProfilePic.png';
 
 const Home = () => {
   const [activeSection, setActiveSection] = useState('home');
